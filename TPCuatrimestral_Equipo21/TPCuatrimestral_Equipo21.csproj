@@ -149,6 +149,7 @@
     <Content Include="Default.aspx" />
     <Content Include="DetalleArticulo.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FormularioCategoria.aspx" />
     <Content Include="FormularioMarca.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Marcas.aspx" />
@@ -289,6 +290,13 @@
     </Compile>
     <Compile Include="DetalleArticulo.aspx.designer.cs">
       <DependentUpon>DetalleArticulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioCategoria.aspx.cs">
+      <DependentUpon>FormularioCategoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioCategoria.aspx.designer.cs">
+      <DependentUpon>FormularioCategoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioMarca.aspx.cs">
       <DependentUpon>FormularioMarca.aspx</DependentUpon>

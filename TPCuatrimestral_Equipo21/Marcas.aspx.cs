@@ -25,7 +25,7 @@ namespace TPCuatrimestral_Equipo21
         private void CargarDatos()
         {
             rptMarcas.DataSource = marcaNegocio.listar();
-            rptMarcas.DataBind(); ;
+            rptMarcas.DataBind();
         }
         protected void btnCrearNuevo_Click(object sender, EventArgs e)
         {

@@ -7,11 +7,11 @@ using dominio;
 
 namespace negocio
 {
-    public class CategoriaNegocio
+    public class CategoriNegocio
     {
-        public List<Categoria> listar()
+        public List<Categori> listar()
         {
-            List<Categoria> lista = new List<Categoria>();
+            List<Categori> lista = new List<Categori>();
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -21,18 +21,17 @@ namespace negocio
 
                 while (datos.Lector.Read())
                 {
-                    Categoria aux = new Categoria();
-                    aux.id = (int)datos.Lector["id"];
-                    aux.nombre = (string)datos.Lector["Descripcion"];
+                    Categori aux = new Categori();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
 
                     lista.Add(aux);
-                }
 
+                }
                 return lista;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -41,7 +40,7 @@ namespace negocio
             }
         }
 
-        public void agregarCat(string descripcion)
+        public void agregar(string descripcion)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -62,52 +61,16 @@ namespace negocio
             }
         }
 
-        public int ProximoID()
-        {
-            int id = 0;
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("SELECT MAX(Id) + 1 AS ProximoId FROM CATEGORIAS;");
-                datos.ejecturaLectura();
-
-                if (datos.Lector.Read())
-                {
-                    if (!datos.Lector.IsDBNull(0))
-                    {
-                        id = (int)datos.Lector["ProximoId"];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-            return id;
-        }
-        public bool Existencia(string descripcion)
+        public void modificar(int id, string descripcion)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Descripcion = @descripcion");
-                datos.setearParametros("@descripcion", descripcion);
-                datos.ejecturaLectura();
-
-                if (datos.Lector.Read())
-                {
-                    int cantidad = Convert.ToInt32(datos.Lector[0]);
-                    return cantidad > 0;
-                }
-
-                return false;
+                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion WHERE Id = @Id");
+                datos.setearParametros("@Descripcion", descripcion);
+                datos.setearParametros("@Id", id);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -120,7 +83,6 @@ namespace negocio
         }
         public void eliminar(int categoria)
         {
-
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -138,16 +100,23 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        public void modificar(Categoria catParaModificar)
-        {
-            AccesoDatos datos = new AccesoDatos();
 
+        public Categori obtenerCategoriPorId(string id)
+        {
+            Categori categori = null;
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE CATEGORIAS SET Descripcion = @Descripcion WHERE Id = @Id");
-                datos.setearParametros("@Descripcion", catParaModificar.nombre);
-                datos.setearParametros("@Id", catParaModificar.id);
-                datos.ejecutarAccion();
+                datos.setearConsulta("select Id, Descripcion from CATEGORIAS where Id = @id");
+                datos.setearParametros("@id", id);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    categori = new Categori();
+                    categori.Id = (int)datos.Lector["Id"];
+                    categori.Descripcion = (string)datos.Lector["Descripcion"];
+                }
             }
             catch (Exception ex)
             {
@@ -157,8 +126,10 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+
+            return categori;
+
+
         }
-
-
     }
 }

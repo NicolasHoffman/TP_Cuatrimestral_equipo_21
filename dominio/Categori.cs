@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Categoria
+    public class Categori
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
         public override string ToString()
         {
-            return nombre;
+            return Descripcion;
         }
     }
 }
