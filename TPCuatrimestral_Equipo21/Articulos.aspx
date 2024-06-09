@@ -1,83 +1,89 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Articulos.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Articulos" %>
-<%@ Import Namespace="System.Data" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-      <div class="container-fluid px-4">
-        <h1 class="mt-5">Artículos</h1>
+      
+    <div class="container-fluid px-4">
+        <h1 class="mt-5">Articulos</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>
-            <li class="breadcrumb-item active">Artículos</li>
+            <li class="breadcrumb-item active">Articulos</li>
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i> Lista de Artículos
+                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Articulos
             </div>
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-12 col-md-6 d-flex align-items-center mb-2 mb-md-0">
-                        <label for="ddlCantidadRegistros" class="form-label me-2">Entrada por página:</label>
-                        <asp:DropDownList ID="ddlCantidadRegistros" runat="server" CssClass="form-select me-2 w-auto">
-                            <asp:ListItem Text="10" Value="10"></asp:ListItem>
-                            <asp:ListItem Text="20" Value="20"></asp:ListItem>
-                            <asp:ListItem Text="30" Value="30"></asp:ListItem>
-                            <asp:ListItem Text="40" Value="40"></asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-                    <div class="col-12 col-md-6 d-flex justify-content-md-end align-items-center">
-                        <label for="txtBuscar" class="form-label me-2">Buscar por nombre:</label>
-                        <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control me-2 w-auto" placeholder="Search" aria-label="Search"></asp:TextBox>
-                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-outline-success" />
+                 <div class="row">
+                    <div class="col-12">
+                        
+                        
+                        <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
                     </div>
                 </div>
-                <asp:GridView ID="gvResultados" runat="server" AutoGenerateColumns="False" CssClass="table table-striped table-bordered">
-                    <Columns>
-                        <asp:BoundField DataField="Codigo" HeaderText="Codigo" />
-                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                        <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" />
-                        <asp:BoundField DataField="Marca" HeaderText="Marca" />
-                        <asp:BoundField DataField="Categoria" HeaderText="Categoria" />
-                        <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                        <asp:BoundField DataField="Estado" HeaderText="Estado" />
-                        <asp:TemplateField HeaderText="Acción">
+                <hr />
+                <table id="datatablesSimple" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Marca</th>
+                            <th>Categoria</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Marca</th>
+                            <th>Categoria</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                         <asp:Repeater ID="rptArticulos" runat="server" OnItemCommand="rptArticulos_ItemCommand">
                             <ItemTemplate>
-                                <a href='detallearticulo.aspx?Codigo=<%# Eval("Codigo") %>' class="btn btn-info btn-sm">
-                                    <i class="fas fa-info-circle"></i>
-                                </a>
+                                <tr>
+                                    <td><%# Eval("Id") %></td>
+                                    <td><%# Eval("Nombre") %></td>
+                                    <td><%# Eval("Descripcion") %></td>
+                                    <td><%# Eval("Marca") %></td>
+                                    <td><%# Eval("Categoria") %></td>
+                                    <td><%# Eval("Precio") %></td>
+                                    <td><%# Eval("Estado") %></td>
+                                    <td>
+                                       <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
+                                       <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-trash"></i></asp:LinkButton>
+                                    </td>
+                                </tr>
                             </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+            const dataTable = new simpleDatatables.DataTable("#datatablesSimple", {
+                columns: [
+                    { select: 0, sortable: true },
+                    { select: 1, sortable: true },
+                    { select: 2, sortable: true },
+                    { select: 3, sortable: true },
+                    { select: 4, sortable: true },
+                    { select: 5, sortable: true },
+                    { select: 6, sortable: false }, // Desactivar ordenamiento para la columna de "Estado"
+                    { select: 7, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                ]
+            });
+        });
+    </script>
 </asp:Content>
-<script runat="server">
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if (!IsPostBack)
-        {
-            CargarDatos();
-        }
-    }
-
-    private void CargarDatos()
-    {
-        // Crear una tabla de datos simulada
-        DataTable dt = new DataTable();
-        dt.Columns.Add("Codigo");
-        dt.Columns.Add("Nombre");
-        dt.Columns.Add("Descripcion");
-        dt.Columns.Add("Marca");
-        dt.Columns.Add("Categoria");
-        dt.Columns.Add("Precio", typeof(decimal));
-        dt.Columns.Add("Estado");
-
-        // Añadir filas a la tabla de datos simulada
-        dt.Rows.Add("A001", "Artículo 1", "Descripción del artículo 1", "Marca 1", "Categoría 1", 100, "Activo");
-        dt.Rows.Add("A002", "Artículo 2", "Descripción del artículo 2", "Marca 2", "Categoría 2", 200, "Inactivo");
-
-        // Enlazar la tabla de datos al GridView
-        gvResultados.DataSource = dt;
-        gvResultados.DataBind();
-    }
-</script>

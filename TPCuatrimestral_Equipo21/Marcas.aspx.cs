@@ -18,7 +18,7 @@ namespace TPCuatrimestral_Equipo21
         {
             if (!IsPostBack)
             {
-                //Cargar datos en el GridView
+                //Cargar datos 
                 CargarDatos();
             }
         }
