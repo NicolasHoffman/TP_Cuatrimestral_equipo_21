@@ -11,6 +11,22 @@ namespace TPCuatrimestral_Equipo21
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                
+            }
+        }
+        private void CargarDatos()
+        {
+       
+        }
+        protected void btnCrearNuevo_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void rptMarcas_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
 
         }
     }

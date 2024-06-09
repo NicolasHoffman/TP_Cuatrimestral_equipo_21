@@ -66,6 +66,7 @@ namespace TPCuatrimestral_Equipo21
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            Response.Redirect("Marcas.aspx", false);
         }
     }
 }

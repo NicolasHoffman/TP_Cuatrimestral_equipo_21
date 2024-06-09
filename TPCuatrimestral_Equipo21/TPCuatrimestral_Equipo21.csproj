@@ -112,6 +112,7 @@
     <Content Include="assets\demo\chart-pie-demo.js" />
     <Content Include="assets\demo\datatables-demo.js" />
     <Content Include="assets\img\error-404-monochrome.svg" />
+    <Content Include="Categoria.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\all.css" />
     <Content Include="Content\all.min.css" />
@@ -260,6 +261,13 @@
     </Compile>
     <Compile Include="Articulos.aspx.designer.cs">
       <DependentUpon>Articulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categoria.aspx.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categoria.aspx.designer.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
