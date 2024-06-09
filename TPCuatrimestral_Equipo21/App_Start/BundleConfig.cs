@@ -32,11 +32,15 @@ namespace TPCuatrimestral_Equipo21
             // Use la versión de desarrollo de Modernizr para desarrollar y aprender. Luego, cuando esté listo
             // para la producción, use la herramienta de compilación disponible en https://modernizr.com para seleccionar solo las pruebas que necesite
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                            "~/Scripts/modernizr-*"));
+                "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/complementos").Include(
-                   "~/Scripts/scripts.js",
-                    "~/Scripts/fontawesome/all.min.js"));
+                   "~/Scripts/datatables-simple-demo.js",
+    "~/assets/chart-area-demo.js",
+    "~/assets/chart-bar-demo.js",
+    "~/assets/chart-pie-demo.js",
+    "~/Scripts/scripts.js",
+    "~/Scripts/fontawesome/all.min.js"));
         }
     }
 }

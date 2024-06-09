@@ -101,7 +101,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        public Marca obtenerMarcaPorId(int id)
+        public Marca obtenerMarcaPorId(string id)
         {
             Marca marca = null;
             AccesoDatos datos = new AccesoDatos();
@@ -152,11 +152,12 @@ namespace negocio
         }
         public void agregar(string Nombre)
         {
+
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("Insert into MARCAS (Nombre) values (@nombre)");
-                datos.setearParametros("@descripcion", Nombre);
+                datos.setearParametros("@nombre", Nombre);
                 datos.ejecutarAccion();
 
             }
@@ -169,5 +170,28 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void modificar(int id, string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE MARCAS SET Nombre = @Nombre WHERE Id = @Id");
+                datos.setearParametros("@Nombre", nombre);
+                datos.setearParametros("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+
     }
 }

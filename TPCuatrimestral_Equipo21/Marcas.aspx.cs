@@ -13,62 +13,50 @@ namespace TPCuatrimestral_Equipo21
 {
     public partial class Marcas : System.Web.UI.Page
     {
+        private readonly MarcaNegocio marcaNegocio = new MarcaNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindMarcasGrid();
+                //Cargar datos en el GridView
+                CargarDatos();
             }
         }
-        private void BindMarcasGrid()
+        private void CargarDatos()
         {
-            MarcaNegocio negocioMarca = new MarcaNegocio();
-            int cantidadRegistros = gvResultados.PageSize; // Obtener la cantidad de registros por página
-            List<Marca> marcas = negocioMarca.listar(cantidadRegistros);
-
-            gvResultados.DataSource = marcas;
-            gvResultados.DataBind();
+            rptMarcas.DataSource = marcaNegocio.listar();
+            rptMarcas.DataBind(); ;
+        }
+        protected void btnCrearNuevo_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormularioMarca.aspx");
         }
 
-        protected void ddlCantidadRegistros_SelectedIndexChanged(object sender, EventArgs e)
+        protected void rptMarcas_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            gvResultados.PageSize = Convert.ToInt32(ddlCantidadRegistros.SelectedValue);
-            BindMarcasGrid();
+            if (e.CommandName == "Seleccionar")
+            {
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("FormularioMarca.aspx?id=" + id);
+            }
+            else if (e.CommandName == "Eliminar")
+            {
+                try
+                {
+                    string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
+
+                    MarcaNegocio negocio = new MarcaNegocio();
+                    negocio.eliminar(int.Parse(idMarca));
+
+                    // Recargar los datos después de la eliminación
+                    CargarDatos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex);
+                    throw;
+                }
+            }
         }
-
-        protected void gvResultados_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvResultados.PageIndex = e.NewPageIndex;
-            BindMarcasGrid();
-        }
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            string nombreMarca = txtBuscar.Text.Trim();
-            MarcaNegocio negocioMarca = new MarcaNegocio();
-            List<Marca> marcas = negocioMarca.BuscarPorNombre(nombreMarca);
-
-            gvResultados.DataSource = marcas;
-            gvResultados.DataBind();
-        }
-
-
-        protected void gvResultados_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            // Obtener el ID de la fila que se está eliminando
-            int idMarca = Convert.ToInt32(gvResultados.DataKeys[e.RowIndex].Value);
-
-            // Llamar al método para eliminar la marca con el ID especificado
-            EliminarMarca(idMarca);
-
-            // Volver a cargar las marcas en el GridView después de la eliminación
-            BindMarcasGrid();
-        }
-
-        private void EliminarMarca(int idMarca)
-        {
-            MarcaNegocio negocio = new MarcaNegocio();
-            negocio.eliminar(idMarca);
-        }
-
     }
 }
