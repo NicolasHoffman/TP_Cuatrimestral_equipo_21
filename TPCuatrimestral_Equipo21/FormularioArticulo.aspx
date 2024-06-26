@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioArticulo.aspx.cs" Inherits="TPCuatrimestral_Equipo21.FormularioArticulo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
+    <style>
+    .small-image {
+        width: 220px; /* Ajusto imagen */
+        height: auto; 
+    }
+   </style>
+
     <div class="container-fluid px-4">
         <h1 class="mt-5">Agregar Articulo</h1>
         <div class="card mt-4">
@@ -37,12 +45,17 @@
                             <asp:TextBox runat="server" TextMode="MultiLine" ID="txtDescripcion" CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <label for="txtImagen" class="form-label">Imagen Articulo</label>
-                            <input type="file" id="txtImagen" runat="server" class="form-control" />
+                             <label for="txtImagen" class="form-label">Imagen Articulo</label>
+                            <asp:FileUpload ID="txtImagen" runat="server" CssClass="form-control" />
                         </div>
                         <div class="mb-3">
-                            <asp:Image ID="imgArticuloNuevo" ImageUrl="https://www.italfren.com.ar/images/catalogo/imagen-no-disponible.jpeg" runat="server" CssClass="img-fluid small-image" />
+                            <asp:Button ID="btnUpload" runat="server" Text="Cargar Imagen" CssClass="btn btn-primary" OnClick="btnUpload_Click" />
                         </div>
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Image ID="imgArticuloNuevo" ImageUrl="https://www.italfren.com.ar/images/catalogo/imagen-no-disponible.jpeg" runat="server" CssClass="img-fluid small-image" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
                 <hr />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 using dominio;
 using negocio;
 
@@ -45,9 +46,11 @@ namespace TPCuatrimestral_Equipo21
 
                 CategoriNegocio negocio = new CategoriNegocio();
 
-                String nuevaCatego = txtNombreCategoria.Text.ToUpper().Trim();
+                // lo uso para convertir la primera letra en mayuscula
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                string nuevaCatego = textInfo.ToTitleCase(txtNombreCategoria.Text.ToLower().Trim());
 
-               if (Request.QueryString["id"] != null)
+                if (Request.QueryString["id"] != null)
                {
                     int id = int.Parse(Request.QueryString["id"]);
                     negocio.modificar(id, nuevaCatego);

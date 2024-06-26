@@ -105,5 +105,16 @@ namespace TPCuatrimestral_Equipo21
         {
             Response.Redirect("Articulos.aspx", false);
         }
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            if (txtImagen.HasFile)
+            {
+                string ruta = Server.MapPath("~/Images/Articulos/");
+                string fileName = System.IO.Path.GetFileName(txtImagen.PostedFile.FileName);
+                txtImagen.PostedFile.SaveAs(System.IO.Path.Combine(ruta, fileName));
+                imgArticuloNuevo.ImageUrl = "~/Images/Articulos/" + fileName;
+                UpdatePanel1.Update(); // Actualizar el UpdatePanel
+            }
+        }
     }
 }
