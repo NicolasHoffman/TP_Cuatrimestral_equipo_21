@@ -16,7 +16,6 @@ namespace TPCuatrimestral_Equipo21
         {
             if (!IsPostBack)
             {
-
                 CargarDatos();
             }
         }
@@ -28,14 +27,14 @@ namespace TPCuatrimestral_Equipo21
 
         protected void btnCrearNuevo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("FormularioArticulo.aspx");
+            Response.Redirect("FormularioProveedor.aspx");
         }
         protected void rptProveedor_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Seleccionar")
             {
-                //string id = e.CommandArgument.ToString();
-                //Response.Redirect("FormularioArticulo.aspx?id=" + id);
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("FormularioProveedor.aspx?id=" + id);
             }
             else if (e.CommandName == "Eliminar")
             {

@@ -8,8 +8,9 @@ namespace dominio
 {
     public class Direccion
     {
+        public int Id { get; set; }
         public string Calle { get; set; }
-        public int Departamento { get; set; }
+        public string Departamento { get; set; }
         public int Numero { get; set; }
         public int Piso { get; set; }
         public string Provincia { get; set; }
