@@ -9,14 +9,14 @@ using negocio;
 
 namespace TPCuatrimestral_Equipo21
 {
-    public partial class Proveedor : System.Web.UI.Page
+    public partial class Proveedores : System.Web.UI.Page
     {
         private readonly ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-          
+
                 CargarDatos();
             }
         }
@@ -56,7 +56,5 @@ namespace TPCuatrimestral_Equipo21
                 }
             }
         }
-
-
     }
 }

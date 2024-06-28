@@ -50,6 +50,7 @@ namespace TPCuatrimestral_Equipo21
             {
                 Articulo nuevo = new Articulo();
                 ArticuloNegocio negocio = new ArticuloNegocio();
+               
 
                 nuevo.Codigo = txtCodigoArticulo.Text;
                 nuevo.Nombre = txtNombreArticulo.Text;

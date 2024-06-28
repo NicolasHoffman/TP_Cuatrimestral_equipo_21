@@ -20,33 +20,41 @@
                         </div>
                         <div class="mb-3">
                             <label for="txtEmail" class="form-label">Email:</label>
-                            <asp:TextBox ID="TextEmail" runat="server" CssClass="form-control" placeholder="Ingrese Email"></asp:TextBox>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Ingrese Email"></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="txtCuit" class="form-label">Cuit</label>
                             <asp:TextBox ID="txtCuit" runat="server" CssClass="form-control" placeholder="Ingrese Cuit sin guiones"></asp:TextBox>
                         </div>
+                        <div class="mb-3">
+                            <label for="txtCalle" class="form-label">Domicilio:</label>
+                            <asp:TextBox ID="txtCalle" runat="server" CssClass="form-control" placeholder="Ingrese Nombre de la Calle"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtNumero" class="form-label">Número:</label>
+                            <asp:TextBox ID="txtNumero" runat="server" CssClass="form-control" placeholder="Ingrese Número"></asp:TextBox>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="txtCalle" class="form-label">Nombre de Calle:</label>
-                            <asp:TextBox ID="TextCalle" runat="server" CssClass="form-control" placeholder="Ingrese Nombre de la Calle"></asp:TextBox>
-                        </div>
-                         <div class="mb-3">
-                            <label for="txtNumero" class="form-label">Número:</label>
-                            <asp:TextBox ID="TextNumero" runat="server" CssClass="form-control" placeholder="Ingrese Número"></asp:TextBox>
-                        </div>
                          <div class="mb-3">
                             <label for="txtPiso" class="form-label">Piso:</label>
-                            <asp:TextBox ID="TextPiso" runat="server" CssClass="form-control" placeholder="Ingrese Piso"></asp:TextBox>
+                            <asp:TextBox ID="txtPiso" runat="server" CssClass="form-control" placeholder="Ingrese Piso"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtDepartamento" class="form-label">Departamento:</label>
+                            <asp:TextBox ID="txtDepartamento" runat="server" CssClass="form-control" placeholder="Ingrese Departamento"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtLocalidad" class="form-label">Localidad:</label>
+                            <asp:TextBox ID="txtLocalidad" runat="server" CssClass="form-control" placeholder="Ingrese Localidad"></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="txtProvincia" class="form-label">Provincia:</label>
-                            <asp:TextBox ID="TextLocalidad" runat="server" CssClass="form-control" placeholder="Ingrese Localidad"></asp:TextBox>
+                            <asp:TextBox ID="txtProvincia" runat="server" CssClass="form-control" placeholder="Ingrese Provincia"></asp:TextBox>
                         </div>
                         <div class="mb-3">
                             <label for="txtCodigoPostal" class="form-label">Codigo Postal:</label>
-                            <asp:TextBox ID="TextCodigoPostal" runat="server" CssClass="form-control" placeholder="Codigo Postal"></asp:TextBox>
+                            <asp:TextBox ID="txtCodigoPostal" runat="server" CssClass="form-control" placeholder="Codigo Postal"></asp:TextBox>
                         </div>
                     </div>
                 </div>

@@ -155,7 +155,7 @@
     <Content Include="FormularioProveedor.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Marcas.aspx" />
-    <Content Include="Proveedor.aspx" />
+    <Content Include="Proveedores.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -333,12 +333,12 @@
       <DependentUpon>Marcas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proveedor.aspx.cs">
-      <DependentUpon>Proveedor.aspx</DependentUpon>
+    <Compile Include="Proveedores.aspx.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Proveedor.aspx.designer.cs">
-      <DependentUpon>Proveedor.aspx</DependentUpon>
+    <Compile Include="Proveedores.aspx.designer.cs">
+      <DependentUpon>Proveedores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

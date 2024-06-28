@@ -1,6 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Proveedor.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Proveedor" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Proveedores.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Proveedores" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="container-fluid px-4">
+     <div class="container-fluid px-4">
         <h1 class="mt-5">Proveedores</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>

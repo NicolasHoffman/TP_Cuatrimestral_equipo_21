@@ -28,6 +28,7 @@ namespace negocio
                     aux.Telefono = (string)datos.Lector["Telefono"];
                     aux.Cuit = (string)datos.Lector["Cuit"];
                     aux.Email = (string)datos.Lector["Email"];
+                    
 
                     //IMPORTANTE PARA COMPOSICION y PARA TRAER COSAS DE OTRAS TABLAS REGISTROS COMPUESTOS
 
@@ -63,6 +64,37 @@ namespace negocio
             {
                 datos.setearConsulta("UPDATE Proveedor SET ESTADO = 1 WHERE Id = @Id");
                 datos.setearParametros("@Id", proveedor);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void agregar (Proveedor nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO PROVEEDORES (Nombre, Telefono, Cuit, Email, Calle, Numero, Departamento, Localidad, Provincia, CodigoPostal, Estado) VALUES (@Nombre, @Telefono, @Cuit, @Email, @Calle, @Numero, @Departamento, @Localidad, @Provincia, @CodigoPostal, @Estado)");
+                datos.setearParametros("@Nombre", nuevo.Nombre);
+                datos.setearParametros("@Telefono", nuevo.Telefono);
+                datos.setearParametros("@Cuit", nuevo.Cuit);
+                datos.setearParametros("@Email", nuevo.Email);
+                datos.setearParametros("@Calle", nuevo.Direccion.Calle);
+                datos.setearParametros("@Numero", nuevo.Direccion.Numero);
+                datos.setearParametros("@Departamento", nuevo.Direccion.Departamento);
+                datos.setearParametros("@Localidad", nuevo.Direccion.Localidad);
+                datos.setearParametros("@Provincia", nuevo.Direccion.Provincia);
+                datos.setearParametros("@CodigoPostal", nuevo.Direccion.CodigoPostal);
+                datos.setearParametros("@Estado", nuevo.Estado);
+
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
