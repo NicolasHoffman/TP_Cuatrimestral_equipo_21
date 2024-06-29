@@ -6,10 +6,10 @@
         <div class="card mt-4">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <<div class="col-md-4">
                         <div class="mb-4">
                             <label for="txtNombreCliente" class="form-label">Datos Cliente</label>
-                            <asp:TextBox ID="txtNombreCliente" runat="server" CssClass="form-control" placeholder="Ingrese Cuit"></asp:TextBox>
+                            <asp:TextBox ID="txtNombreCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtNombreCliente_TextChanged" placeholder="Ingrese Dni"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-4">

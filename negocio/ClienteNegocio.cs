@@ -211,5 +211,59 @@ namespace negocio
 
             return cliente;
         }
+        public Cliente obtenerPorDni(string dni)
+        {
+            Cliente cliente = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
+                               C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
+                               Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
+                               FROM Cliente C
+                               INNER JOIN Persona P ON C.IdPersona = P.Id
+                               INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
+                               WHERE P.Dni = @Dni");
+                datos.setearParametros("@Dni", dni);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    cliente = new Cliente
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = (string)datos.Lector["Nombre"],
+                        Apellido = (string)datos.Lector["Apellido"],
+                        Dni = (string)datos.Lector["Dni"],
+                        Email = (string)datos.Lector["Email"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        FechaAlta = (DateTime)datos.Lector["FechaAlta"],
+                        Cuit = (string)datos.Lector["Cuit"],
+                        Estado = (bool)datos.Lector["ClienteEstado"],
+                        Direccion = new Direccion
+                        {
+                            Calle = (string)datos.Lector["Calle"],
+                            Numero = (int)datos.Lector["Numero"],
+                            Departamento = datos.Lector["Departamento"] as string,
+                            Piso = datos.Lector["Piso"] as int? ?? 0,
+                            Localidad = (string)datos.Lector["Localidad"],
+                            Provincia = (string)datos.Lector["Provincia"],
+                            CodigoPostal = (string)datos.Lector["CodigoPostal"]
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return cliente;
+        }
     }
 }

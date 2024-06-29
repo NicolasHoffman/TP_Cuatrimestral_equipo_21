@@ -6,10 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
 using negocio;
-
 namespace TPCuatrimestral_Equipo21
 {
-    public partial class Cliente : System.Web.UI.Page
+    public partial class Clientes : System.Web.UI.Page
     {
         private readonly ClienteNegocio clienteNegocio = new ClienteNegocio();
         protected void Page_Load(object sender, EventArgs e)

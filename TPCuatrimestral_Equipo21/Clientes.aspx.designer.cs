@@ -11,7 +11,7 @@ namespace TPCuatrimestral_Equipo21
 {
 
 
-    public partial class Cliente
+    public partial class Clientes
     {
 
         /// <summary>
