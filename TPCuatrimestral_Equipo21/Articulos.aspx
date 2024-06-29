@@ -15,8 +15,6 @@
             <div class="card-body">
                  <div class="row">
                     <div class="col-12">
-                        
-                        
                         <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
                     </div>
                 </div>

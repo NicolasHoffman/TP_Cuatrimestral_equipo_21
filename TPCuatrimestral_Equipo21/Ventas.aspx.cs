@@ -24,13 +24,76 @@ namespace TPCuatrimestral_Equipo21
 
                 if (cliente != null)
                 {
-                    txtCliente.Text = cliente.Nombre; // Asumiendo que `NombreCompleto` es una propiedad que concatenará Nombre y Apellido
+                    txtCliente.Text = cliente.Nombre;
                 }
                 else
                 {
-                    txtCliente.Text = "Cliente no encontrado"; // O manejar algún mensaje de error
+                    txtCliente.Text = "Cliente no encontrado";
+                }
+            }
+            else
+            {
+                txtCliente.Text = string.Empty; // Borra el texto cuando el campo DNI está vacío
+            }
+        }
+        protected void txtCodigoProducto_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtCodigoProducto.Text.Trim()))
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                Articulo art = negocio.obtenerPorCodigo(txtCodigoProducto.Text.Trim());
+
+                if (art != null)
+                {
+                    List<Articulo> listaArticulos = new List<Articulo> { art };
+                    rptVentas.DataSource = listaArticulos;
+                    rptVentas.DataBind();
+                }
+                else
+                {
+                    rptVentas.DataSource = null;
+                    rptVentas.DataBind();
+                }
+            }
+            else
+            {
+                rptVentas.DataSource = null;
+                rptVentas.DataBind(); // Borra el contenido cuando el campo Código está vacío
+            }
+        }
+
+
+
+
+
+
+
+        protected void rptVentas_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Seleccionar")
+            {
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("FormularioArticulo.aspx?id=" + id);
+            }
+            else if (e.CommandName == "Eliminar")
+            {
+                try
+                {
+                    string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
+
+                    // MarcaNegocio negocio = new MarcaNegocio();
+                    // negocio.eliminar(int.Parse(idMarca));
+
+                    // Recargar los datos después de la eliminación
+                    //CargarDatos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex);
+                    throw;
                 }
             }
         }
+
     }
 }
