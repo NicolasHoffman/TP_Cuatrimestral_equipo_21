@@ -61,39 +61,37 @@ namespace TPCuatrimestral_Equipo21
                 rptVentas.DataBind(); // Borra el contenido cuando el campo Código está vacío
             }
         }
+        protected void txtNombreproducto_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtNombreproducto.Text.Trim()))
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                List<Articulo> art = negocio.obtenerPorNombreOMarca(txtNombreproducto.Text.Trim());
 
-
-
-
-
-
-
+                if (art != null && art.Count > 0)
+                {
+                    rptVentas.DataSource = art;
+                    rptVentas.DataBind();
+                }
+                else
+                {
+                    rptVentas.DataSource = null;
+                    rptVentas.DataBind();
+                }
+            }
+            else
+            {
+                rptVentas.DataSource = null;
+                rptVentas.DataBind();
+            }
+        }
         protected void rptVentas_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
+            if (e.CommandName == "Agregar")
             {
                 string id = e.CommandArgument.ToString();
                 Response.Redirect("FormularioArticulo.aspx?id=" + id);
             }
-            else if (e.CommandName == "Eliminar")
-            {
-                try
-                {
-                    string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
-
-                    // MarcaNegocio negocio = new MarcaNegocio();
-                    // negocio.eliminar(int.Parse(idMarca));
-
-                    // Recargar los datos después de la eliminación
-                    //CargarDatos();
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex);
-                    throw;
-                }
-            }
         }
-
     }
 }

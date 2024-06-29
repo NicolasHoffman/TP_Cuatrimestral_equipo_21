@@ -1,14 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Ventas.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Ventas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <div class="container-fluid px-4">
+    <div class="container-fluid px-4">
         <h1 class="mt-5">Nueva Venta</h1>
         <div class="card mt-4">
             <div class="card-body">
                 <div class="row">
+                    <label for="txtNombreCliente" class="form-label">Datos Cliente</label>
                     <div class="col-md-4">
+
                         <div class="mb-4">
-                            <label for="txtNombreCliente" class="form-label">Datos Cliente</label>
+
+                            <label for="txtNombreCliente" class="form-label">Buscar Cliente Por Dni</label>
                             <asp:TextBox ID="txtNombreCliente" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtNombreCliente_TextChanged" placeholder="Ingrese Dni"></asp:TextBox>
                         </div>
                     </div>
@@ -21,16 +24,17 @@
 
                     <div class="row">
                         <hr />
+                        <label for="txtNombreCliente" class="form-label">Datos Productos</label>
                         <div class="col-md-4">
                             <div class="mb-4">
-                                <label for="txtCodigoProducto" class="form-label">Datos Producto</label>
+                                <label for="txtCodigoProducto" class="form-label">Buscar Producto por Codigo</label>
                                 <asp:TextBox ID="txtCodigoProducto" runat="server" CssClass="form-control" placeholder="Ingrese Codigo" AutoPostBack="true" OnTextChanged="txtCodigoProducto_TextChanged"></asp:TextBox>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="mb-4">
-                                <label for="txtNombreproducto" class="form-label">Datos Producto</label>
-                                <asp:TextBox ID="txtNombreproducto" runat="server" CssClass="form-control" placeholder="Ingrese Codigo"></asp:TextBox>
+                                <label for="txtNombreproducto" class="form-label">Buscar por Marca y/o Producto</label>
+                                <asp:TextBox ID="txtNombreproducto" runat="server" CssClass="form-control" placeholder="Buscar por Nombre y/o por Marca" AutoPostBack="true" OnTextChanged="txtNombreproducto_TextChanged"></asp:TextBox>
                             </div>
                         </div>
 
@@ -72,7 +76,7 @@
                                             <td><%# Eval("Precio") %></td>
                                             <td><%# Eval("Estado") %></td>
                                             <td>
-                                               
+                                                <asp:LinkButton runat="server" CssClass="btn btn-success btn-sm" CommandName="Agregar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-plus"></i></asp:LinkButton>
                                             </td>
                                         </tr>
                                     </ItemTemplate>
@@ -101,6 +105,4 @@
             });
         });
     </script>
-
-
 </asp:Content>
