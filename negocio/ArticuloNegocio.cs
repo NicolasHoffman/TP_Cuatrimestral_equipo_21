@@ -176,6 +176,56 @@ namespace negocio
 
             return lista;
         }
+
+        public Articulo obtenerPorId(int id)
+        {
+            Articulo articulo = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, A.ImagenUrl, A.Estado, C.Descripcion Categoria, C.Id IDCategoria, M.Nombre Marca, M.Id IDMarca FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria WHERE A.Id = @Id");
+                datos.setearParametros("@Id", id);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    articulo = new Articulo
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Codigo = (string)datos.Lector["Codigo"],
+                        Nombre = (string)datos.Lector["Nombre"],
+                        Descripcion = (string)datos.Lector["Descripcion"],
+                        Precio = (decimal)datos.Lector["Precio"],
+                        ImagenArt = (string)datos.Lector["ImagenUrl"],
+                        Estado = (int)datos.Lector["Estado"],
+                        Categoria = new Categori
+                        {
+                            Descripcion = (string)datos.Lector["Categoria"],
+                            Id = (int)datos.Lector["IDCategoria"]
+                        },
+                        Marca = new Marca
+                        {
+                            Nombre = (string)datos.Lector["Marca"],
+                            Id = (int)datos.Lector["IDMarca"]
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return articulo;
+        }
+
+
+
     }
 }
 
