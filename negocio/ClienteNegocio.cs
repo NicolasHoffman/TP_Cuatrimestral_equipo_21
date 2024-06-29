@@ -16,38 +16,43 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado,
+                datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
                                        C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
                                        Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                        FROM Cliente C
                                        INNER JOIN Persona P ON C.Id = P.Id
                                        INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
-                                       WHERE P.Estado = 0");
+                                       WHERE P.Estado = 1");
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Cliente aux = new Cliente();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Apellido = (string)datos.Lector["Apellido"];
-                    aux.Dni = (string)datos.Lector["Dni"];
-                    aux.Email = (string)datos.Lector["Email"];
-                    aux.Telefono = (string)datos.Lector["Telefono"];
-                    aux.FechaAlta = (DateTime)datos.Lector["FechaAlta"];
-                    aux.Cuit = (string)datos.Lector["Cuit"];
-                    aux.Estado = Convert.ToBoolean((int)datos.Lector["ClienteEstado"]);
-
-                    aux.Direccion = new Direccion();
-                    aux.Direccion.Calle = (string)datos.Lector["Calle"];
-                    aux.Direccion.Numero = (int)datos.Lector["Numero"];
-                    aux.Direccion.Departamento = (string)datos.Lector["Departamento"];
-                    aux.Direccion.Piso = (int)datos.Lector["Piso"];
-                    aux.Direccion.Localidad = (string)datos.Lector["Localidad"];
-                    aux.Direccion.Provincia = (string)datos.Lector["Provincia"];
-                    aux.Direccion.CodigoPostal = (string)datos.Lector["CodigoPostal"];
+                    Cliente aux = new Cliente
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = (string)datos.Lector["Nombre"],
+                        Apellido = (string)datos.Lector["Apellido"],
+                        Dni = (string)datos.Lector["Dni"],
+                        Email = (string)datos.Lector["Email"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        FechaAlta = (DateTime)datos.Lector["FechaAlta"],
+                        Cuit = (string)datos.Lector["Cuit"],
+                        Estado = (bool)datos.Lector["ClienteEstado"],
+                        Direccion = new Direccion
+                       {
+                           Calle = (string)datos.Lector["Calle"],
+                           Numero = (int)datos.Lector["Numero"],
+                           Departamento = datos.Lector["Departamento"] as string,
+                           Piso = datos.Lector["Piso"] as int? ?? 0,
+                            Localidad = (string)datos.Lector["Localidad"],
+                            Provincia = (string)datos.Lector["Provincia"],
+                           CodigoPostal = (string)datos.Lector["CodigoPostal"]
+                        }
+                    };
 
                     lista.Add(aux);
+
+                    
                 }
             }
             catch (Exception ex)
@@ -157,7 +162,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado,
+                datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
                                       C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
                                       Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                       FROM Cliente C
@@ -185,8 +190,8 @@ namespace negocio
                             Id = (int)datos.Lector["IdDireccion"],
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
-                            Departamento = (string)datos.Lector["Departamento"],
-                            Piso = (int)datos.Lector["Piso"],
+                            Departamento = datos.Lector["Departamento"] as string, // Convertir a string
+                            Piso = datos.Lector["Piso"] as int? ?? 0, // Convertir a int nullable
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]

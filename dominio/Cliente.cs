@@ -11,7 +11,7 @@ namespace dominio
         public int Id { get; set; }
         public DateTime FechaAlta { get; set; }
         public string Cuit { get; set; }
-        public bool Estado { get; set; }
+        public new bool Estado { get; set; }
 
     }
 }
