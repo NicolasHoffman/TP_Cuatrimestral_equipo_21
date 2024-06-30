@@ -161,12 +161,12 @@ namespace TPCuatrimestral_Equipo21
             }
 
         }
-     
+
 
         protected void btnCrearCliente_Click(object sender, EventArgs e)
         {
-           
-            Response.Redirect("~/CrearCliente.aspx"); // Ejemplo de redirección a una página de creación de cliente
+
+            Response.Redirect("~/FormularioCliente.aspx");
         }
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)

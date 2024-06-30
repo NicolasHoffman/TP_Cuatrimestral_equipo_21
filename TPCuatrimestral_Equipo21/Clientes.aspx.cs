@@ -33,18 +33,16 @@ namespace TPCuatrimestral_Equipo21
             if (e.CommandName == "Seleccionar")
             {
                 string id = e.CommandArgument.ToString();
-                Response.Redirect("FormularioArticulo.aspx?id=" + id);
+                Response.Redirect("FormularioCliente.aspx?id=" + id);
             }
             else if (e.CommandName == "Eliminar")
             {
                 try
                 {
-                    string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
+                    string dniCliente = e.CommandArgument.ToString(); // Obtener el ID del cliente
 
-                    // MarcaNegocio negocio = new MarcaNegocio();
-                    // negocio.eliminar(int.Parse(idMarca));
-
-                    // Recargar los datos después de la eliminación
+                    ClienteNegocio negocio = new ClienteNegocio();
+                    negocio.eliminar(int.Parse(dniCliente));
                     CargarDatos();
                 }
                 catch (Exception ex)

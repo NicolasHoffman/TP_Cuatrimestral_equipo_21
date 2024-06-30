@@ -63,14 +63,15 @@ namespace negocio
             return lista;
         }
 
-        public void eliminar(int cliente)
+        public void eliminar(int Dni)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setearConsulta("UPDATE Cliente SET Estado = 0 WHERE Id = @Id");
-                datos.setearParametros("@Id", cliente);
+                datos.setearConsulta("UPDATE Persona SET Estado = 1 WHERE Dni = @Dni; " +
+                                     "UPDATE Cliente SET Estado = 1 WHERE IdPersona = (SELECT Id FROM Persona WHERE Dni = @Dni)");
+                datos.setearParametros("@Dni", Dni);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
