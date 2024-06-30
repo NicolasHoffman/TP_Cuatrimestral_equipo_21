@@ -94,11 +94,11 @@ namespace TPCuatrimestral_Equipo21
 
                 if (Request.QueryString["id"] != null)
                 {
-                    // Modificar Proveedor existente
+                    // Modificar Proveedor 
                     int id = int.Parse(Request.QueryString["id"]);
                     nuevo.Id = id;
 
-                    // Obtener el ID de la dirección existente del proveedor
+                    // Obtener el ID de la dirección del proveedor
                     Proveedor proveedorExistente = negocio.obtenerPorId(id);
                     if (proveedorExistente != null)
                     {

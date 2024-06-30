@@ -15,5 +15,9 @@ namespace dominio
         public int IdFormaDePago { get; set; }
         public decimal ImporteTotal { get; set; }
 
+        public Venta()
+        {
+            FechaVenta = DateTime.Now;
+        }
     }
 }

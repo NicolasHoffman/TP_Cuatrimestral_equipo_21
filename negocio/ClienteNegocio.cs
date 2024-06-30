@@ -126,7 +126,7 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, Dni = @Dni, IdDireccion = @IdDireccion, 
-                                      Email = @Email, Telefono = @Telefono, Estado = @Estado WHERE Id = @Id");
+                              Email = @Email, Telefono = @Telefono, Estado = @Estado WHERE Id = @Id");
                 datos.setearParametros("@Nombre", cliente.Nombre);
                 datos.setearParametros("@Apellido", cliente.Apellido);
                 datos.setearParametros("@Dni", cliente.Dni);
@@ -134,14 +134,14 @@ namespace negocio
                 datos.setearParametros("@Email", cliente.Email);
                 datos.setearParametros("@Telefono", cliente.Telefono);
                 datos.setearParametros("@Estado", cliente.Estado ? 1 : 0);
-                datos.setearParametros("@Id", cliente.Id);
+                datos.setearParametros("@Id", id);
                 datos.ejecutarAccion();
 
                 datos.setearConsulta(@"UPDATE Cliente SET FechaAlta = @FechaAlta, Estado = @Estado 
-                                      WHERE Id = @Id");
+                              WHERE IdPersona = @IdPersona");
                 datos.setearParametros("@FechaAlta", cliente.FechaAlta);
                 datos.setearParametros("@Estado", cliente.Estado ? 1 : 0);
-                datos.setearParametros("@Id", cliente.Id);
+                datos.setearParametros("@IdPersona", id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

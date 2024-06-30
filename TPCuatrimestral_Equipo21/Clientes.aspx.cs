@@ -32,8 +32,8 @@ namespace TPCuatrimestral_Equipo21
         {
             if (e.CommandName == "Seleccionar")
             {
-                string id = e.CommandArgument.ToString();
-                Response.Redirect("FormularioCliente.aspx?id=" + id);
+                string dni = e.CommandArgument.ToString();
+                Response.Redirect("FormularioCliente.aspx?dni=" + dni);
             }
             else if (e.CommandName == "Eliminar")
             {
