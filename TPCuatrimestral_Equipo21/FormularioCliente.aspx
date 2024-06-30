@@ -29,10 +29,6 @@
                             <label for="txtTelefono" class="form-label">Telefono:</label>
                             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" placeholder="Ingrese Telefono"></asp:TextBox>
                         </div>
-                         <div class="mb-3">
-                            <label for="txtFechaNac" class="form-label">Fecha Nacimiento:</label>
-                            <asp:TextBox ID="txtFechaNac" runat="server" CssClass="form-control" placeholder="Ingrese Fecha Nacimiento"></asp:TextBox>
-                        </div>
                         <div class="mb-3">
                             <label for="txtCalle" class="form-label">Domicilio:</label>
                             <asp:TextBox ID="txtCalle" runat="server" CssClass="form-control" placeholder="Ingrese Nombre de la Calle"></asp:TextBox>

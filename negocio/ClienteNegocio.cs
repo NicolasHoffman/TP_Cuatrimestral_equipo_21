@@ -17,12 +17,12 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
-                                       C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
+                                       C.FechaAlta, C.Estado AS ClienteEstado,
                                        Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                        FROM Cliente C
                                        INNER JOIN Persona P ON C.Id = P.Id
                                        INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
-                                       WHERE P.Estado = 1");
+                                       WHERE P.Estado = 0");
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
@@ -36,23 +36,20 @@ namespace negocio
                         Email = (string)datos.Lector["Email"],
                         Telefono = (string)datos.Lector["Telefono"],
                         FechaAlta = (DateTime)datos.Lector["FechaAlta"],
-                        Cuit = (string)datos.Lector["Cuit"],
-                        Estado = (bool)datos.Lector["ClienteEstado"],
+                        Estado = Convert.ToBoolean(datos.Lector["ClienteEstado"]),
                         Direccion = new Direccion
-                       {
-                           Calle = (string)datos.Lector["Calle"],
-                           Numero = (int)datos.Lector["Numero"],
-                           Departamento = datos.Lector["Departamento"] as string,
-                           Piso = datos.Lector["Piso"] as int? ?? 0,
+                        {
+                            Calle = (string)datos.Lector["Calle"],
+                            Numero = (int)datos.Lector["Numero"],
+                            Departamento = datos.Lector["Departamento"] as string,
+                            Piso = datos.Lector["Piso"] as int? ?? 0,
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
-                           CodigoPostal = (string)datos.Lector["CodigoPostal"]
+                            CodigoPostal = (string)datos.Lector["CodigoPostal"]
                         }
                     };
 
                     lista.Add(aux);
-
-                    
                 }
             }
             catch (Exception ex)
@@ -72,7 +69,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("UPDATE Cliente SET Estado = 1 WHERE Id = @Id");
+                datos.setearConsulta("UPDATE Cliente SET Estado = 0 WHERE Id = @Id");
                 datos.setearParametros("@Id", cliente);
                 datos.ejecutarAccion();
             }
@@ -92,7 +89,8 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Persona (Nombre, Apellido, Dni, IdDireccion, Email, Telefono, Estado) VALUES (@Nombre, @Apellido, @Dni, @IdDireccion, @Email, @Telefono, @Estado)");
+                // Insertar en la tabla Persona
+                datos.setearConsulta("INSERT INTO Persona (Nombre, Apellido, Dni, IdDireccion, Email, Telefono, Estado) OUTPUT INSERTED.Id VALUES (@Nombre, @Apellido, @Dni, @IdDireccion, @Email, @Telefono, @Estado)");
                 datos.setearParametros("@Nombre", nuevo.Nombre);
                 datos.setearParametros("@Apellido", nuevo.Apellido);
                 datos.setearParametros("@Dni", nuevo.Dni);
@@ -100,13 +98,14 @@ namespace negocio
                 datos.setearParametros("@Email", nuevo.Email);
                 datos.setearParametros("@Telefono", nuevo.Telefono);
                 datos.setearParametros("@Estado", nuevo.Estado ? 1 : 0);
-                datos.ejecutarAccion();
 
-                datos.setearConsulta("INSERT INTO Cliente (Id, FechaAlta, Cuit, Estado) VALUES (@Id, @FechaAlta, @Cuit, @Estado)");
-                datos.setearParametros("@Id", nuevo.Id); // Id should be the same as the Persona Id
-                datos.setearParametros("@FechaAlta", nuevo.FechaAlta);
-                datos.setearParametros("@Cuit", nuevo.Cuit);
-                datos.setearParametros("@Estado", nuevo.Estado ? 1 : 0);
+                int personaId = (int)datos.ejecutarEscalar(); // Obtener el ID generado
+
+                // Insertar en la tabla Cliente
+                datos.setearConsulta("INSERT INTO Cliente (IdPersona, FechaAlta, Estado) VALUES (@Idpersona, @FechaAlta, @EstadoCliente)");
+                datos.setearParametros("@IdPersona", personaId); // Usar el ID de la entidad Persona
+                datos.setearParametros("@FechaAlta", DateTime.Now); // Usar la fecha del sistema
+                datos.setearParametros("@EstadoCliente", nuevo.Estado ? 1 : 0);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -137,10 +136,9 @@ namespace negocio
                 datos.setearParametros("@Id", cliente.Id);
                 datos.ejecutarAccion();
 
-                datos.setearConsulta(@"UPDATE Cliente SET FechaAlta = @FechaAlta, Cuit = @Cuit, Estado = @Estado 
+                datos.setearConsulta(@"UPDATE Cliente SET FechaAlta = @FechaAlta, Estado = @Estado 
                                       WHERE Id = @Id");
                 datos.setearParametros("@FechaAlta", cliente.FechaAlta);
-                datos.setearParametros("@Cuit", cliente.Cuit);
                 datos.setearParametros("@Estado", cliente.Estado ? 1 : 0);
                 datos.setearParametros("@Id", cliente.Id);
                 datos.ejecutarAccion();
@@ -163,7 +161,7 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
-                                      C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
+                                      C.FechaAlta, C.Estado AS ClienteEstado,
                                       Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                       FROM Cliente C
                                       INNER JOIN Persona P ON C.Id = P.Id
@@ -183,15 +181,14 @@ namespace negocio
                         Email = (string)datos.Lector["Email"],
                         Telefono = (string)datos.Lector["Telefono"],
                         FechaAlta = (DateTime)datos.Lector["FechaAlta"],
-                        Cuit = (string)datos.Lector["Cuit"],
-                        Estado = Convert.ToBoolean((int)datos.Lector["ClienteEstado"]),
+                        Estado = Convert.ToBoolean(datos.Lector["ClienteEstado"]),
                         Direccion = new Direccion
                         {
                             Id = (int)datos.Lector["IdDireccion"],
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
-                            Departamento = datos.Lector["Departamento"] as string, // Convertir a string
-                            Piso = datos.Lector["Piso"] as int? ?? 0, // Convertir a int nullable
+                            Departamento = datos.Lector["Departamento"] as string,
+                            Piso = datos.Lector["Piso"] as int? ?? 0,
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]
@@ -211,6 +208,7 @@ namespace negocio
 
             return cliente;
         }
+
         public Cliente obtenerPorDni(string dni)
         {
             Cliente cliente = null;
@@ -219,10 +217,10 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"SELECT C.Id, P.Nombre, P.Apellido, P.Dni, P.IdDireccion, P.Email, P.Telefono, P.Estado AS PersonaEstado,
-                               C.FechaAlta, C.Cuit, C.Estado AS ClienteEstado,
+                               C.FechaAlta, C.Estado AS ClienteEstado,
                                Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                FROM Cliente C
-                               INNER JOIN Persona P ON C.IdPersona = P.Id
+                               INNER JOIN Persona P ON C.Id = P.Id
                                INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
                                WHERE P.Dni = @Dni");
                 datos.setearParametros("@Dni", dni);
@@ -239,8 +237,7 @@ namespace negocio
                         Email = (string)datos.Lector["Email"],
                         Telefono = (string)datos.Lector["Telefono"],
                         FechaAlta = (DateTime)datos.Lector["FechaAlta"],
-                        Cuit = (string)datos.Lector["Cuit"],
-                        Estado = (bool)datos.Lector["ClienteEstado"],
+                        Estado = Convert.ToBoolean(datos.Lector["ClienteEstado"]),
                         Direccion = new Direccion
                         {
                             Calle = (string)datos.Lector["Calle"],

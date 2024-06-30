@@ -26,7 +26,7 @@ namespace TPCuatrimestral_Equipo21
         }
         protected void btnCrearNuevo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("FormularioArticulo.aspx");
+            Response.Redirect("FormularioCliente.aspx");
         }
         protected void rptClientes_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
