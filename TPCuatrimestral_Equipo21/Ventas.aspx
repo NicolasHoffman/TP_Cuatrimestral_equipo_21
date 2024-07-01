@@ -122,7 +122,7 @@
                     </tbody>
                 </table>
                 <div>Total a Pagar: <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label></div>
-                <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" />
+                <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click"  />
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" />
                 
             </div>

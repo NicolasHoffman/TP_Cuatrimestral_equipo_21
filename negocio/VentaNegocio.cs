@@ -10,7 +10,6 @@ namespace negocio
     public class VentaNegocio
     {
 
-
         public void agregarVenta(Venta nuevaVenta)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -35,5 +34,33 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public int obtenerUltimoIdVenta()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT MAX(Id) AS UltimoId FROM VENTA");
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int ultimoId = Convert.ToInt32(datos.Lector["UltimoId"]);
+                    return ultimoId;
+                }
+                else
+                {
+                    throw new Exception("No se encontró el último ID de venta.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
