@@ -257,5 +257,33 @@ namespace TPCuatrimestral_Equipo21
             
         }
 
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            // Limpiar datos del cliente
+            txtNombreCliente.Text = string.Empty;
+            txtCliente.Text = string.Empty;
+            txtCodigoProducto.Text = string.Empty;
+            txtNombreproducto.Text = string.Empty;
+
+            // Limpiar estado del carrito
+            Carrito.Clear();
+            Repeater1.DataSource = Carrito;
+            Repeater1.DataBind();
+
+            // Limpiar lista de productos encontrados
+            rptVentas.DataSource = null;
+            rptVentas.DataBind();
+
+            // Actualizar total a pagar
+            ActualizarTotalAPagar();
+
+            // Habilitar campos y botones necesarios
+            txtNombreCliente.Enabled = true;
+            btnCrearCliente.Enabled = true;
+            txtCodigoProducto.Enabled = false;
+            txtNombreproducto.Enabled = false;
+            btnCrearCliente.Visible = false;
+        }
     }
 }
