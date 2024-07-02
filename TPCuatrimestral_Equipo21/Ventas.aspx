@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Ventas.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Ventas" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:HiddenField ID="hdnClienteDireccion" runat="server" />
     <style>
         .input-group-append button {
             border-radius: 0;
@@ -129,6 +130,41 @@
         </div>
     </div>
 
+    <!-- Modal para seleccionar la forma de entrega -->
+<div class="modal fade" id="modalFormaEntrega" tabindex="-1" role="dialog" aria-labelledby="modalFormaEntregaLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormaEntregaLabel">Elegí la forma de entrega</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <asp:RadioButton ID="rbtnDomicilio" runat="server" GroupName="FormaEntrega" Text="Enviar a domicilio" Checked="True" />
+                    <div class="ml-4">
+                        <p id="direccionClienteModal"></p>
+                        <a href="FormularioDireccion.aspx" class="btn btn-link">Editar o elegir otro domicilio</a>
+                    </div>
+                </div>
+                <div>
+                    <asp:RadioButton ID="rbtnDepósito" runat="server" GroupName="FormaEntrega" Text="Retirar en Depósito" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <asp:Button ID="btnConfirmarFormaEntrega" runat="server" Text="Confirmar" CssClass="btn btn-primary" OnClick="btnConfirmarFormaEntrega_Click" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
@@ -148,5 +184,21 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#<%=btnGenerarVenta.ClientID %>').click(function (e) {
+            e.preventDefault();
+            
+            // Obtener la dirección del cliente desde el campo oculto
+            var direccionCliente = $('#<%=hdnClienteDireccion.ClientID %>').val();
+
+            // Mostrar la dirección en el modal
+            $('#direccionClienteModal').text(direccionCliente);
+
+            $('#modalFormaEntrega').modal('show');
+        });
+    });
+</script>
 
 </asp:Content>
