@@ -232,6 +232,7 @@ namespace TPCuatrimestral_Equipo21
             {
                 VentaNegocio ventaNegocio = new VentaNegocio();
                 DetalleVentaNegocio detalleVentaNegocio = new DetalleVentaNegocio();
+                PedidoNegocio pedidoNegocio = new PedidoNegocio();
 
                 int idCliente = IdClienteSeleccionado;
 
@@ -259,6 +260,17 @@ namespace TPCuatrimestral_Equipo21
                         detalle.PrecioUnitario = item.Precio;
 
                         detalleVentaNegocio.agregarDetalleVenta(detalle);
+                    }
+
+                    // Guardar en la tabla Pedido si la opción seleccionada es Enviar a domicilio
+                    if (FormaEntregaSeleccionada == "Domicilio")
+                    {
+                        Pedido nuevoPedido = new Pedido();
+                        nuevoPedido.Venta.Id = idVentaGenerado;
+                        nuevoPedido.EstadoPedido.Id = 1;
+                        nuevoPedido.EstadoP = false;
+
+                        pedidoNegocio.agregarPedido(nuevoPedido);
                     }
 
                     Carrito.Clear();

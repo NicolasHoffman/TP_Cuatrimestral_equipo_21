@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using dominio;
 
+
 namespace negocio
 {
     public class PedidoNegocio
@@ -51,6 +52,31 @@ namespace negocio
             }
 
             return lista;
+        }
+
+        public void agregarPedido(Pedido nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            
+            try
+            {
+                datos.setearConsulta("INSERT INTO Pedido (IdVenta, EstadoPedido, EstadoP) VALUES (@IdVenta, @EstadoPedido, @EstadoP)");
+
+                datos.setearParametros("@IdVenta", nuevo.Venta.Id);
+                datos.setearParametros("@EstadoPedido", nuevo.EstadoPedido);
+                datos.setearParametros("@EstadoP", nuevo.EstadoP);
+              
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
