@@ -17,7 +17,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT P.Id, P.EstadoP,V.Id AS VentaId, V.FechaVenta, V.IdCliente, V.IdVendedor, V.IdFormaDePago, V.ImporteTotal, EP.Id AS EstadoPedidoId, EP.Descripcion AS EstadoPedidoDescripcion FROM PEDIDO P INNER JOIN VENTA V ON V.Id = P.IdVenta INNER JOIN ESTADO_PEDIDO EP ON EP.Id = P.IdEstadoPedido");
+                datos.setearConsulta(@"SELECT P.Id, P.EstadoP,V.Id AS VentaId, V.FechaVenta, V.IdCliente, V.IdVendedor, V.IdFormaDePago, V.ImporteTotal, EP.Id AS EstadoPedidoId, EP.Descripcion AS EstadoPedidoDescripcion FROM PEDIDO P INNER JOIN VENTA V ON V.Id = P.IdVenta INNER JOIN ESTADOPEDIDO EP ON EP.Id = P.IdEstadoPedido");
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
