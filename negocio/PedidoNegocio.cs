@@ -61,10 +61,10 @@ namespace negocio
             
             try
             {
-                datos.setearConsulta("INSERT INTO Pedido (IdVenta, EstadoPedido, EstadoP) VALUES (@IdVenta, @EstadoPedido, @EstadoP)");
+                datos.setearConsulta("INSERT INTO Pedido (IdVenta, IdEstadoPedido, EstadoP) VALUES (@IdVenta, @IdEstadoPedido, @EstadoP)");
 
                 datos.setearParametros("@IdVenta", nuevo.Venta.Id);
-                datos.setearParametros("@EstadoPedido", nuevo.EstadoPedido);
+                datos.setearParametros("@IdEstadoPedido", nuevo.EstadoPedido.Id);
                 datos.setearParametros("@EstadoP", nuevo.EstadoP);
               
                 datos.ejecutarAccion();

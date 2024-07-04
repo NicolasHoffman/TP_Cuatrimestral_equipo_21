@@ -234,7 +234,8 @@ namespace TPCuatrimestral_Equipo21
                 DetalleVentaNegocio detalleVentaNegocio = new DetalleVentaNegocio();
                 PedidoNegocio pedidoNegocio = new PedidoNegocio();
 
-                int idCliente = IdClienteSeleccionado;
+                //int idCliente = IdClienteSeleccionado;
+                int idCliente = 1;
 
                 Venta nuevaVenta = new Venta();
                 nuevaVenta.IdCliente = idCliente;
@@ -266,7 +267,10 @@ namespace TPCuatrimestral_Equipo21
                     if (FormaEntregaSeleccionada == "Domicilio")
                     {
                         Pedido nuevoPedido = new Pedido();
+                        nuevoPedido.Venta = new Venta();
                         nuevoPedido.Venta.Id = idVentaGenerado;
+                        nuevoPedido.EstadoPedido = new EstadoPedido();
+
                         nuevoPedido.EstadoPedido.Id = 1;
                         nuevoPedido.EstadoP = false;
 
