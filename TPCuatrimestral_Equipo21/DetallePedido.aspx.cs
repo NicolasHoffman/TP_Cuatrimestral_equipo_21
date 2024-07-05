@@ -64,7 +64,7 @@ namespace TPCuatrimestral_Equipo21
             int idVenta = Convert.ToInt32(Request.QueryString["idVenta"]);
             if (idVenta > 0)
             {
-                pedidonegocio.cambiarEstado(idVenta, 2);
+                pedidonegocio.cambiarEstado(idVenta, 3);
                 Response.Redirect("Pedidos.aspx");
             }
 

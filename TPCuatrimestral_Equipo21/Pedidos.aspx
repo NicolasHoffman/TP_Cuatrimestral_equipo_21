@@ -25,6 +25,7 @@
                         <tr>
                             <th>ID</th>
                             <th>IdVenta</th>
+                            <th>IdUsuario</th>
                             <th>ESTADO PEDIDO</th>
                             <th style="width: 80px;">ACCIÓN</th>
                         </tr>
@@ -33,6 +34,7 @@
                         <tr>
                             <th>ID</th>
                             <th>IdVenta</th>
+                            <th>IdUsuario</th>
                             <th>ESTADO PEDIDO</th>
                             <th style="width: 80px;">ACCIÓN</th>
                         </tr>
@@ -43,6 +45,7 @@
                                 <tr>
                                     <td><%# Eval("Id") %></td>
                                     <td><%# Eval("Venta.Id") %></td>
+                                     <td><%# Eval("IdUsuario") %></td>
                                     <td><%# Eval("EstadoPedido.Descripcion") %></td>
                                     <td>
                                         <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
@@ -64,6 +67,7 @@
                 columns: [
                     { select: 0, sortable: true },
                     { select: 1, sortable: true },
+                    { select: 2, sortable: true },
                     { select: 2, sortable: true },
                     { select: 3, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
                 ]

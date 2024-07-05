@@ -17,27 +17,34 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT P.Id, P.EstadoP,V.Id AS VentaId, V.FechaVenta, V.IdCliente, V.IdVendedor, V.IdFormaDePago, V.ImporteTotal, EP.Id AS EstadoPedidoId, EP.Descripcion AS EstadoPedidoDescripcion FROM PEDIDO P INNER JOIN VENTA V ON V.Id = P.IdVenta INNER JOIN ESTADOPEDIDO EP ON EP.Id = P.IdEstadoPedido");
+                datos.setearConsulta(@"SELECT P.Id, P.EstadoP, P.IdUsuario, V.Id AS VentaId, V.FechaVenta, V.IdCliente, V.IdVendedor, V.IdFormaDePago, V.ImporteTotal, EP.Id AS EstadoPedidoId, EP.Descripcion AS EstadoPedidoDescripcion 
+                                       FROM Pedido P 
+                                       INNER JOIN Venta V ON V.Id = P.IdVenta 
+                                       INNER JOIN EstadoPedido EP ON EP.Id = P.IdEstadoPedido");
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Pedido aux = new Pedido();
-
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.EstadoP = (bool)datos.Lector["EstadoP"];
-
-                    aux.Venta = new Venta();
-                    aux.Venta.Id = (int)datos.Lector["VentaId"];
-                    aux.Venta.FechaVenta = (DateTime)datos.Lector["FechaVenta"];
-                    aux.Venta.IdCliente = (int)datos.Lector["IdCliente"];
-                    aux.Venta.IdVendedor = (int)datos.Lector["IdVendedor"];
-                    aux.Venta.IdFormaDePago = (int)datos.Lector["IdFormaDePago"];
-                    aux.Venta.ImporteTotal = (decimal)datos.Lector["ImporteTotal"];
-
-                    aux.EstadoPedido = new EstadoPedido();
-                    aux.EstadoPedido.Id = (int)datos.Lector["EstadoPedidoId"];
-                    aux.EstadoPedido.Descripcion = (string)datos.Lector["EstadoPedidoDescripcion"];
+                    Pedido aux = new Pedido
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        EstadoP = (bool)datos.Lector["EstadoP"],
+                        IdUsuario = (int)datos.Lector["IdUsuario"],
+                        Venta = new Venta
+                        {
+                            Id = (int)datos.Lector["VentaId"],
+                            FechaVenta = (DateTime)datos.Lector["FechaVenta"],
+                            IdCliente = (int)datos.Lector["IdCliente"],
+                            IdVendedor = (int)datos.Lector["IdVendedor"],
+                            IdFormaDePago = (int)datos.Lector["IdFormaDePago"],
+                            ImporteTotal = (decimal)datos.Lector["ImporteTotal"]
+                        },
+                        EstadoPedido = new EstadoPedido
+                        {
+                            Id = (int)datos.Lector["EstadoPedidoId"],
+                            Descripcion = (string)datos.Lector["EstadoPedidoDescripcion"]
+                        }
+                    };
 
                     lista.Add(aux);
                 }
@@ -58,15 +65,15 @@ namespace negocio
         {
             AccesoDatos datos = new AccesoDatos();
 
-            
             try
             {
-                datos.setearConsulta("INSERT INTO Pedido (IdVenta, IdEstadoPedido, EstadoP) VALUES (@IdVenta, @IdEstadoPedido, @EstadoP)");
+                datos.setearConsulta("INSERT INTO Pedido (IdVenta, IdUsuario, IdEstadoPedido, EstadoP) VALUES (@IdVenta, @IdUsuario, @IdEstadoPedido, @EstadoP)");
 
                 datos.setearParametros("@IdVenta", nuevo.Venta.Id);
+                datos.setearParametros("@IdUsuario", nuevo.IdUsuario);
                 datos.setearParametros("@IdEstadoPedido", nuevo.EstadoPedido.Id);
                 datos.setearParametros("@EstadoP", nuevo.EstadoP);
-              
+
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -78,6 +85,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
         public void cambiarEstado(int idVenta, int idEstadoPedido)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -107,36 +115,41 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT p.Id, v.Id as IdVenta, v.FechaVenta, v.IdCliente, v.IdVendedor, v.IdFormaDePago, v.ImporteTotal, ep.Id as IdEstadoPedido, ep.Descripcion as EstadoPedido, p.EstadoP FROM Pedido p INNER JOIN Venta v ON p.IdVenta = v.Id INNER JOIN EstadoPedido ep ON p.IdEstadoPedido = ep.Id WHERE p.Id = @IdPedido");
-        datos.setearParametros("@IdPedido", idPedido);
-        datos.ejecturaLectura();
+                datos.setearConsulta(@"SELECT P.Id, P.IdUsuario, V.Id AS IdVenta, V.FechaVenta, V.IdCliente, V.IdVendedor, V.IdFormaDePago, V.ImporteTotal, EP.Id AS IdEstadoPedido, EP.Descripcion AS EstadoPedido, P.EstadoP 
+                                       FROM Pedido P 
+                                       INNER JOIN Venta V ON P.IdVenta = V.Id 
+                                       INNER JOIN EstadoPedido EP ON P.IdEstadoPedido = EP.Id 
+                                       WHERE P.Id = @IdPedido");
+                datos.setearParametros("@IdPedido", idPedido);
+                datos.ejecturaLectura();
 
-        if (datos.Lector.Read())
-        {
-            pedido = new Pedido();
-            pedido.Id = (int)datos.Lector["Id"];
-            pedido.Venta = new Venta
-            {
-                Id = (int)datos.Lector["IdVenta"],
-                FechaVenta = Convert.ToDateTime(datos.Lector["FechaVenta"]),
-                IdCliente = (int)datos.Lector["IdCliente"],
-                IdVendedor = (int)datos.Lector["IdVendedor"],
-                IdFormaDePago = (int)datos.Lector["IdFormaDePago"],
-                ImporteTotal = (decimal)datos.Lector["ImporteTotal"]
-            };
-            pedido.EstadoPedido = new EstadoPedido
-            {
-                Id = (int)datos.Lector["IdEstadoPedido"],
-                Descripcion = (string)datos.Lector["EstadoPedido"]
-            };
-            pedido.EstadoP = (bool)datos.Lector["EstadoP"];
-        }
-
+                if (datos.Lector.Read())
+                {
+                    pedido = new Pedido
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        IdUsuario = (int)datos.Lector["IdUsuario"],
+                        Venta = new Venta
+                        {
+                            Id = (int)datos.Lector["IdVenta"],
+                            FechaVenta = Convert.ToDateTime(datos.Lector["FechaVenta"]),
+                            IdCliente = (int)datos.Lector["IdCliente"],
+                            IdVendedor = (int)datos.Lector["IdVendedor"],
+                            IdFormaDePago = (int)datos.Lector["IdFormaDePago"],
+                            ImporteTotal = (decimal)datos.Lector["ImporteTotal"]
+                        },
+                        EstadoPedido = new EstadoPedido
+                        {
+                            Id = (int)datos.Lector["IdEstadoPedido"],
+                            Descripcion = (string)datos.Lector["EstadoPedido"]
+                        },
+                        EstadoP = (bool)datos.Lector["EstadoP"]
+                    };
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
-                Console.WriteLine("Error al obtener el pedido: " + ex.Message);
             }
             finally
             {
@@ -154,9 +167,9 @@ namespace negocio
             try
             {
                 datos.setearConsulta(@"SELECT EP.Descripcion AS EstadoPedidoDescripcion 
-                               FROM Pedido P 
-                               INNER JOIN EstadoPedido EP ON P.IdEstadoPedido = EP.Id 
-                               WHERE P.IdVenta = @IdVenta");
+                                       FROM Pedido P 
+                                       INNER JOIN EstadoPedido EP ON P.IdEstadoPedido = EP.Id 
+                                       WHERE P.IdVenta = @IdVenta");
                 datos.setearParametros("@IdVenta", idVenta);
                 datos.ejecturaLectura();
 
@@ -168,7 +181,6 @@ namespace negocio
             catch (Exception ex)
             {
                 throw ex;
-                Console.WriteLine("Error al obtener la descripción del estado del pedido: " + ex.Message);
             }
             finally
             {
@@ -177,6 +189,5 @@ namespace negocio
 
             return descripcionEstadoPedido;
         }
-
     }
 }

@@ -283,6 +283,7 @@ namespace TPCuatrimestral_Equipo21
 
                         nuevoPedido.EstadoPedido.Id = 1;
                         nuevoPedido.EstadoP = false;
+                        nuevoPedido.IdUsuario = 1; 
 
                         pedidoNegocio.agregarPedido(nuevoPedido);
                     }

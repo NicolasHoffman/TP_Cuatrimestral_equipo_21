@@ -12,5 +12,7 @@ namespace dominio
         public Venta Venta { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
         public bool EstadoP { get; set; }
+
+        public int IdUsuario { get; set; }
     }
 }
