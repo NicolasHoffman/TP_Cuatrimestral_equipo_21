@@ -13,6 +13,9 @@ namespace TPCuatrimestral_Equipo21
         private readonly PedidoNegocio pedidoNegocio = new PedidoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Simular el inicio de sesión estableciendo manualmente el tipo de usuario en la sesión
+            Session["tipousuario"] = 2;
+
             if (!IsPostBack)
             {
                 //Cargar datos 
@@ -29,10 +32,19 @@ namespace TPCuatrimestral_Equipo21
             Response.Redirect("FormularioMarca.aspx");
         }
 
+
         protected void rptPedidos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            
+            if (e.CommandName == "Seleccionar")
+            {
+                int idVenta = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("DetallePedido.aspx?idVenta=" + idVenta);
+
+            }
         }
 
     }
-}
+           
+    }
+
+

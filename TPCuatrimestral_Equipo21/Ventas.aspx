@@ -123,6 +123,18 @@
                     </tbody>
                 </table>
                 <div>Total a Pagar: <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label></div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <label for="ddlFormaPago" class="form-label">Forma de Pago:</label>
+                        <asp:DropDownList ID="ddlFormaPago" runat="server" CssClass="form-control">
+                            <asp:ListItem Text="Efectivo" Value="Efectivo"></asp:ListItem>
+                            <asp:ListItem Text="Transferencia Bancaria" Value="Transferencia Bancaria"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+
+                <hr />
                 <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click"  />
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click"/>
                 

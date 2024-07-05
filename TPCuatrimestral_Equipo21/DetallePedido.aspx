@@ -1,21 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Pedidos.aspx.cs" Inherits="TPCuatrimestral_Equipo21.Pedidos" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetallePedido.aspx.cs" Inherits="TPCuatrimestral_Equipo21.DetallePedido" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container-fluid px-4">
-        <h1 class="mt-5">Pedidos</h1>
+        <h1 class="mt-5">Pedido</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>
-            <li class="breadcrumb-item active">Pedidos</li>
+            <li class="breadcrumb-item active">Pedido</li>
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Pedidos
-           
+                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Articulos de pedido
             </div>
             <div class="card-body">
-                <div class="row">
+                 <div class="row">
                     <div class="col-12">
+                        
+                        
                         <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
                     </div>
                 </div>
@@ -24,48 +24,47 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>IdVenta</th>
-                            <th>ESTADO PEDIDO</th>
-                            <th style="width: 80px;">ACCIÓN</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>IdVenta</th>
-                            <th>ESTADO PEDIDO</th>
-                            <th style="width: 80px;">ACCIÓN</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            
                         </tr>
                     </tfoot>
                     <tbody>
-                        <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand" >
+                         <asp:Repeater ID="rptDetallePedido" runat="server" OnItemCommand="rptDetallePedido_ItemCommand">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("Id") %></td>
-                                    <td><%# Eval("Venta.Id") %></td>
-                                    <td><%# Eval("EstadoPedido.Descripcion") %></td>
-                                    <td>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
-                                    </td>
+                                    <td><%# Eval("IdArticulo") %></td>
+                                    <td><%# Eval("NombreArticulo") %></td>
+                                    <td><%# Eval("Cantidad") %></td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
                     </tbody>
                 </table>
+                <asp:Button ID="btnPrepararPedido" runat="server" Text="Preparar" CssClass="btn btn-success" OnClick="btnPrepararPedido_Click"  />
+                <asp:Button ID="btnPedidoListo" runat="server" Text="Preparado" CssClass="btn btn-success" OnClick="btnPedidoListo_Click"  />
+                <asp:Button ID="btnPedidoEntregdo" runat="server" Text="Entregado" CssClass="btn btn-success" OnClick="btnPedidoEntregado_Click"  />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click"/>
             </div>
         </div>
     </div>
-                                       
+
 
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script>
         window.addEventListener('DOMContentLoaded', event => {
             const dataTable = new simpleDatatables.DataTable("#datatablesSimple", {
                 columns: [
-                    { select: 0, sortable: true },
-                    { select: 1, sortable: true },
-                    { select: 2, sortable: true },
-                    { select: 3, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                    { select: 0, sortable: false },
+                    { select: 1, sortable: false },
+                    { select: 2, sortable: false }
                 ]
             });
         });

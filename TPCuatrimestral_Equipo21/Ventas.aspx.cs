@@ -240,7 +240,17 @@ namespace TPCuatrimestral_Equipo21
                 Venta nuevaVenta = new Venta();
                 nuevaVenta.IdCliente = idCliente;
                 nuevaVenta.IdVendedor = 1;
-                nuevaVenta.IdFormaDePago = 1;
+
+                if (ddlFormaPago.SelectedValue == "Efectivo")
+                {
+                    nuevaVenta.IdFormaDePago = 1; // Efectivo
+                }
+                else if (ddlFormaPago.SelectedValue == "Transferencia Bancaria")
+                {
+                    nuevaVenta.IdFormaDePago = 3; // Transferencia bancaria
+                }
+
+                //nuevaVenta.IdFormaDePago = 1;
                 nuevaVenta.ImporteTotal = CalcularTotalCarrito();
                 //nuevaVenta.FormaDeEntrega = FormaEntregaSeleccionada; // Guardar la forma de entrega
                 string forma = FormaEntregaSeleccionada;
