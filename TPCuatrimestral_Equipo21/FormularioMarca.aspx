@@ -7,16 +7,24 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-        function validar() {
-            //captura el control
+       function validar() {
             const txtNombreMarca = document.getElementById("txtNombreMarca");
             const errorMensaje = document.getElementById("errorMensaje");
-            if (txtNombreMarca.value == "") {
-                //alert("Debes cargar la marca..");
+            const soloLetras = /^[a-zA-Z\s]+$/;
+
+            if (txtNombreMarca.value.trim() === "") {
                 txtNombreMarca.classList.add("is-invalid");
+                errorMensaje.innerText = "Campo requerido";
                 errorMensaje.style.display = "block";
                 return false;
             }
+            else if (!soloLetras.test(txtNombreMarca.value.trim())) {
+                txtNombreMarca.classList.add("is-invalid");
+                errorMensaje.innerText = "Solo se permiten letras";
+                errorMensaje.style.display = "block";
+                return false;
+            }
+
             txtNombreMarca.classList.remove("is-invalid");
             txtNombreMarca.classList.add("is-valid");
             errorMensaje.style.display = "none";
@@ -37,35 +45,38 @@
                 modalBody.innerText = 'Hubo un error al cargar la marca.';
                 btnContinuar.onclick = function () { $('#resultModal').modal('hide'); };
             }
+
             $('#resultModal').modal('show');
         }
-
     </script>
 
-     <div class="container-fluid px-4">
-            <h1 class="mt-5">Agregar Nueva Marcas</h1>
-            <div class="card mt-4">
-                <div class="card-header">
-                    <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i> Nueva Marca
+    <div class="container-fluid px-4">
+        <h1 class="mt-5">Agregar Nueva Marca</h1>
+        <div class="card mt-4">
+            <div class="card-header">
+                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i> Nueva Marca
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="txtNombreMarca" class="form-label">Nombre de la marca:</label>
+                        <asp:TextBox ID="txtNombreMarca" ClientIDMode="Static" runat="server" CssClass="form-control mb-3" placeholder="Ingrese marca"></asp:TextBox>
+                        <span id="errorMensaje" class="text-danger" style="display:none;">Campo requerido</span>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Campo de texto para ingresar el nombre de la marca -->
-                            <label for="txtNombreMarca" class="form-label">Nombre de la marca:</label>
-                            <asp:TextBox ID="txtNombreMarca" ClientIDMode="Static" runat="server" CssClass="form-control mb-3" placeholder="Ingrese marca"></asp:TextBox>
-                            <span id="errorMensaje" class="text-danger" style="display:none;">Campo requerido</span>
-                            
-                            <!-- Botones Aceptar y Cancelar -->
-                            <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-success me-2" OnClientClick="return validar()" OnClick="btnAceptar_Click" />
-                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" />
-                        </div>
+                <div class="row">
+                    <div class="col-12">
+                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-success me-2" OnClientClick="return validar()" OnClick="btnAceptar_Click" />
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" />
+                        <asp:Label ID="lblError" runat="server" Text="" Visible="false" CssClass="text-danger"></asp:Label>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- Modal  -->
-     <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

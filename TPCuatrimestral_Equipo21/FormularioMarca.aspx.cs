@@ -44,25 +44,46 @@ namespace TPCuatrimestral_Equipo21
             bool success = false;
             try
             {
-                
-                MarcaNegocio negocio = new MarcaNegocio();
-
-     
-                // lo uso para convertir la primera letra en mayuscula
-                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                string nuevaMarca = textInfo.ToTitleCase(txtNombreMarca.Text.ToLower().Trim());
-
-                if (Request.QueryString["id"] != null)
+                // Page.Validate();
+                //if(!Page.IsValid)
+                //  return;
+                string nombreMarca = txtNombreMarca.Text.Trim();
+                if (Validaciones.NoPuedeEstarVacia(nombreMarca))
                 {
-                    int id = int.Parse(Request.QueryString["id"]);
-                    negocio.modificar(id, nuevaMarca);
+                    if (Validaciones.SoloLetras(nombreMarca))
+                    {
+                        MarcaNegocio negocio = new MarcaNegocio();
+
+
+                        // lo uso para convertir la primera letra en mayuscula
+                        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                        string nuevaMarca = textInfo.ToTitleCase(txtNombreMarca.Text.ToLower().Trim());
+
+                        if (Request.QueryString["id"] != null)
+                        {
+                            int id = int.Parse(Request.QueryString["id"]);
+                            negocio.modificar(id, nuevaMarca);
+                        }
+                        else
+                        {
+                            negocio.agregar(nuevaMarca);
+                        }
+                        success = true;
+                    }
+                    else
+                    {
+                        lblError.Text = "El campo 'Nombre de la marca' solo puede contener letras.";
+                        lblError.Visible = true;
+                        return;
+                    }
+                    //Response.Redirect("Marcas.aspx", false);
                 }
                 else
                 {
-                    negocio.agregar(nuevaMarca);
+                    lblError.Text = "El campo 'Nombre de la marca' es obligatorio.";
+                    lblError.Visible = true;
+                    return;
                 }
-                success = true;
-                //Response.Redirect("Marcas.aspx", false);
             }
             catch (Exception ex)
             {
