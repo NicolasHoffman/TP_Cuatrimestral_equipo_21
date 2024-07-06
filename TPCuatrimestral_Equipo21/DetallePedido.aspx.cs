@@ -53,7 +53,10 @@ namespace TPCuatrimestral_Equipo21
             if (idVenta > 0)
             {
                 pedidonegocio.cambiarEstado(idVenta, 2);
+                //sesion
+                pedidonegocio.asignarUsuario(idVenta, 1);
                 Response.Redirect("Pedidos.aspx");
+
             }
 
         }

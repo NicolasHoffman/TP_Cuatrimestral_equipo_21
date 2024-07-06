@@ -11,6 +11,7 @@ namespace TPCuatrimestral_Equipo21
     public partial class Pedidos : System.Web.UI.Page
     {
         private readonly PedidoNegocio pedidoNegocio = new PedidoNegocio();
+        private readonly UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             // Simular el inicio de sesión estableciendo manualmente el tipo de usuario en la sesión
@@ -24,7 +25,30 @@ namespace TPCuatrimestral_Equipo21
         }
         private void CargarDatos()
         {
-            rptPedidos.DataSource = pedidoNegocio.listar();
+            var pedidos = pedidoNegocio.listar();
+            
+
+            foreach (var pedido in pedidos)
+            {
+                if (pedido.IdUsuario != 0)
+                {
+                    var usuario = usuarioNegocio.obtenerNombreApellidoPorId(pedido.IdUsuario);
+                    if (usuario != null)
+                    {
+                        pedido.NombreUsuario = usuario.Nombre + " " + usuario.Apellido;
+                    }
+                    else
+                    {
+                        pedido.NombreUsuario = "Desconocido";
+                    }
+                }
+                else
+                {
+                    pedido.NombreUsuario = "Sin asignar";
+                }
+            }
+
+            rptPedidos.DataSource = pedidos;
             rptPedidos.DataBind();
         }
         protected void btnCrearNuevo_Click(object sender, EventArgs e)

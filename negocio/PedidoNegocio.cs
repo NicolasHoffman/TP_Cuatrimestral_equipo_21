@@ -29,7 +29,8 @@ namespace negocio
                     {
                         Id = (int)datos.Lector["Id"],
                         EstadoP = (bool)datos.Lector["EstadoP"],
-                        IdUsuario = (int)datos.Lector["IdUsuario"],
+                        IdUsuario = datos.Lector["IdUsuario"] != DBNull.Value ? (int)datos.Lector["IdUsuario"] : 0, // O maneja de otra forma, dependiendo de tu lógica
+                        //IdUsuario = (int)datos.Lector["IdUsuario"],
                         Venta = new Venta
                         {
                             Id = (int)datos.Lector["VentaId"],
@@ -67,10 +68,9 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO Pedido (IdVenta, IdUsuario, IdEstadoPedido, EstadoP) VALUES (@IdVenta, @IdUsuario, @IdEstadoPedido, @EstadoP)");
+                datos.setearConsulta("INSERT INTO Pedido (IdVenta, IdEstadoPedido, EstadoP) VALUES (@IdVenta, @IdEstadoPedido, @EstadoP)");
 
                 datos.setearParametros("@IdVenta", nuevo.Venta.Id);
-                datos.setearParametros("@IdUsuario", nuevo.IdUsuario);
                 datos.setearParametros("@IdEstadoPedido", nuevo.EstadoPedido.Id);
                 datos.setearParametros("@EstadoP", nuevo.EstadoP);
 
@@ -189,5 +189,28 @@ namespace negocio
 
             return descripcionEstadoPedido;
         }
+
+        public void asignarUsuario(int idVenta, int IdUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Pedido SET IdUsuario = @IdUsuario WHERE IdVenta = @IdVenta");
+                datos.setearParametros("@IdVenta", idVenta);
+                datos.setearParametros("@IdUsuario", IdUsuario);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
