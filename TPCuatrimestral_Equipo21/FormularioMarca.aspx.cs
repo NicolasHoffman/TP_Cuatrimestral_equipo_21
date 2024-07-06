@@ -41,6 +41,7 @@ namespace TPCuatrimestral_Equipo21
         }
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            bool success = false;
             try
             {
                 
@@ -60,13 +61,16 @@ namespace TPCuatrimestral_Equipo21
                 {
                     negocio.agregar(nuevaMarca);
                 }
-                Response.Redirect("Marcas.aspx", false);
+                success = true;
+                //Response.Redirect("Marcas.aspx", false);
             }
             catch (Exception ex)
             {
+                success = false;
                 Session.Add("error", ex);
                 throw;
             }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", $"mostrarModal({success.ToString().ToLower()});", true);
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
