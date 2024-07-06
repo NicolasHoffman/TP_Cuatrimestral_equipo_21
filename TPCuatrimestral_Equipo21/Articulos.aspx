@@ -22,6 +22,7 @@
                 <table id="datatablesSimple" class="table table-striped table-bordered">
                     <thead>
                         <tr>
+                            <th>Imagen</th>
                             <th>Codigo</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
@@ -32,22 +33,13 @@
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Descripcion</th>
-                            <th>Marca</th>
-                            <th>Categoria</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Acción</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                          <asp:Repeater ID="rptArticulos" runat="server" OnItemCommand="rptArticulos_ItemCommand">
                             <ItemTemplate>
                                 <tr>
+                                    <td>
+                                        <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("ImagenArt") %>' Height="50" Width="50" />
+                                    </td>
                                     <td><%# Eval("Id") %></td>
                                     <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("Descripcion") %></td>
@@ -78,8 +70,9 @@
                     { select: 3, sortable: true },
                     { select: 4, sortable: true },
                     { select: 5, sortable: true },
-                    { select: 6, sortable: false }, // Desactivar ordenamiento para la columna de "Estado"
-                    { select: 7, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                    { select: 6, sortable: true },
+                    { select: 7, sortable: false }, // Desactivar ordenamiento para la columna de "Estado"
+                    { select: 8, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
                 ]
             });
         });

@@ -55,35 +55,16 @@ namespace TPCuatrimestral_Equipo21
                 nuevo.Codigo = txtCodigoArticulo.Text;
                 nuevo.Nombre = txtNombreArticulo.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.ImagenArt = "das";
+                nuevo.ImagenArt = imgArticuloNuevo.ImageUrl; // RUTA DE IMAGEN
+                
                 nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                // me falta ver lo de la imagen
+             
 
                 nuevo.Marca = new Marca();
                 nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
 
                 nuevo.Categoria = new Categori();
                 nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-
-
-                /* IMAGEN VER DESPUES !!!
-                 * 
-                //string ruta = Server.MapPath("./Images/Articulos/");
-                //txtImagen.PostedFile.SaveAs(ruta + "articulo-" + ".jpg");
-
-                // Ruta donde se guardarán las imágenes
-                string ruta = Server.MapPath("./Images/Articulos/");
-
-                // Obtener el nombre del archivo
-                string fileName = System.IO.Path.GetFileName(txtImagen.PostedFile.FileName);
-
-                // Guardar la imagen con su nombre original
-                txtImagen.PostedFile.SaveAs(System.IO.Path.Combine(ruta, fileName));
-
-                // Actualizar la URL de la imagen en la página
-                imgArticuloNuevo.ImageUrl = "./Images/Articulos/" + fileName;
-
-               */
 
                 if (Request.QueryString["id"] != null)
                 {
@@ -110,12 +91,27 @@ namespace TPCuatrimestral_Equipo21
         {
             if (txtImagen.HasFile)
             {
-                string ruta = Server.MapPath("~/Images/Articulos/");
-                string fileName = System.IO.Path.GetFileName(txtImagen.PostedFile.FileName);
-                txtImagen.PostedFile.SaveAs(System.IO.Path.Combine(ruta, fileName));
-                imgArticuloNuevo.ImageUrl = "~/Images/Articulos/" + fileName;
-                UpdatePanel1.Update(); // Actualizar el UpdatePanel
+                try
+                {
+
+                    // Ruta donde se guardarán las imágenes
+                    string ruta = Server.MapPath("~/Images/Articulos/");
+                    string fileName = System.IO.Path.GetFileName(txtImagen.PostedFile.FileName);
+                    // Guardar la imagen en el servidor
+                    txtImagen.PostedFile.SaveAs(System.IO.Path.Combine(ruta, fileName));
+                    // Actualizar la URL de la imagen en la página
+                    imgArticuloNuevo.ImageUrl = "~/Images/Articulos/" + fileName;
+                    // Actualizar el UpdatePanel para mostrar la nueva imagen
+                    UpdatePanel1.Update();
+                }
+                catch (Exception ex)
+                {
+                    // Manejar cualquier error que pueda ocurrir al guardar la imagen
+                    Session["Error"] = ex.ToString();
+                }
             }
         }
+
     }
 }
+

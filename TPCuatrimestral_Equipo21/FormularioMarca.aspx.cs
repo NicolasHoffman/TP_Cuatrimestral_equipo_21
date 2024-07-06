@@ -54,8 +54,10 @@ namespace TPCuatrimestral_Equipo21
                         MarcaNegocio negocio = new MarcaNegocio();
 
                         // Convertir la primera letra en mayúscula
-                        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                        string nuevaMarca = textInfo.ToTitleCase(nombreMarca.ToLower());
+                        // TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                        // string nuevaMarca = textInfo.ToTitleCase(nombreMarca.ToLower());
+
+                        string nuevaMarca = nombreMarca.ToUpper();
 
                         // Verificar si la marca ya existe
                         if (negocio.existencia(nuevaMarca))
