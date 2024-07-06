@@ -190,8 +190,33 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public bool existencia(string marca)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+               
+                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Nombre = @Marca");
+                datos.setearParametros("@Marca", marca);
+                datos.ejecturaLectura();
 
+                if (datos.Lector.Read())
+                {
+                    int count = Convert.ToInt32(datos.Lector[0]);
+                    return count > 0;
+                }
 
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

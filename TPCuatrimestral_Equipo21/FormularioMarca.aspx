@@ -43,7 +43,7 @@
             } else {
                 modalTitle.innerHTML = '<i class="fas fa-times-circle text-danger"></i> Error en la carga';
                 modalBody.innerText = 'Hubo un error al cargar la marca.';
-                btnContinuar.onclick = function () { $('#resultModal').modal('hide'); };
+                tnContinuar.onclick = function () { window.location.href = 'Marcas.aspx'; };
             }
 
             $('#resultModal').modal('show');
@@ -66,9 +66,14 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+
+                        <asp:Panel ID="pnlMensajes" runat="server" CssClass="alert alert-danger" Visible="false">
+                        <asp:Label ID="lblMensajeError" runat="server"></asp:Label>
+                        </asp:Panel>
+
                         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="btn btn-success me-2" OnClientClick="return validar()" OnClick="btnAceptar_Click" />
                         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" />
-                        <asp:Label ID="lblError" runat="server" Text="" Visible="false" CssClass="text-danger"></asp:Label>
+                       
                     </div>
                 </div>
             </div>

@@ -42,47 +42,48 @@ namespace TPCuatrimestral_Equipo21
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             bool success = false;
+            string mensajeError = "";
             try
             {
-                // Page.Validate();
-                //if(!Page.IsValid)
-                //  return;
                 string nombreMarca = txtNombreMarca.Text.Trim();
+
                 if (Validaciones.NoPuedeEstarVacia(nombreMarca))
                 {
                     if (Validaciones.SoloLetras(nombreMarca))
                     {
                         MarcaNegocio negocio = new MarcaNegocio();
 
-
-                        // lo uso para convertir la primera letra en mayuscula
+                        // Convertir la primera letra en mayúscula
                         TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                        string nuevaMarca = textInfo.ToTitleCase(txtNombreMarca.Text.ToLower().Trim());
+                        string nuevaMarca = textInfo.ToTitleCase(nombreMarca.ToLower());
 
-                        if (Request.QueryString["id"] != null)
+                        // Verificar si la marca ya existe
+                        if (negocio.existencia(nuevaMarca))
                         {
-                            int id = int.Parse(Request.QueryString["id"]);
-                            negocio.modificar(id, nuevaMarca);
+                            mensajeError = "La Marca ingresada ya existe.";
                         }
                         else
                         {
-                            negocio.agregar(nuevaMarca);
+                            if (Request.QueryString["id"] != null)
+                            {
+                                int id = int.Parse(Request.QueryString["id"]);
+                                negocio.modificar(id, nuevaMarca);
+                            }
+                            else
+                            {
+                                negocio.agregar(nuevaMarca);
+                            }
+                            success = true;
                         }
-                        success = true;
                     }
                     else
                     {
-                        lblError.Text = "El campo 'Nombre de la marca' solo puede contener letras.";
-                        lblError.Visible = true;
-                        return;
+                        mensajeError = "El campo 'Nombre de la marca' solo puede contener letras.";
                     }
-                    //Response.Redirect("Marcas.aspx", false);
                 }
                 else
                 {
-                    lblError.Text = "El campo 'Nombre de la marca' es obligatorio.";
-                    lblError.Visible = true;
-                    return;
+                    mensajeError = "El campo 'Nombre de la marca' es obligatorio.";
                 }
             }
             catch (Exception ex)
@@ -91,7 +92,19 @@ namespace TPCuatrimestral_Equipo21
                 Session.Add("error", ex);
                 throw;
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", $"mostrarModal({success.ToString().ToLower()});", true);
+            finally
+            {
+                if (!success && !string.IsNullOrEmpty(mensajeError))
+                {
+                    lblMensajeError.Text = mensajeError;
+                    pnlMensajes.Visible = true;
+                }
+                else
+                {
+                    pnlMensajes.Visible = false;
+                }
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", $"mostrarModal({success.ToString().ToLower()});", true);
+            }
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
