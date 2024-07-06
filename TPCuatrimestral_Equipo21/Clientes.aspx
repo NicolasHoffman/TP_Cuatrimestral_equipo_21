@@ -8,12 +8,11 @@
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Clientes
+                <i class="fa-solid fa-users" style="color: #2c78aa;"></i> Lista de Clientes
             </div>
             <div class="card-body">
                  <div class="row">
                     <div class="col-12">
-
                         <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
                     </div>
                 </div>
@@ -49,8 +48,10 @@
                                     <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("Apellido") %></td>
                                     <td><%# Eval("Email") %></td>
-                                    <td><%# Eval("FechaAlta") %></td>
-                                    <td><%# Eval("Estado") %></td>
+                                     <td><%# Convert.ToDateTime(Eval("FechaAlta")).ToShortDateString() %></td>
+                                    <td>
+                                    <%# Convert.ToBoolean(Eval("Estado")) ? "Inactivo" : "Activo" %>
+                                    </td>
                                     <td>
                                        <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Dni") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                        <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Eliminar" CommandArgument='<%# Eval("Dni") %>'><i class="fas fa-trash"></i></asp:LinkButton>
@@ -73,7 +74,7 @@
                     { select: 2, sortable: true },
                     { select: 3, sortable: true },
                     { select: 4, sortable: true },
-                    { select: 5, sortable: true },
+                    { select: 5, sortable: false },
                     { select: 6, sortable: false }
                 ]
             });
