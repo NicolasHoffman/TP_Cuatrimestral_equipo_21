@@ -23,6 +23,10 @@
                             <asp:TextBox ID="txtCodigoArticulo" runat="server" CssClass="form-control" placeholder="Ingrese Codigo"></asp:TextBox>
                         </div>
                         <div class="mb-3">
+                            <label for="ddlProveedor" class="form-label">Proveedor</label>
+                            <asp:DropDownList ID="ddlProveedor" CssClass="form-select" runat="server"></asp:DropDownList>
+                        </div>
+                        <div class="mb-3">
                             <label for="txtNombreArticulo" class="form-label">Nombre del Articulo:</label>
                             <asp:TextBox ID="txtNombreArticulo" runat="server" CssClass="form-control" placeholder="Ingrese Nombre del Articulo"></asp:TextBox>
                         </div>

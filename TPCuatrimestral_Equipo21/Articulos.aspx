@@ -30,7 +30,7 @@
                             <th>Categoria</th>
                             <th>Precio</th>
                             <th>Estado</th>
-                            <th>Acción</th>
+                            <th>Administración</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
         window.addEventListener('DOMContentLoaded', event => {
             const dataTable = new simpleDatatables.DataTable("#datatablesSimple", {
                 columns: [
-                    { select: 0, sortable: true },
+                    { select: 0, sortable: false },
                     { select: 1, sortable: true },
                     { select: 2, sortable: true },
                     { select: 3, sortable: true },

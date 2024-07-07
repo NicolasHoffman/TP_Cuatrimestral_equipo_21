@@ -18,5 +18,6 @@ namespace dominio
         public decimal Precio { get; set; }
         public string ImagenArt { get; set; }
         public int Estado { get; set; }
+        public Proveedor Proveedor { get; set; }
     }
 }

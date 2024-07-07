@@ -19,8 +19,17 @@ namespace TPCuatrimestral_Equipo21
                 {
                     if (!IsPostBack)
                     {
-                        //ArticuloNegocio negocio = new ArticuloNegocio();
-                        MarcaNegocio negmarca = new MarcaNegocio();
+                        ProveedorNegocio negProv = new ProveedorNegocio();
+
+                        List<Proveedor> listaProveedores = negProv.listar();
+
+                        ddlProveedor.DataSource = listaProveedores;
+                        ddlProveedor.DataValueField = "Id";
+                        ddlProveedor.DataTextField = "Nombre";
+                        ddlProveedor.DataBind();
+
+                    //ArticuloNegocio negocio = new ArticuloNegocio();
+                    MarcaNegocio negmarca = new MarcaNegocio();
 
                         List<Marca> listaMarcas = negmarca.listar();
                         ddlMarca.DataSource = listaMarcas;
@@ -58,9 +67,11 @@ namespace TPCuatrimestral_Equipo21
                 nuevo.ImagenArt = imgArticuloNuevo.ImageUrl; // RUTA DE IMAGEN
                 
                 nuevo.Precio = decimal.Parse(txtPrecio.Text);
-             
 
-                nuevo.Marca = new Marca();
+                nuevo.Proveedor = new Proveedor();
+                nuevo.Proveedor.Id = int.Parse(ddlProveedor.SelectedValue);
+                
+                 nuevo.Marca = new Marca();
                 nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
 
                 nuevo.Categoria = new Categori();

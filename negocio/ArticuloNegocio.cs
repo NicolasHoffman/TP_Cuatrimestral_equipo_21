@@ -61,7 +61,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio, ImagenUrl, Estado) VALUES (@Codigo, @Nombre, @Descripcion, @IDMarca, @IDCategoria, @Precio, @ImagenUrl, @Estado)");
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio, ImagenUrl, IdProveedor, Estado) VALUES (@Codigo, @Nombre, @Descripcion, @IDMarca, @IDCategoria, @Precio, @ImagenUrl, @IDProveedor, @Estado)");
 
                 datos.setearParametros("@Codigo", nuevo.Codigo);
                 datos.setearParametros("@Nombre", nuevo.Nombre);
@@ -70,6 +70,7 @@ namespace negocio
                 datos.setearParametros("@IDCategoria", nuevo.Categoria.Id);
                 datos.setearParametros("@Precio", nuevo.Precio);
                 datos.setearParametros("@ImagenUrl", nuevo.ImagenArt);
+                datos.setearParametros("@IDProveedor", nuevo.Proveedor.Id);
                 datos.setearParametros("@Estado", nuevo.Estado);
 
                 datos.ejecutarAccion();
