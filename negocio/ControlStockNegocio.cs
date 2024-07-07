@@ -53,5 +53,65 @@ namespace negocio
 
             return lista;
         }
+        public ControlStock obtenerStock(int idarticulo)
+        {
+            ControlStock stock = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("select Id, IdArticulo, Stock, StockMax, StockMin from controlStock where IdArticulo = @IdArticulo");
+                datos.setearParametros("@IdArticulo", idarticulo);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    stock = new ControlStock();
+                    stock.Id = (int)datos.Lector["id"];
+                    stock.Articulo.Id = (int)datos.Lector["IdArticulo"];
+                    stock.Stock = (int)datos.Lector["Stock"];
+                    stock.StockMax = (int)datos.Lector["StockMax"];
+                    stock.StockMin = (int)datos.Lector["StockMin"];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return stock;
+        }
+        public int obtStock(int idarticulo)
+        {
+            int stock = -1;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("select Stock from controlStock where IdArticulo = @IdArticulo");
+                datos.setearParametros("@IdArticulo", idarticulo);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                   stock = (int)datos.Lector["Stock"];
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return stock;
+        }
     }
 }

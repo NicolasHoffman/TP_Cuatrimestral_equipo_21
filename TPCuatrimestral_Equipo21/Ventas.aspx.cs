@@ -95,6 +95,9 @@ namespace TPCuatrimestral_Equipo21
 
                 if (art != null)
                 {
+                    ControlStockNegocio controlStock = new ControlStockNegocio();
+                    art.Stock = controlStock.obtStock(art.Id);
+
                     List<Articulo> listaArticulos = new List<Articulo> { art };
                     rptVentas.DataSource = listaArticulos;
                     rptVentas.DataBind();
@@ -120,6 +123,12 @@ namespace TPCuatrimestral_Equipo21
 
                 if (art != null && art.Count > 0)
                 {
+                    ControlStockNegocio controlStock = new ControlStockNegocio();
+                    foreach (var articulo in art)
+                    {
+                        articulo.Stock = controlStock.obtStock(articulo.Id);
+                    }
+
                     rptVentas.DataSource = art;
                     rptVentas.DataBind();
                 }

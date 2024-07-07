@@ -63,7 +63,7 @@
                             <th>Marca</th>
                             <th>Categoria</th>
                             <th>Precio</th>
-                            <th>Estado</th>
+                            <th>Stock</th>
                             <th>Cantidad</th>
                             <th>Acción</th>
                         </tr>
@@ -82,7 +82,8 @@
                                     <td><%# Eval("Marca") %></td>
                                     <td><%# Eval("Categoria") %></td>
                                     <td><%# Eval("Precio") %></td>
-                                    <td><%# Eval("Estado") %></td>
+                                    <td><%# Eval("Stock") %></td>
+                                    
                                     <td>
                                         <div class="input-group">
                                             <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control input-cantidad" Style="width: 1px;" Text="1"></asp:TextBox>

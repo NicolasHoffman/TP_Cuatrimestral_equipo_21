@@ -19,5 +19,7 @@ namespace dominio
         public string ImagenArt { get; set; }
         public int Estado { get; set; }
         public Proveedor Proveedor { get; set; }
+
+        public int Stock { get; set; }
     }
 }
