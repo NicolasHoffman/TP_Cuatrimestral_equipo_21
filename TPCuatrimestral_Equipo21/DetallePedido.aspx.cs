@@ -56,13 +56,10 @@ namespace TPCuatrimestral_Equipo21
                 //sesion
                 pedidonegocio.asignarUsuario(idVenta, 1);
                 Response.Redirect("Pedidos.aspx");
-
             }
-
         }
         
-
-        protected void btnPedidoListo_Click(object sender, EventArgs e)
+        protected void btnPedidoPreparado_Click(object sender, EventArgs e)
         {
             int idVenta = Convert.ToInt32(Request.QueryString["idVenta"]);
             if (idVenta > 0)
@@ -72,12 +69,12 @@ namespace TPCuatrimestral_Equipo21
             }
 
         }
-        protected void btnPedidoEntregado_Click(object sender, EventArgs e)
+        protected void btnEntregarPedido_Click(object sender, EventArgs e)
         {
             int idVenta = Convert.ToInt32(Request.QueryString["idVenta"]);
             if (idVenta > 0)
             {
-                pedidonegocio.cambiarEstado(idVenta, 5);
+                pedidonegocio.cambiarEstado(idVenta, 4);
                 Response.Redirect("Pedidos.aspx");
             }
 
@@ -90,28 +87,29 @@ namespace TPCuatrimestral_Equipo21
             {
                 case "Pendiente":
                     btnPrepararPedido.Visible = true;
-                    btnPedidoListo.Visible = false;
-                    btnPedidoEntregdo.Visible = false;
+                    btnPedidoPreparado.Visible = false;
+                    btnEntregarPedido.Visible = false;
                     break;
                 case "En preparación":
                     btnPrepararPedido.Visible = false;
-                    btnPedidoListo.Visible = true;
-                    btnPedidoEntregdo.Visible = false;
+                    btnPedidoPreparado.Visible = true;
+                    btnEntregarPedido.Visible = false;
                     break;
                 case "Listo para enviar":
                     btnPrepararPedido.Visible = false;
-                    btnPedidoListo.Visible = false;
-                    btnPedidoEntregdo.Visible = true;
+                    btnPedidoPreparado.Visible = false;
+                    btnEntregarPedido.Visible = true;
                     break;
-                case "Entregado":
+                case "En Camino":
                     btnPrepararPedido.Visible = false;
-                    btnPedidoListo.Visible = false;
+                    btnPedidoPreparado.Visible = false;
+                    btnEntregarPedido.Visible = false;
                     break;
                 default:
                     // En caso de un estado desconocido o nulo, ocultar todos los botones
                     btnPrepararPedido.Visible = false;
-                    btnPedidoListo.Visible = false;
-
+                    btnPedidoPreparado.Visible = false;
+                    btnEntregarPedido.Visible = false;
                     break;
             }
 

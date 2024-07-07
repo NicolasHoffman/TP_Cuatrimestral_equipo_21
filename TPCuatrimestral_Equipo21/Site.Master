@@ -118,7 +118,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Registro y gestión de pedidos</a>
+                                    <a class="nav-link" href="Pedidos.aspx">Pedidos</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Estado del pedido</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Detalles del pedido</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Historial de pedidos</a>

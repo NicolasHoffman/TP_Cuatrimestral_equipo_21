@@ -49,8 +49,8 @@
                     </tbody>
                 </table>
                 <asp:Button ID="btnPrepararPedido" runat="server" Text="Preparar" CssClass="btn btn-success" OnClick="btnPrepararPedido_Click"  />
-                <asp:Button ID="btnPedidoListo" runat="server" Text="Preparado" CssClass="btn btn-success" OnClick="btnPedidoListo_Click"  />
-                <asp:Button ID="btnPedidoEntregdo" runat="server" Text="Entregado" CssClass="btn btn-success" OnClick="btnPedidoEntregado_Click"  />
+                <asp:Button ID="btnPedidoPreparado" runat="server" Text="Preparado" CssClass="btn btn-success" OnClick="btnPedidoPreparado_Click"  />
+                <asp:Button ID="btnEntregarPedido" runat="server" Text="Entregar" CssClass="btn btn-success" OnClick="btnEntregarPedido_Click"  />
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click"/>
             </div>
         </div>

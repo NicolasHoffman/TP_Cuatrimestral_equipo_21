@@ -22,32 +22,23 @@
                 <table id="datatablesSimple" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>IdVenta</th>
-                            <th>NombreUsuario</th>
+                            <th>PEDIDO</th>
+                            
+                            <th>PERSONAL ASIGNADO</th>
                             <th>ESTADO PEDIDO</th>
-                            <th style="width: 80px;">ACCIÓN</th>
+                            <th style="width: 80px;">Gestión</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>IdVenta</th>
-                            <th>NombreUsuario</th>
-                            <th>ESTADO PEDIDO</th>
-                            <th style="width: 80px;">ACCIÓN</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
                             <ItemTemplate>
                                 <tr>
                                     <td><%# Eval("Id") %></td>
-                                    <td><%# Eval("Venta.Id") %></td>
+                                    
                                     <td><%# Eval("NombreUsuario") %></td>
                                     <td><%# Eval("EstadoPedido.Descripcion") %></td>
                                     <td>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
+                                        <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Venta.Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -66,8 +57,8 @@
                     { select: 0, sortable: true },
                     { select: 1, sortable: true },
                     { select: 2, sortable: true },
-                    { select: 3, sortable: true },
-                    { select: 4, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                    { select: 3, sortable: false }// Desactivar ordenamiento para la columna de "Acción"
+                  
                 ]
             });
         });

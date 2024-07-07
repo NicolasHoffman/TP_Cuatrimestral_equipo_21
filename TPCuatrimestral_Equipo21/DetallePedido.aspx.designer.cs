@@ -42,22 +42,22 @@ namespace TPCuatrimestral_Equipo21
         protected global::System.Web.UI.WebControls.Button btnPrepararPedido;
 
         /// <summary>
-        /// Control btnPedidoListo.
+        /// Control btnPedidoPreparado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPedidoListo;
+        protected global::System.Web.UI.WebControls.Button btnPedidoPreparado;
 
         /// <summary>
-        /// Control btnPedidoEntregdo.
+        /// Control btnEntregarPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPedidoEntregdo;
+        protected global::System.Web.UI.WebControls.Button btnEntregarPedido;
 
         /// <summary>
         /// Control btnCancelar.

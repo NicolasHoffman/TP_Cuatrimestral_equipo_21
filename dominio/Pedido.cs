@@ -14,7 +14,7 @@ namespace dominio
         public bool EstadoP { get; set; }
         public int IdUsuario { get; set; }
 
-        //Temporal
+        
         public string NombreUsuario { get; set; }
     }
 }
