@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ControlStock.aspx.cs" Inherits="TPCuatrimestral_Equipo21.ControlStock" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-     <div class="container-fluid px-4">
+    <div class="container-fluid px-4">
         <h1 class="mt-5">Articulos</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>
@@ -12,7 +12,7 @@
                 <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Articulos
             </div>
             <div class="card-body">
-                 <div class="row">
+                <div class="row">
                     <div class="col-12">
                         <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
                     </div>
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                         <asp:Repeater ID="rptArticulos" runat="server" OnItemCommand="rptArticulos_ItemCommand">
+                        <asp:Repeater ID="rptArticulos" runat="server" OnItemCommand="rptArticulos_ItemCommand">
                             <ItemTemplate>
                                 <tr>
                                     <td>
@@ -43,8 +43,8 @@
                                     <td><%# Eval("StockMax") %></td>
                                     <td><%# Eval("StockMin") %></td>
                                     <td>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-success btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-plus"></i></asp:LinkButton>
-                                        <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-minus"></i></asp:LinkButton>
+                                        <asp:LinkButton runat="server" CssClass="btn btn-success btn-sm" CommandName="Sumar" CommandArgument='<%# Eval("Articulo.Codigo") %>'><i class="fas fa-plus"></i></asp:LinkButton>
+                                        <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Restar" CommandArgument='<%# Eval("Articulo.Codigo") %>'> <i class="fas fa-minus"></i></asp:LinkButton>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -54,6 +54,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script>
         window.addEventListener('DOMContentLoaded', event => {
@@ -65,12 +66,9 @@
                     { select: 3, sortable: true },
                     { select: 4, sortable: true },
                     { select: 5, sortable: true },
-                    { select: 6, sortable: true },
-                    { select: 7, sortable: false }, // Desactivar ordenamiento para la columna de "Estado"
-                    
+                    { select: 6, sortable: true }
                 ]
             });
         });
     </script>
-
 </asp:Content>

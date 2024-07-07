@@ -33,12 +33,12 @@ namespace TPCuatrimestral_Equipo21
 
         protected void rptArticulos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Seleccionar")
+            if (e.CommandName == "Sumar")
             {
-                string id = e.CommandArgument.ToString();
-                Response.Redirect("FormularioArticulo.aspx?id=" + id);
+                //string id = e.CommandArgument.ToString();
+                Response.Redirect("FormularioArticulo.aspx");
             }
-            else if (e.CommandName == "Eliminar")
+            else if (e.CommandName == "Restar")
             {
                 try
                 {
