@@ -8,7 +8,7 @@ using negocio;
 
 namespace TPCuatrimestral_Equipo21
 {
-    public partial class ControlStock : System.Web.UI.Page
+    public partial class FrmControlStock : System.Web.UI.Page
     {
         private readonly ControlStockNegocio controlStockNegocio = new ControlStockNegocio();
         protected void Page_Load(object sender, EventArgs e)

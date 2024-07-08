@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {
-   
+
                 datos.setearConsulta(@"SELECT CS.Id, CS.IdArticulo, CS.Stock, CS.StockMax, CS.StockMin,A.Id as IdArticulo, A.Codigo, A.Nombre, A.Descripcion, A.Precio, A.ImagenUrl, A.Estado FROM ControlStock CS  INNER JOIN ARTICULOS A ON A.Id = CS.IdArticulo");
                 datos.ejecturaLectura();
 
@@ -29,7 +29,7 @@ namespace negocio
                     aux.StockMax = (int)datos.Lector["StockMax"];
                     aux.StockMin = (int)datos.Lector["StockMin"];
 
-                    
+
                     aux.Articulo = new Articulo();
                     aux.Articulo.Id = (int)datos.Lector["IdArticulo"];
                     aux.Articulo.Codigo = (string)datos.Lector["Codigo"];
@@ -68,6 +68,7 @@ namespace negocio
                 {
                     stock = new ControlStock();
                     stock.Id = (int)datos.Lector["id"];
+                    stock.Articulo = new Articulo();
                     stock.Articulo.Id = (int)datos.Lector["IdArticulo"];
                     stock.Stock = (int)datos.Lector["Stock"];
                     stock.StockMax = (int)datos.Lector["StockMax"];
@@ -87,7 +88,7 @@ namespace negocio
         }
         public int obtStock(int idarticulo)
         {
-            int stock = -1;
+            int stock = 0;
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -98,7 +99,7 @@ namespace negocio
 
                 if (datos.Lector.Read())
                 {
-                   stock = (int)datos.Lector["Stock"];
+                    stock = (int)datos.Lector["Stock"];
 
                 }
             }
@@ -112,6 +113,77 @@ namespace negocio
             }
 
             return stock;
+        }
+
+
+        public bool descontarStock(int cantidad, int idarticulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Verificar el stock actual
+                datos.setearConsulta("SELECT Stock FROM controlStock WHERE IdArticulo = @IdArticulo");
+                datos.setearParametros("@IdArticulo", idarticulo);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int stockActual = (int)datos.Lector["Stock"];
+
+                    // Verificar si hay suficiente stock
+                    if (stockActual >= cantidad)
+                    {
+                        datos.cerrarConexion();
+                        AccesoDatos datosUpdate = new AccesoDatos();
+
+                        datosUpdate.setearConsulta("UPDATE controlstock SET Stock = Stock - @Cantidad WHERE IdArticulo = @IdArticulo");
+                        datosUpdate.setearParametros("@Cantidad", cantidad);
+                        datosUpdate.setearParametros("@IdArticulo", idarticulo);
+                        datosUpdate.ejecutarAccion();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return false;
+        }
+
+        public int existenciastock(int idarticulo)
+        {
+            int registros = 0;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT count(IdArticulo) as registros FROM controlStock WHERE IdArticulo = @IdArticulo");
+                datos.setearParametros("@IdArticulo", idarticulo);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    registros = (int)datos.Lector["registros"];
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return registros;
         }
     }
 }

@@ -14,7 +14,13 @@ namespace dominio
         public bool EstadoP { get; set; }
         public int IdUsuario { get; set; }
 
-        
+        public DateTime FechaPedido { get; set; }
+
+        public Pedido()
+        {
+            FechaPedido = DateTime.Now;
+        }
+
         public string NombreUsuario { get; set; }
     }
 }

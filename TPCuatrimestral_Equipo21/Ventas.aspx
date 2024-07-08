@@ -83,10 +83,10 @@
                                     <td><%# Eval("Categoria") %></td>
                                     <td><%# Eval("Precio") %></td>
                                     <td><%# Eval("Stock") %></td>
-                                    
+
                                     <td>
                                         <div class="input-group">
-                                            <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control input-cantidad" Style="width: 1px;" Text="1"></asp:TextBox>
+                                            <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control input-cantidad" Style="width: 1px;" Text="1" data-stock='<%# Eval("Stock") %>'></asp:TextBox>
                                         </div>
                                     </td>
                                     <td>
@@ -117,7 +117,7 @@
                                 <tr>
                                     <td><%# Eval("Id") %></td>
                                     <td><%# Eval("Nombre") %></td>
-                                    <td><%# Eval("Precio") %></td>    
+                                    <td><%# Eval("Precio") %></td>
                                     <td><%# Eval("Cantidad") %></td>
                                     <td><%# Eval("Total") %></td>
                                     <td>
@@ -128,8 +128,9 @@
                         </asp:Repeater>
                     </tbody>
                 </table>
-                <div>Total a Pagar: <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label></div>
-                
+                <div>Total a Pagar:
+                    <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label></div>
+
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <label for="ddlFormaPago" class="form-label">Forma de Pago:</label>
@@ -141,42 +142,42 @@
                 </div>
 
                 <hr />
-                <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click"  />
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click"/>
-                
+                <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-danger" OnClick="btnCancelar_Click" />
+
             </div>
         </div>
     </div>
 
     <!-- Modal para seleccionar la forma de entrega -->
-<div class="modal fade" id="modalFormaEntrega" tabindex="-1" role="dialog" aria-labelledby="modalFormaEntregaLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalFormaEntregaLabel">Elegí la forma de entrega</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <asp:RadioButton ID="rbtnDomicilio" runat="server" GroupName="FormaEntrega" Text="Enviar a domicilio" Checked="True" />
-                    <div class="ml-4">
-                        <p id="direccionClienteModal"></p>
-                        <a href="FormularioDireccion.aspx" class="btn btn-link">Editar o elegir otro domicilio</a>
+    <div class="modal fade" id="modalFormaEntrega" tabindex="-1" role="dialog" aria-labelledby="modalFormaEntregaLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFormaEntregaLabel">Elegí la forma de entrega</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <asp:RadioButton ID="rbtnDomicilio" runat="server" GroupName="FormaEntrega" Text="Enviar a domicilio" Checked="True" />
+                        <div class="ml-4">
+                            <p id="direccionClienteModal"></p>
+                            <a href="FormularioDireccion.aspx" class="btn btn-link">Editar o elegir otro domicilio</a>
+                        </div>
+                    </div>
+                    <div>
+                        <asp:RadioButton ID="rbtnDepósito" runat="server" GroupName="FormaEntrega" Text="Retirar en Depósito" />
                     </div>
                 </div>
-                <div>
-                    <asp:RadioButton ID="rbtnDepósito" runat="server" GroupName="FormaEntrega" Text="Retirar en Depósito" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnConfirmarFormaEntrega" runat="server" Text="Confirmar" CssClass="btn btn-primary" OnClick="btnConfirmarFormaEntrega_Click" />
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <asp:Button ID="btnConfirmarFormaEntrega" runat="server" Text="Confirmar" CssClass="btn btn-primary" OnClick="btnConfirmarFormaEntrega_Click" />
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -206,18 +207,32 @@
 
     <script>
         $(document).ready(function () {
+            // Validación para el campo de cantidad
+            $(document).on('input', '.input-cantidad', function () {
+                var value = $(this).val();
+                var stock = $(this).data('stock');
+
+                if (!/^\d+$/.test(value) || parseInt(value) <= 0) {
+                    $(this).val('');
+                    alert('Por favor ingrese un número positivo.');
+                } else if (parseInt(value) > stock) {
+                    $(this).val('');
+                    alert('La cantidad ingresada supera el stock disponible.');
+                }
+            });
+
             $('#<%=btnGenerarVenta.ClientID %>').click(function (e) {
-            e.preventDefault();
-            
-            // Obtener la dirección del cliente desde el campo oculto
-            var direccionCliente = $('#<%=hdnClienteDireccion.ClientID %>').val();
+                e.preventDefault();
 
-            // Mostrar la dirección en el modal
-            $('#direccionClienteModal').text(direccionCliente);
+                // Obtener la dirección del cliente desde el campo oculto
+                var direccionCliente = $('#<%=hdnClienteDireccion.ClientID %>').val();
 
-            $('#modalFormaEntrega').modal('show');
+                // Mostrar la dirección en el modal
+                $('#direccionClienteModal').text(direccionCliente);
+
+                $('#modalFormaEntrega').modal('show');
+            });
         });
-    });
 </script>
 
 </asp:Content>

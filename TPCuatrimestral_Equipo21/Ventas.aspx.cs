@@ -150,7 +150,35 @@ namespace TPCuatrimestral_Equipo21
             {
                 int articuloId = Convert.ToInt32(e.CommandArgument);
                 TextBox txtCantidad = (TextBox)e.Item.FindControl("txtCantidad");
-                int cantidad = int.Parse(txtCantidad.Text);
+
+                // Validar que la cantidad sea un num positivo tmb tego que agregar lo del stock
+                int cantidad;
+                if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad <= 0)
+                {
+                    // Mostrar mensaje de error
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Por favor ingrese una cantidad válida.');", true);
+                    return;
+                }
+                ControlStockNegocio stocknegocio = new ControlStockNegocio();
+
+                if (stocknegocio.existenciastock(articuloId) <= 0)
+                {
+                    // Mostrar mensaje de error
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Articulo sin stock registrado, registre stock.');", true);
+                    return;
+                }
+
+                //Verifico stock 
+                //ControlStockNegocio stocknegocio = new ControlStockNegocio();
+                ControlStock stock = stocknegocio.obtenerStock(articuloId);
+                int cantActual = stock.Stock;
+
+                if ((cantActual - cantidad) < 0)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('No hay stock suficiente.');", true);
+                    return;
+                }
+
 
                 ArticuloNegocio articuloNegocio = new ArticuloNegocio();
                 Articulo producto = articuloNegocio.obtenerPorId(articuloId);
@@ -178,8 +206,6 @@ namespace TPCuatrimestral_Equipo21
             }
 
         }
-
-
         protected void btnCrearCliente_Click(object sender, EventArgs e)
         {
 
@@ -230,9 +256,9 @@ namespace TPCuatrimestral_Equipo21
             {
                 FormaEntregaSeleccionada = "Depósito";
             }
-          
 
-           GenerarVenta();
+
+            GenerarVenta();
         }
         private void GenerarVenta()
         {
@@ -244,6 +270,7 @@ namespace TPCuatrimestral_Equipo21
                 PedidoNegocio pedidoNegocio = new PedidoNegocio();
 
                 //int idCliente = IdClienteSeleccionado;
+                //me falta asignar cuand ohago lo de sesion
                 int idCliente = 1;
 
                 Venta nuevaVenta = new Venta();
@@ -273,6 +300,16 @@ namespace TPCuatrimestral_Equipo21
 
                     foreach (CarritoItem item in Carrito)
                     {
+                        // Descontar stock
+                        ControlStockNegocio ControlStock = new ControlStockNegocio();
+                        bool stockDescontado = ControlStock.descontarStock(item.Cantidad, item.Id);
+                        
+                        if (!stockDescontado)
+                        {
+                            throw new Exception($"No hay suficiente stock para el artículo con ID {item.Id}.");
+                           
+                        }
+
                         DetalleVenta detalle = new DetalleVenta();
                         detalle.IdVenta = idVentaGenerado;
                         detalle.IdArticulo = item.Id;
@@ -292,7 +329,7 @@ namespace TPCuatrimestral_Equipo21
 
                         nuevoPedido.EstadoPedido.Id = 1;
                         nuevoPedido.EstadoP = false;
-                       
+
 
                         pedidoNegocio.agregarPedido(nuevoPedido);
                     }
@@ -318,7 +355,8 @@ namespace TPCuatrimestral_Equipo21
         protected void btnGenerarVenta_Click(object sender, EventArgs e)
         {
             // Verifico que haya Art en el carrito y que tenga un cliente
-            if(Carrito.Count > 0 && !string.IsNullOrEmpty(txtCliente.Text.Trim())){
+            if (Carrito.Count > 0 && !string.IsNullOrEmpty(txtCliente.Text.Trim()))
+            {
                 VentaNegocio ventaNegocio = new VentaNegocio();
                 DetalleVentaNegocio detalleVentaNegocio = new DetalleVentaNegocio();
                 //int idCliente = IdClienteSeleccionado;
@@ -341,7 +379,7 @@ namespace TPCuatrimestral_Equipo21
                     foreach (CarritoItem item in Carrito)
                     {
                         DetalleVenta detalle = new DetalleVenta();
-                        detalle.IdVenta = idVentaGenerado; 
+                        detalle.IdVenta = idVentaGenerado;
                         detalle.IdArticulo = item.Id;
                         detalle.Cantidad = item.Cantidad;
                         detalle.PrecioUnitario = item.Precio;
@@ -366,7 +404,7 @@ namespace TPCuatrimestral_Equipo21
             {
                 Response.Write("<script>alert('No se pueden generar ventas sin productos en el carrito o sin cliente seleccionado');</script>");
             }
-            
+
         }
 
 

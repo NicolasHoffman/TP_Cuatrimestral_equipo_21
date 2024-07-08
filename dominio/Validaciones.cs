@@ -28,5 +28,10 @@ namespace dominio
         {
             return !string.IsNullOrEmpty(valor.Trim());
         }
+        public static bool EsSoloPositivo(int valor)
+        {
+            return valor >= 0;
+        }
+
     }
 }
