@@ -9,7 +9,39 @@ namespace negocio
 {
     public class UsuarioNegocio
     {
+        public List<Usuario> listar()
+        {
+            List<Usuario> lista = new List<Usuario>();
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearConsulta("SELECT U.Id, P.Nombre, P.Apellido FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id");
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = (string)datos.Lector["Nombre"],
+                        Apellido = (string)datos.Lector["Apellido"]
+                    };
+
+                    lista.Add(usuario);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public Persona obtenerNombreApellidoPorId(int id)
         {
             Persona persona = null;
