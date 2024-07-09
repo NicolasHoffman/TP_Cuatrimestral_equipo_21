@@ -20,8 +20,9 @@ namespace TPCuatrimestral_Equipo21
                 }
                 else
                 {
-                    // Manejar el caso en que no haya un usuario en sesión
-                    litNombreUsuario.Text = "Usuario: Invitado";
+                    // caso en que no haya un usuario en sesión, pero no lo voy a usar por ahora
+                    //litNombreUsuario.Text = "Usuario: Invitado";
+                    Response.Redirect("~/Login.aspx");
                 }
             }
         }
