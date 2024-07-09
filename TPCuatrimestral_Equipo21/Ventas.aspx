@@ -179,11 +179,6 @@
         </div>
     </div>
 
-
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
@@ -206,6 +201,7 @@
     </script>
 
     <script>
+
         $(document).ready(function () {
             // Validación para el campo de cantidad
             $(document).on('input', '.input-cantidad', function () {

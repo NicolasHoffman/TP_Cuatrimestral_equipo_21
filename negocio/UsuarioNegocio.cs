@@ -76,6 +76,38 @@ namespace negocio
 
             return persona;
         }
+
+        public bool Loguear (Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("SELECT Id, Legajo,  NombreUsuario, Contra, Cargo, IdTipoUsuario FROM Usuario WHERE NombreUsuario = @NombreUsuario and Contra = @Contra and EstadoUsu = 0");
+                datos.setearParametros("@NombreUsuario", usuario.NombreUsuario);
+                datos.setearParametros("@Contra", usuario.Contra);
+ 
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    usuario.Id = (int)datos.Lector["Id"];
+                    usuario.Legajo = (int)datos.Lector["Legajo"];
+                    usuario.Cargo = (string)datos.Lector["Cargo"];
+                    usuario.tipoUsuario = new TipoUsuario();
+                    usuario.tipoUsuario.TipoUsuarioId = (int)datos.Lector["IdTipoUsuario"];
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
 
