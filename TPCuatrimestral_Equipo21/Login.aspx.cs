@@ -34,7 +34,8 @@ namespace TPCuatrimestral_Equipo21
                 }
                 else
                 {
-                    Session.Add("Error", "user o apss incorrectos");
+                    Session.Add("Error", "usuario o contraseña incorrectos");
+                    
 
                 }
 

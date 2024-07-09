@@ -31,6 +31,13 @@ namespace TPCuatrimestral_Equipo21
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("Error", "Debes loguearte");
+                Response.Redirect("Login.aspx", false);
+            }
+
+
             if (!IsPostBack)
             {
                 btnCrearCliente.Visible = false;
