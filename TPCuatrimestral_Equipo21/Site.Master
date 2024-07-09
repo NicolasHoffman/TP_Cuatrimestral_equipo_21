@@ -1,7 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="TPCuatrimestral_Equipo21.SiteMaster" %>
 
 <html lang="es">
+
 <head runat="server">
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,9 +15,17 @@
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+     <style>
+        .input-group {
+        color: white;
+        }
+    </style>
 </head>
 
+
 <body class="sb-nav-fixed">
+   
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -23,7 +33,7 @@
                 
             </Scripts>
         </asp:ScriptManager>
-
+       
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Distribuidora MAX</a>
@@ -32,8 +42,9 @@
             <!-- Navbar Search-->
             <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    <!--<input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />-->
+                    <!--<button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>-->
+                    <asp:Literal ID="litNombreUsuario" runat="server" ></asp:Literal>
                 </div>
             </div>
             <!-- Navbar-->
@@ -45,7 +56,8 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+                        <!--<li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>-->
+                        <li><asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
                     </ul>
                 </li>
             </ul>
