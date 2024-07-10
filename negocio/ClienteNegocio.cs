@@ -154,7 +154,7 @@ namespace negocio
             }
         }
 
-        public Cliente obtenerPorId(int id)
+        public Cliente obtenerClientePorId(int id)
         {
             Cliente cliente = null;
             AccesoDatos datos = new AccesoDatos();

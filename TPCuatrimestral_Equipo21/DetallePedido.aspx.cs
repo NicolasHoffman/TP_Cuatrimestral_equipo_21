@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocio;
+using dominio;
 
 namespace TPCuatrimestral_Equipo21
 {
@@ -72,11 +73,54 @@ namespace TPCuatrimestral_Equipo21
         protected void btnEntregarPedido_Click(object sender, EventArgs e)
         {
             int idVenta = Convert.ToInt32(Request.QueryString["idVenta"]);
+
             if (idVenta > 0)
             {
+                
                 pedidonegocio.cambiarEstado(idVenta, 4);
-                Response.Redirect("Pedidos.aspx");
+
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                int idCliente = ventaNegocio.obtenerIdClientePorIdVenta(idVenta);
+
+                //si encuentra el id envio correo
+
+                if (idCliente > 0)
+                {
+                    ClienteNegocio clienteNegocio = new ClienteNegocio();
+                    Cliente cliente = clienteNegocio.obtenerClientePorId(idCliente);
+
+                    if (cliente != null)
+                    {
+                        string correoCliente = cliente.Email;
+                        string asunto = "hola soy el asunto";
+                        EmailService emailService = new EmailService();
+                        emailService.armarCorreo(correoCliente, asunto);
+                        try
+                        {
+                            emailService.enviarEmail();
+                        }
+                        catch (Exception ex)
+                        {
+                            Session.Add("error", ex);
+                        }
+                    }
+                    else
+                    {
+                        //si n ose encuentra cliente
+                        Session.Add("error", new Exception("No se encontró el cliente asociado a este pedido."));
+                    }
+                }
             }
+            else
+            {
+                // Manejar caso donde no se encontró el IdCliente para este IdVenta
+                Session.Add("error", new Exception("No se encontró el IdCliente para este pedido."));
+            }
+
+            // Redireccionar a la página de Pedidos después de procesar
+            Response.Redirect("Pedidos.aspx");
+
+            
 
         }
 

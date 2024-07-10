@@ -61,6 +61,35 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public int obtenerIdClientePorIdVenta(int idVenta)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT IdCliente FROM VENTA WHERE Id = @IdVenta");
+                datos.setearParametros("@IdVenta", idVenta);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int idCliente = Convert.ToInt32(datos.Lector["IdCliente"]);
+                    return idCliente;
+                }
+                else
+                {
+                    throw new Exception("No se encontró el IdCliente para el IdVenta proporcionado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

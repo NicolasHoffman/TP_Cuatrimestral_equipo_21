@@ -48,6 +48,7 @@
     <Compile Include="ControlStockNegocio.cs" />
     <Compile Include="DetalleVentaNegocio.cs" />
     <Compile Include="DireccionNegocio.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="EstadoPedidoNegocio.cs" />
     <Compile Include="MarcaNegocio.cs" />
     <Compile Include="PedidoNegocio.cs" />
