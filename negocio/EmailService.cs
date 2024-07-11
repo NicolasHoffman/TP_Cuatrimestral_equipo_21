@@ -32,6 +32,15 @@ namespace negocio
             email.IsBodyHtml = true;
             email.Body = "<h1>Su Pedido está en camino </h1> <br> Hola, su pedido está en caminito.. ";
         }
+        public void armarCorreo(string emailDestino, string asunto, string cuerpo)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("noresponder@ecomerceprogramacioniii.com");
+            email.To.Add(emailDestino);
+            email.Subject = asunto;
+            email.IsBodyHtml = true;
+            email.Body = cuerpo;
+        }
 
         public void enviarEmail()
         {

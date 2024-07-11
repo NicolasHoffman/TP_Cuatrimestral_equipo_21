@@ -17,7 +17,6 @@ namespace TPCuatrimestral_Equipo21
         {
             if (!IsPostBack)
             {
-
                 if (Request.QueryString["idVenta"] != null)
                 {
                     int idVenta = Convert.ToInt32(Request.QueryString["idVenta"]);
@@ -34,7 +33,6 @@ namespace TPCuatrimestral_Equipo21
 
             string estadoPedidoDescripcion = pedidonegocio.ObtenerEstadoPedidoDescripcion(idVenta);
             MostrarBoton(estadoPedidoDescripcion);
-
         }
         protected void btnCrearNuevo_Click(object sender, EventArgs e)
         {
@@ -119,11 +117,7 @@ namespace TPCuatrimestral_Equipo21
 
             // Redireccionar a la página de Pedidos después de procesar
             Response.Redirect("Pedidos.aspx");
-
-            
-
         }
-
         private void MostrarBoton(string estadoPedidoDescripcion)
         {
             // Mostrar el botón solo si el estado del pedido es "Pendiente"
@@ -156,8 +150,6 @@ namespace TPCuatrimestral_Equipo21
                     btnEntregarPedido.Visible = false;
                     break;
             }
-
         }
-
     }
 }

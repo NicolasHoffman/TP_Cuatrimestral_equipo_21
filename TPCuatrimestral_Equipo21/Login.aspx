@@ -32,51 +32,53 @@
                 <img src="logo_url_aqui" alt="Logo" class="logo" />
                 <h2 class="text-center">Iniciar Sesión</h2>
                 <div class="form-group">
-                    <label for="email">Usuario</label>
+                    <label for="txtUsuario">Usuario</label>
                     <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" placeholder="Ingresá tu Usuario"></asp:TextBox>
                 </div>
                 <div class="form-group">
-                    <label for="password">Contraseña</label>
+                    <label for="txtPassword">Contraseña</label>
                     <div class="input-group">
                         <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" placeholder="Ingrese su Contraseña"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group text-center">
-                    <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" CssClass="btn btn-primary btn-block" OnClick="btnIngresar_click" />
+                    <asp:Button ID="btnIngresar" runat="server" Text="Ingresar" CssClass="btn btn-primary btn-block" OnClick="btnIngresar_Click" />
                 </div>
-                <p class="text-center"><a href="#">¿Olvidaste tu contraseña?</a></p>
+                <p class="text-center"><a href="#" data-toggle="modal" data-target="#recuperarModal">¿Olvidaste tu contraseña?</a></p>
+            </div>
+        </div>
+
+        <!-- Recu Contra-->
+        <div class="modal fade" id="recuperarModal" tabindex="-1" aria-labelledby="recuperarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="recuperarModalLabel">Recuperar Contraseña</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="txtEmailRecuperacion">Ingrese su correo electrónico</label>
+                            <asp:TextBox ID="txtEmailRecuperacion" runat="server" CssClass="form-control" placeholder="Email"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="btnRecuperar" runat="server" Text="Enviar Código" CssClass="btn btn-primary" OnClick="btnRecuperar_Click" />
+                    </div>
+                </div>
             </div>
         </div>
     </form>
 
-    <!-- Modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Error de inicio de sesión</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Usuario o contraseña incorrectos.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Lo agrego por n uso la master -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             <% if (Session["Error"] != null) { %>
-                $('#errorModal').modal('show');
+            $('#errorModal').modal('show');
                 <% Session["Error"] = null; %>
             <% } %>
         });

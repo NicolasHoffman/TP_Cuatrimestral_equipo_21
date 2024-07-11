@@ -49,7 +49,7 @@ namespace TPCuatrimestral_Equipo21
                 Repeater1.DataBind();
                 ActualizarTotalAPagar();
 
-                // Verificar si hay artículos en el carrito y deshabilitar la búsqueda y creación de cliente si es necesario
+                // Verifica si hay art en el carrito y deshabilitar la búsqueda y creacion de cliente
                 if (Carrito.Count > 0)
                 {
                     txtNombreCliente.Enabled = false;
@@ -72,7 +72,7 @@ namespace TPCuatrimestral_Equipo21
                     btnCrearCliente.Visible = false;
                     IdClienteSeleccionado = cliente.Id;
 
-                    // Asignar la dirección del cliente al campo oculto
+                    // para asignar la dire del cliente al campo oculto
                     hdnClienteDireccion.Value = $"{cliente.Direccion.Calle} {cliente.Direccion.Numero}, {cliente.Direccion.Localidad}, {cliente.Direccion.Provincia}";
                 }
                 else
@@ -86,7 +86,7 @@ namespace TPCuatrimestral_Equipo21
             }
             else
             {
-                txtCliente.Text = string.Empty; // Borra el texto cuando el campo DNI está vacío
+                txtCliente.Text = string.Empty; // Borra el texto cuando el campo DNI esta vacioo
                 txtCodigoProducto.Enabled = false;
                 txtNombreproducto.Enabled = false;
                 btnCrearCliente.Visible = false;
@@ -118,7 +118,7 @@ namespace TPCuatrimestral_Equipo21
             else
             {
                 rptVentas.DataSource = null;
-                rptVentas.DataBind(); // Borra el contenido cuando el campo Código está vacío
+                rptVentas.DataBind(); // Borra el contenido cuando el campo Código esta vacio
             }
         }
         protected void txtNombreproducto_TextChanged(object sender, EventArgs e)
@@ -174,7 +174,6 @@ namespace TPCuatrimestral_Equipo21
                     ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Articulo sin stock registrado, registre stock.');", true);
                     return;
                 }
-
                 //Verifico stock 
                 //ControlStockNegocio stocknegocio = new ControlStockNegocio();
                 ControlStock stock = stocknegocio.obtenerStock(articuloId);
@@ -215,7 +214,6 @@ namespace TPCuatrimestral_Equipo21
         }
         protected void btnCrearCliente_Click(object sender, EventArgs e)
         {
-
             Response.Redirect("~/FormularioCliente.aspx");
         }
 
@@ -413,8 +411,6 @@ namespace TPCuatrimestral_Equipo21
             }
 
         }
-
-
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             // Limpiar datos del cliente
@@ -442,9 +438,5 @@ namespace TPCuatrimestral_Equipo21
             txtNombreproducto.Enabled = false;
             btnCrearCliente.Visible = false;
         }
-
-
-
-
     }
 }

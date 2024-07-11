@@ -11,7 +11,36 @@ namespace negocio
 {
     public class RecuperarContraNego
     {
-        public void GenerarCodigoRecuperacion(int userId)
+        public int ObtenerUserIdPorEmail(string email)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int id;
+            try
+            {
+                datos.setearConsulta("SELECT C.Id FROM Cliente C INNER JOIN Persona P ON C.Id = P.Id WHERE P.Email = @Email AND C.Estado = 0");
+                datos.setearParametros("@Email", email);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    id = Convert.ToInt32(datos.Lector["Id"]);
+                }
+                else
+                {
+                    id = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return id;   
+        }
+        public string GenerarCodigoRecuperacion(int userId)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -23,19 +52,7 @@ namespace negocio
                 datos.setearParametros("@Codigo", codigoRecuperacion);
                 datos.setearParametros("@Fecha", DateTime.Now);
                 datos.ejecutarAccion();
-
-                // correo del usuario
-                datos.setearConsulta("SELECT Email FROM Cliente C INNER JOIN Persona P ON C.Id = P.Id WHERE C.Estado = 0 and C.Id = @Id");
-                datos.setearParametros("@Id", userId);
-                datos.ejecturaLectura();
-
-                if (datos.Lector.Read())
-                {
-                    string emailDestino = datos.Lector["Email"].ToString();
-                    EmailService emailService = new EmailService();
-                    emailService.armarCorreo(emailDestino, "Recuperación de contraseña", $"Su código de recuperación es: {codigoRecuperacion}");
-                    emailService.enviarEmail();
-                }
+                return codigoRecuperacion;
             }
             catch (Exception ex)
             {
@@ -44,9 +61,9 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+                
             }
         }
-
         public bool ValidarCodigoRecuperacion(int userId, string codigoRecuperacion)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -54,6 +71,7 @@ namespace negocio
             {
                 datos.setearConsulta("SELECT Codigo, Fecha FROM RecuperacionContrasena WHERE UsuarioId = @UsuarioId AND Codigo = @Codigo");
                 datos.setearParametros("@UsuarioId", userId);
+                datos.setearParametros("@Codigo", codigoRecuperacion);
                 datos.ejecturaLectura();
 
                 if (datos.Lector.Read())
@@ -61,8 +79,8 @@ namespace negocio
                     string codigoBD = datos.Lector["Codigo"].ToString();
                     DateTime fechaCodigo = Convert.ToDateTime(datos.Lector["Fecha"]);
 
-                    // Verificar que el código no haya expirado (por ejemplo, 1 hora de validez)
-                    if (codigoBD == codigo && (DateTime.Now - fechaCodigo).TotalHours < 1)
+                    // Verificar que el código no haya expirado (lo pongo para una hor, 1 hora de validez)
+                    if (codigoBD == codigoRecuperacion && (DateTime.Now - fechaCodigo).TotalHours < 1)
                     {
                         return true;
                     }
@@ -76,6 +94,7 @@ namespace negocio
             finally
             {
                 datos.cerrarConexion();
+
             }
         }
 
@@ -84,7 +103,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE USUARIOS SET Contra = @Contra WHERE Id = @Id");
+                datos.setearConsulta("UPDATE USUARIO SET Contra = @Contra WHERE Id = @Id");
                 datos.setearParametros("@Contra", nuevaContrasena);
                 datos.setearParametros("@Id", userId);
                 datos.ejecutarAccion();
@@ -98,6 +117,33 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public int ObtenerUserIdDesdeCodigo(string codigo)
+        {
+            
+            AccesoDatos datos = new AccesoDatos();
+            
+            try
+            {
+                datos.setearConsulta("SELECT UsuarioId FROM RecuperacionContrasena WHERE Codigo = @Codigo ORDER BY Fecha DESC");
+                datos.setearParametros("@Codigo", codigo);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToInt32(datos.Lector["UsuarioId"]);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
 
