@@ -158,6 +158,7 @@
     <Content Include="FormularioMarca.aspx" />
     <Content Include="FormularioProveedor.aspx" />
     <Content Include="FrmControlStock.aspx" />
+    <Content Include="FrmNotificaciones.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
@@ -365,6 +366,13 @@
     </Compile>
     <Compile Include="FrmControlStock.aspx.designer.cs">
       <DependentUpon>FrmControlStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNotificaciones.aspx.cs">
+      <DependentUpon>FrmNotificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmNotificaciones.aspx.designer.cs">
+      <DependentUpon>FrmNotificaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

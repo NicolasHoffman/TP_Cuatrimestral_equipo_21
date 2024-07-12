@@ -9,6 +9,39 @@ namespace negocio
 {
     public class NotificacionNegocio
     {
+        public List<Notificacion> listar()
+        {
+            List<Notificacion> lista = new List<Notificacion>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT Id, UsuarioDestinoId, Mensaje, Fecha FROM Notificaciones Where Leida = 0 ORDER BY Fecha desc");
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Notificacion aux = new Notificacion();
+                    aux.Id = (int)datos.Lector["id"];
+                    aux.IdUsuarioDestinatario = (int)datos.Lector["UsuarioDestinoId"];
+                    aux.Mensaje = (string)datos.Lector["Mensaje"];
+                    aux.Fecha = (DateTime)datos.Lector["Fecha"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public void Agregar(Notificacion notificacion)
         {
             AccesoDatos datos = new AccesoDatos();
