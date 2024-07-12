@@ -9,7 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         body {
-            background-color: #EAF8FF;
+            background-color: #A5D8FA;
         }
         .login-container {
             max-width: 400px;
@@ -22,6 +22,8 @@
         .logo {
             display: block;
             margin: 0 auto 20px;
+            width: 350px;
+            height: auto;
         }
     </style>
 </head>
@@ -29,7 +31,7 @@
     <form id="form1" runat="server">
         <div class="container">
             <div class="login-container">
-                <img src="logo_url_aqui" alt="Logo" class="logo" />
+                <asp:Image ID="logoImage" runat="server" ImageUrl="~/Images/Logo/Logo.PNG" CssClass="logo" AlternateText="Logo" />
                 <h2 class="text-center">Iniciar Sesión</h2>
                 <div class="form-group">
                     <label for="txtUsuario">Usuario</label>
