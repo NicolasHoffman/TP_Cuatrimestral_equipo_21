@@ -26,29 +26,58 @@ namespace TPCuatrimestral_Equipo21
             rptArticulos.DataBind();
         }
 
-        protected void btnCrearNuevo_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("FormularioArticulo.aspx");
-        }
-
         protected void rptArticulos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Sumar")
             {
-                //string id = e.CommandArgument.ToString();
-                Response.Redirect("FormularioArticulo.aspx");
+                try
+                {
+                    string IdArticuloStr = e.CommandArgument.ToString();
+                    int IdArticulo = int.Parse(IdArticuloStr);
+
+                    TextBox txtCantidadRestar = (TextBox)e.Item.FindControl("txtCantidad");
+                    int cantidad = int.Parse(txtCantidadRestar.Text);
+
+                    ControlStockNegocio negocio = new ControlStockNegocio();
+
+                    int stockActual = negocio.obtStock(IdArticulo);
+
+                        negocio.sumarStock(cantidad, IdArticulo);
+                        CargarDatos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex);
+                    throw;
+                }
+
+
             }
             else if (e.CommandName == "Restar")
             {
                 try
                 {
-                    string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
+                    string IdArticuloStr = e.CommandArgument.ToString();
+                    int IdArticulo = int.Parse(IdArticuloStr);
 
-                    // MarcaNegocio negocio = new MarcaNegocio();
-                    // negocio.eliminar(int.Parse(idMarca));
+                    TextBox txtCantidadRestar = (TextBox)e.Item.FindControl("txtCantidad");
+                    int cantidad = int.Parse(txtCantidadRestar.Text);
 
-                    // Recargar los datos después de la eliminación
-                    CargarDatos();
+                    ControlStockNegocio negocio = new ControlStockNegocio();
+
+                    int stockActual = negocio.obtStock(IdArticulo);
+
+                    if(stockActual >= cantidad)
+                    {
+                        negocio.descontarStock(cantidad, IdArticulo);
+                        CargarDatos();
+                    }
+                    else
+                    {
+                        string mensaje = "No se puede descontar el stock. Stock actual: " + stockActual;
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('" + mensaje + "');", true);
+                    }
+
                 }
                 catch (Exception ex)
                 {

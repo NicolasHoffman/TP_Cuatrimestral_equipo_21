@@ -62,6 +62,7 @@ namespace TPCuatrimestral_Equipo21
                     }
 
                     ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Se ha enviado un código de recuperación a su correo electrónico.');", true);
+                    Response.Redirect("Recuperar.aspx");
                 }
                 else
                 {

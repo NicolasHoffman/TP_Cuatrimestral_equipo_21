@@ -185,5 +185,29 @@ namespace negocio
 
             return registros;
         }
+
+        public void sumarStock(int IdArticulo, int cantidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                
+                datos.setearConsulta("UPDATE controlStock SET Stock = Stock + @Cantidad WHERE IdArticulo = @IdArticulo");
+                datos.setearParametros("@Cantidad", cantidad);
+                datos.setearParametros("@IdArticulo", IdArticulo);
+
+                
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
