@@ -20,6 +20,11 @@
         .input-group {
         color: white;
         }
+        .badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
     </style>
 </head>
 
@@ -52,14 +57,28 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#!">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <!--<li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>-->
                         <li><asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
                     </ul>
                 </li>
+                <!-- Campanita de Notificaciones -->
+        <!--<li class="nav-item">
+        <a class="nav-link" href="FrmNotificaciones.aspx">
+            <i class="fas fa-bell fa-fw"></i>
+            <span id="notification-count" class="badge bg-danger"></span>
+        </a>
+    </li>-->
+<!-- Notification Bell -->
+                <li class="nav-item">
+                    <a class="nav-link" href="FrmNotificaciones.aspx">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <asp:Literal ID="litNotificationCount" runat="server" Text=""></asp:Literal>
+                    </a>
+                </li>
+
             </ul>
         </nav>
         <div id="layoutSidenav">
@@ -68,10 +87,45 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+
                             <a class="nav-link" href="index.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 PRINCIPAL
                             </a>
+                            <div class="sb-sidenav-menu-heading">NEGOCIO</div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts5">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Ventas
+                               
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    
+                                    <a class="nav-link" href="Ventas.aspx">Nueva de venta</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Generación de cotizaciones</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de devoluciones</a>
+
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Pedidos
+                               
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="Pedidos.aspx">Pedidos</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Estado del pedido</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Detalles del pedido</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de pedidos</a>
+                                </nav>
+                            </div>
+                            
+
                             <div class="sb-sidenav-menu-heading">ACTIVO</div>
 
                            <% if (Session["usuario"] != null && 
@@ -116,7 +170,7 @@
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Articulos.aspx">Lista de Articulos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Inventario y Stock</a>
+                                    <a class="nav-link" href="FrmControlStock.aspx">Inventario y Stock</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Precios</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Gestión de Categorías</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Gestión de Articulos</a>
@@ -125,39 +179,7 @@
                                 </nav>
                             </div>
 
-                            <div class="sb-sidenav-menu-heading">NEGOCIO</div>
-
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Pedidos
-                               
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="Pedidos.aspx">Pedidos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Estado del pedido</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Detalles del pedido</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de pedidos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Facturación y documentación</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts5">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Ventas
-                               
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    
-                                    <a class="nav-link" href="Ventas.aspx">Nueva de venta</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Generación de cotizaciones</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Promociones y descuentos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de devoluciones</a>
-
-                                </nav>
-                            </div>
+                            
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts6">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Logistica
@@ -260,6 +282,21 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="Scripts/datatables-simple-demo.js"></script>
+
+        <script>
+            // Simular la obtención de la cantidad de notificaciones no leídas
+            document.addEventListener("DOMContentLoaded", function () {
+                // Aquí puedes hacer una llamada AJAX para obtener el número real de notificaciones desde el servidor
+                var unreadNotifications = 3; // Este valor sería dinámico en un caso real
+                var notificationCountElement = document.getElementById("notification-count");
+
+                if (unreadNotifications > 0) {
+                    notificationCountElement.textContent = unreadNotifications;
+                } else {
+                    notificationCountElement.style.display = "none";
+                }
+            });
+</script>
     </form>
 
 </body>

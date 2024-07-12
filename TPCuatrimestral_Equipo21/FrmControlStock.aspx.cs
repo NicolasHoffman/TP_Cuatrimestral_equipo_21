@@ -28,6 +28,7 @@ namespace TPCuatrimestral_Equipo21
 
         protected void rptArticulos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+
             if (e.CommandName == "Sumar")
             {
                 try

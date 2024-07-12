@@ -64,6 +64,17 @@ namespace TPCuatrimestral_Equipo21
             if (idVenta > 0)
             {
                 pedidonegocio.cambiarEstado(idVenta, 3);
+
+                // voy a generar un msn para avisar que esta listo
+                NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+                Notificacion notificacion = new Notificacion
+                {
+                    IdUsuarioDestinatario = 2,
+                    Mensaje = "El pedido con ID " + idVenta + " ha sido preparado.",
+                    Fecha = DateTime.Now
+                };
+                notificacionNegocio.Agregar(notificacion);
+
                 Response.Redirect("Pedidos.aspx");
             }
 

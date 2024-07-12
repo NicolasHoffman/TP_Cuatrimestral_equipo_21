@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using negocio;
 
 namespace TPCuatrimestral_Equipo21
 {
@@ -17,6 +18,7 @@ namespace TPCuatrimestral_Equipo21
                 {
                     var usuario = (dominio.Usuario)Session["usuario"];
                     litNombreUsuario.Text = $"Usuario: {usuario.NombreUsuario}";
+                    CargarCantidadNotificaciones(usuario.Id);
                 }
                 else
                 {
@@ -34,6 +36,14 @@ namespace TPCuatrimestral_Equipo21
 
             // Redirigir a la página de inicio de sesión
             Response.Redirect("Login.aspx");
+        }
+
+        private void CargarCantidadNotificaciones(int idUsuario)
+        {
+            //youtub min 3.45
+            NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+            int cantidadNotificaciones = notificacionNegocio.ContarNoLeidas(idUsuario);
+            litNotificationCount.Text = cantidadNotificaciones > 0 ? $"<span class='badge bg-danger'>{cantidadNotificaciones}</span>" : string.Empty;
         }
     }
 
