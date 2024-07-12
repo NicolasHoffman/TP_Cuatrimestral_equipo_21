@@ -16,29 +16,29 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-     <style>
+    <style>
         .input-group {
-        color: white;
+            color: white;
         }
+
         .badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 
 
 <body class="sb-nav-fixed">
-   
+
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--Framework Scripts--%>
-                
             </Scripts>
         </asp:ScriptManager>
-       
+
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Distribuidora MAX</a>
@@ -49,7 +49,7 @@
                 <div class="input-group">
                     <!--<input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />-->
                     <!--<button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>-->
-                    <asp:Literal ID="litNombreUsuario" runat="server" ></asp:Literal>
+                    <asp:Literal ID="litNombreUsuario" runat="server"></asp:Literal>
                 </div>
             </div>
             <!-- Navbar-->
@@ -61,17 +61,18 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
+                        <li>
+                            <asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
                     </ul>
                 </li>
                 <!-- Campanita de Notificaciones -->
-        <!--<li class="nav-item">
+                <!--<li class="nav-item">
         <a class="nav-link" href="FrmNotificaciones.aspx">
             <i class="fas fa-bell fa-fw"></i>
             <span id="notification-count" class="badge bg-danger"></span>
         </a>
     </li>-->
-<!-- Notification Bell -->
+                <!-- Notification Bell -->
                 <li class="nav-item">
                     <a class="nav-link" href="FrmNotificaciones.aspx">
                         <i class="fas fa-bell fa-fw"></i>
@@ -102,7 +103,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts5" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    
+
                                     <a class="nav-link" href="Ventas.aspx">Nueva de venta</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Generación de cotizaciones</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Gestión de devoluciones</a>
@@ -124,14 +125,14 @@
                                     <a class="nav-link" href="layout-sidenav-light.html">Historial de pedidos</a>
                                 </nav>
                             </div>
-                            
+
 
                             <div class="sb-sidenav-menu-heading">ACTIVO</div>
 
-                           <% if (Session["usuario"] != null && 
-                                       (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 || 
-                                        ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2)) 
-                           { %>
+                            <% if (Session["usuario"] != null &&
+                                         (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                                          ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+                                { %>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Clientes
@@ -179,7 +180,7 @@
                                 </nav>
                             </div>
 
-                            
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts6">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Logistica
@@ -285,18 +286,18 @@
 
         <script>
             // Simular la obtención de la cantidad de notificaciones no leídas
-            document.addEventListener("DOMContentLoaded", function () {
+           // document.addEventListener("DOMContentLoaded", function () {
                 // Aquí puedes hacer una llamada AJAX para obtener el número real de notificaciones desde el servidor
-                var unreadNotifications = 3; // Este valor sería dinámico en un caso real
-                var notificationCountElement = document.getElementById("notification-count");
+              //  var unreadNotifications = 3; 
+              //  var notificationCountElement = document.getElementById("notification-count");
 
-                if (unreadNotifications > 0) {
-                    notificationCountElement.textContent = unreadNotifications;
-                } else {
-                    notificationCountElement.style.display = "none";
-                }
-            });
-</script>
+               // if (unreadNotifications > 0) {
+                 //   notificationCountElement.textContent = unreadNotifications;
+               // } else {
+                //    notificationCountElement.style.display = "none";
+               // }
+            //});
+        </script>
     </form>
 
 </body>

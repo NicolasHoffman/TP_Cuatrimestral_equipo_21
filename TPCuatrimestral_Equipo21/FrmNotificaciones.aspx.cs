@@ -43,7 +43,8 @@ namespace TPCuatrimestral_Equipo21
             NotificacionNegocio negocio = new NotificacionNegocio();
             negocio.MarcarComoLeida(id);
             // Recargar las notificaciones o actualizar la vista si es necesario
-            CargarDatos();
+            //CargarDatos();
+            Response.Redirect("~/FrmNotificaciones.aspx");
         }
     }
  }
