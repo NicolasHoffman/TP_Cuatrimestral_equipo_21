@@ -91,5 +91,65 @@ namespace negocio
             }
         }
 
+        public List<VentasPorMes> ObtenerVentasPorMes()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<VentasPorMes> ventasPorMes = new List<VentasPorMes>();
+
+            try
+            {
+                datos.setearConsulta("SELECT DATENAME(MONTH, FechaVenta) AS Mes, COUNT(*) AS Cantidad FROM VENTA GROUP BY DATENAME(MONTH, FechaVenta), MONTH(FechaVenta) ORDER BY MONTH(FechaVenta)");
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    VentasPorMes ventaMes = new VentasPorMes();
+                    ventaMes.Mes = datos.Lector["Mes"].ToString();
+                    ventaMes.Cantidad = Convert.ToInt32(datos.Lector["Cantidad"]);
+                    ventasPorMes.Add(ventaMes);
+                }
+
+                return ventasPorMes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<VentasPorAnio> ObtenerVentasPorAnio()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<VentasPorAnio> ventasPorAnio = new List<VentasPorAnio>();
+
+            try
+            {
+                datos.setearConsulta("SELECT YEAR(FechaVenta) AS Anio, COUNT(*) AS Cantidad FROM VENTA GROUP BY YEAR(FechaVenta) ORDER BY YEAR(FechaVenta)");
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    VentasPorAnio ventaAnio = new VentasPorAnio();
+                    ventaAnio.Anio = Convert.ToInt32(datos.Lector["Anio"]);
+                    ventaAnio.Cantidad = Convert.ToInt32(datos.Lector["Cantidad"]);
+                    ventasPorAnio.Add(ventaAnio);
+                }
+
+                return ventasPorAnio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

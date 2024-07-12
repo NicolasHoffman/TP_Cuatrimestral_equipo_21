@@ -67,13 +67,13 @@ namespace negocio
 
         public List<Notificacion> Listar(int idUsuarioDestinatario)
         {
+            List<Notificacion> lista = new List<Notificacion>();
             AccesoDatos datos = new AccesoDatos();
 
-            List<Notificacion> lista = new List<Notificacion>();
             try
             {
-                datos.setearConsulta("SELECT Id, UsuarioDestionoId, Mensaje, Fecha, Leida FROM Notificaciones WHERE UsuarioDestionoId = @IdUsuarioDestinatario");
-                datos.setearParametros("@IdUsuarioDestinatario", idUsuarioDestinatario);
+                datos.setearConsulta("SELECT Id, UsuarioDestinoId, Mensaje, Fecha FROM Notificaciones WHERE UsuarioDestinoId = @UsuarioDestinoId and Leida = 0 ORDER BY Fecha desc");
+                datos.setearParametros("@UsuarioDestinoId", idUsuarioDestinatario);
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
@@ -81,10 +81,10 @@ namespace negocio
                     Notificacion notificacion = new Notificacion
                     {
                         Id = (int)datos.Lector["Id"],
-                        IdUsuarioDestinatario = (int)datos.Lector["IdUsuarioDestinatario"],
+                        IdUsuarioDestinatario = (int)datos.Lector["UsuarioDestinoId"],
                         Mensaje = (string)datos.Lector["Mensaje"],
                         Fecha = (DateTime)datos.Lector["Fecha"],
-                        Leido = (bool)datos.Lector["Leida"]
+                       
                     };
                     lista.Add(notificacion);
                 }

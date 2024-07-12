@@ -65,14 +65,7 @@
                             <asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
                     </ul>
                 </li>
-                <!-- Campanita de Notificaciones -->
-                <!--<li class="nav-item">
-        <a class="nav-link" href="FrmNotificaciones.aspx">
-            <i class="fas fa-bell fa-fw"></i>
-            <span id="notification-count" class="badge bg-danger"></span>
-        </a>
-    </li>-->
-                <!-- Notification Bell -->
+                <!-- para la noti -->
                 <li class="nav-item">
                     <a class="nav-link" href="FrmNotificaciones.aspx">
                         <i class="fas fa-bell fa-fw"></i>
@@ -89,14 +82,17 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
 
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="FrmPrincipal.aspx">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 PRINCIPAL
                             </a>
                             <div class="sb-sidenav-menu-heading">NEGOCIO</div>
-
+                            <% if (Session["usuario"] != null &&
+                                           (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                                            ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+                                { %>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts5">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-plus"></i></div>
                                 Ventas
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -110,9 +106,10 @@
 
                                 </nav>
                             </div>
+                            <% } %>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-dolly"></i></div>
                                 Pedidos
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -120,21 +117,20 @@
                             <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Pedidos.aspx">Pedidos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Estado del pedido</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Detalles del pedido</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de pedidos</a>
                                 </nav>
                             </div>
 
+                             <% if (Session["usuario"] != null &&
+                                           (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                                            ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+                                { %>
 
                             <div class="sb-sidenav-menu-heading">ACTIVO</div>
 
-                            <% if (Session["usuario"] != null &&
-                                         (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
-                                          ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
-                                { %>
+                           
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Clientes
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -142,12 +138,11 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Clientes.aspx">Gestión de Clientes</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Historial de compras</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Créditos y pagos pendientes</a>
                                 </nav>
                             </div>
-                            <% } %>
+                           
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-people-carry-box"></i></div>
                                 Proveedores
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -155,15 +150,13 @@
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Proveedores.aspx">Gestión de proveedores</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de compras y pagos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Evaluación de proveedores</a>
-
+                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de compras</a>
                                 </nav>
                             </div>
 
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
                                 Productos
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -173,16 +166,14 @@
                                     <a class="nav-link" href="Articulos.aspx">Lista de Articulos</a>
                                     <a class="nav-link" href="FrmControlStock.aspx">Inventario y Stock</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Precios</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de Categorías</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de Articulos</a>
+                                    <a class="nav-link" href="Categoria.aspx">Gestión de Categorías</a>
                                     <a class="nav-link" href="Marcas.aspx">Gestión de Marcas</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Información Detallada del Producto</a>
                                 </nav>
                             </div>
 
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts6">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-fast"></i></div>
                                 Logistica
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -196,7 +187,7 @@
                             <div class="sb-sidenav-menu-heading">ADMINISTRACIÓN</div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts7" aria-expanded="false" aria-controls="collapseLayouts7">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-gear"></i></div>
                                 Usuarios
                                
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -205,53 +196,18 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">Gestión de usuarios y roles</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Permisos y niveles de acceso</a>
-
+                                    
                                 </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts8" aria-expanded="false" aria-controls="collapseLayouts8">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Finanzas
-                               
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts8" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Gestión de cuentas por cobrar y por pagar</a>
 
-                                    <a class="nav-link" href="layout-sidenav-light.html">Reportes financieros</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de presupuestos</a>
-
-                                </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts9" aria-expanded="false" aria-controls="collapseLayouts9">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Logistica
-                               
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts9" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Gestión de envíos</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Coordinación con empresas de transporte</a>
-
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
+                            <% } %>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                   
+                        <div class="small">Conectado Como:</div>
+                        <asp:Literal ID="litFooterDescripcion" runat="server"></asp:Literal>
                     </div>
+                    
                 </nav>
             </div>
 

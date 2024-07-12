@@ -9,7 +9,7 @@
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Pedidos
+                <i class="fa-solid fa-truck-fast" style="color: #2c78aa;"></i> Lista de Pedidos
             </div>
             <div class="card-body">
                 <div class="row mb-3">

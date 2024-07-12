@@ -10,7 +10,7 @@
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Lista de Marcas
+                <i class="fa-solid fa-envelope-open-text" style="color: #2c78aa;"></i> Lista de Notificaciones
             </div>
             <div class="card-body">
 

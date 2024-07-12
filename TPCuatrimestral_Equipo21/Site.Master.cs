@@ -18,7 +18,11 @@ namespace TPCuatrimestral_Equipo21
                 {
                     var usuario = (dominio.Usuario)Session["usuario"];
                     litNombreUsuario.Text = $"Usuario: {usuario.NombreUsuario}";
-                    CargarCantidadNotificaciones(usuario.Id);
+                    CargarCantidadNotificaciones(usuario.tipoUsuario.TipoUsuarioId);
+
+                    string descripcionUsuario = ObtenerDescripcionUsuario(usuario.Id);
+
+                    litFooterDescripcion.Text = $"{descripcionUsuario}";
                 }
                 else
                 {
@@ -28,7 +32,17 @@ namespace TPCuatrimestral_Equipo21
                 }
             }
         }
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        private string ObtenerDescripcionUsuario(int idUsuario)
+        {
+
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            string descripcion = usuarioNegocio.obtenerTipodeUsuario(idUsuario);
+
+            return descripcion;
+
+
+        }
+            protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             // Limpiar la sesión
             Session.Abandon();
@@ -38,12 +52,17 @@ namespace TPCuatrimestral_Equipo21
             Response.Redirect("Login.aspx");
         }
 
-        private void CargarCantidadNotificaciones(int idUsuario)
+        private void CargarCantidadNotificaciones(int idTipoUsu)
         {
             //youtub min 3.45
             NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
-            int cantidadNotificaciones = notificacionNegocio.ContarNoLeidas(idUsuario);
-            litNotificationCount.Text = cantidadNotificaciones > 0 ? $"<span class='badge bg-danger'>{cantidadNotificaciones}</span>" : string.Empty;
+            int cantidadNotificaciones = notificacionNegocio.ContarNoLeidas(idTipoUsu);
+
+            if (idTipoUsu == 2 || idTipoUsu == 3)
+            {
+                litNotificationCount.Text = cantidadNotificaciones > 0 ? $"<span class='badge bg-danger'>{cantidadNotificaciones}</span>" : string.Empty;
+
+            }
         }
     }
 

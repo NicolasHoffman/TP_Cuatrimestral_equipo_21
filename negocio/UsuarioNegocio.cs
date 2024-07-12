@@ -108,6 +108,38 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public string obtenerTipodeUsuario(int idUsuario)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+            string descripcion = "";
+
+            try
+            {
+                datos.setearConsulta(@"SELECT tp.Descripcion 
+                               FROM Usuario U 
+                               INNER JOIN TipoUsuario tp ON tp.Id = U.IdTipoUsuario 
+                               WHERE U.Id = @IdUsuario");
+                datos.setearParametros("@IdUsuario", idUsuario);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    descripcion = (string)datos.Lector["Descripcion"];
+                }
+
+                return descripcion;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
 

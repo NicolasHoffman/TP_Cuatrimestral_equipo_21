@@ -10,7 +10,7 @@
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fas fa-users me-1" style="color: #2c78aa;"></i>Lista de Categorias
+                <i class="fa-solid fa-list" style="color: #2c78aa;"></i> Lista de Categorias
             </div>
             <div class="card-body">
                  <div class="row">

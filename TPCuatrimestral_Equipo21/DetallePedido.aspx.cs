@@ -70,7 +70,7 @@ namespace TPCuatrimestral_Equipo21
                 Notificacion notificacion = new Notificacion
                 {
                     IdUsuarioDestinatario = 2,
-                    Mensaje = "El pedido con ID " + idVenta + " ha sido preparado.",
+                    Mensaje = "El pedido: " + idVenta + " ya está preparado.",
                     Fecha = DateTime.Now
                 };
                 notificacionNegocio.Agregar(notificacion);

@@ -323,5 +323,31 @@ namespace negocio
 
             return lista;
         }
+        public int obtenerUltimoId()
+        {
+            int ultimoId = 0;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT MAX(Id) AS UltimoId FROM Pedido");
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    ultimoId = datos.Lector["UltimoId"] != DBNull.Value ? (int)datos.Lector["UltimoId"] : 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return ultimoId;
+        }
     }
 }

@@ -337,6 +337,19 @@ namespace TPCuatrimestral_Equipo21
 
 
                         pedidoNegocio.agregarPedido(nuevoPedido);
+
+                        // voy a generar un msn para avisar que entro un pedido
+                        int ultimoP = 0;
+                        ultimoP=pedidoNegocio.obtenerUltimoId();
+                        NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+                        Notificacion notificacion = new Notificacion
+                        {
+                            IdUsuarioDestinatario = 3,
+                            Mensaje = "Ingreso un nuevo Pedido. Numero de Pedido:  " + ultimoP ,
+                            Fecha = DateTime.Now
+                        };
+                        notificacionNegocio.Agregar(notificacion);
+
                     }
 
                     Carrito.Clear();

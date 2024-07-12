@@ -15,13 +15,24 @@ namespace TPCuatrimestral_Equipo21
         {
             if (!IsPostBack)
             {
-                //Cargar datos 
-                CargarDatos();
+                if (Session["usuario"] != null)
+                {
+                    var usuario = (dominio.Usuario)Session["usuario"];
+                    //Cargar datos 
+                    CargarDatos(usuario.tipoUsuario.TipoUsuarioId);
+                }
+                else
+                {
+                    // caso en que no haya un usuario en sesión, pero no lo voy a usar por ahora
+                    //litNombreUsuario.Text = "Usuario: Invitado";
+                    Response.Redirect("~/Login.aspx");
+                }
+                
             }
         }
-        private void CargarDatos()
+        private void CargarDatos(int Tipo)
         {
-            rptNoti.DataSource = notiNegocio.listar();
+            rptNoti.DataSource = notiNegocio.Listar(Tipo);
             rptNoti.DataBind();
         }
         protected void rptNoti_ItemCommand(object source, RepeaterCommandEventArgs e)
