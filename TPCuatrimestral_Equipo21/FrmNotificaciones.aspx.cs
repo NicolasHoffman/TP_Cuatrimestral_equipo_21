@@ -27,5 +27,23 @@ namespace TPCuatrimestral_Equipo21
         protected void rptNoti_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
         }
+        protected void chkMarcarLeido_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkMarcarLeido = (CheckBox)sender;
+     
+            int idNotificacion = Convert.ToInt32(chkMarcarLeido.Attributes["CommandArgument"]);
+            if (chkMarcarLeido.Checked)
+            {
+                MarcarComoLeida(idNotificacion);
+            }
+
+        }
+        private void MarcarComoLeida(int id)
+        {
+            NotificacionNegocio negocio = new NotificacionNegocio();
+            negocio.MarcarComoLeida(id);
+            // Recargar las notificaciones o actualizar la vista si es necesario
+            CargarDatos();
+        }
     }
-}
+ }

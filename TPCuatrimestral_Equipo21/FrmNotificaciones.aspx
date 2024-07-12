@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FrmNotificaciones.aspx.cs" Inherits="TPCuatrimestral_Equipo21.FrmNotificaciones" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    
-     <div class="container-fluid px-4">
+
+    <div class="container-fluid px-4">
         <h1 class="mt-5">Notificaciones</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>
@@ -31,16 +32,16 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                         <asp:Repeater ID="rptNoti" runat="server" OnItemCommand="rptNoti_ItemCommand">
+                        <asp:Repeater ID="rptNoti" runat="server" OnItemCommand="rptNoti_ItemCommand">
                             <ItemTemplate>
                                 <tr>
                                     <td><%# Eval("Id") %></td>
                                     <td><%# Eval("Mensaje") %></td>
                                     <td><%# Convert.ToDateTime(Eval("Fecha")).ToShortDateString() %></td>
                                     <td>
-                                       <!-- <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
-                                       <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-trash"></i></asp:LinkButton> -->
-                                    </td>
+    <asp:CheckBox ID="chkMarcarLeido" runat="server" AutoPostBack="true" OnCheckedChanged="chkMarcarLeido_CheckedChanged"
+        CommandArgument='<%# Eval("Id") %>' />
+</td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
