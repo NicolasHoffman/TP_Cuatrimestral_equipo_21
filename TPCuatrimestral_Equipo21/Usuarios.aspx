@@ -24,23 +24,18 @@
                     <thead>
                         <tr>
                             <th>LEGAJO</th>
-                            <th>NOMBRE</th>
+                            <th>NOMBRE USUARIO</th>
+                            <th>TIPO USUARIO</th>
                             <th style="width: 80px;">ACCIÓN</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>LEGAJO</th>
-                            <th>NOMBRE</th>
-                            <th style="width: 150px;">ACCIÓN</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
-                         <asp:Repeater ID="rptMarcas" runat="server" OnItemCommand="rptMarcas_ItemCommand">
+                         <asp:Repeater ID="rptUsuarios" runat="server" OnItemCommand="rptUsuarios_ItemCommand">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("Id") %></td>
-                                    <td><%# Eval("Nombre") %></td>
+                                    <td><%# Eval("Legajo") %></td>
+                                    <td><%# Eval("NombreUsuario") %></td>
+                                    <td><%# Eval("TipoUsuarioDescripcion") %></td>
                                     <td>
                                        <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
                                        <asp:LinkButton runat="server" CssClass="btn btn-danger btn-sm ms-2" CommandName="Eliminar" CommandArgument='<%# Eval("Id") %>'><i class="fas fa-trash"></i></asp:LinkButton>

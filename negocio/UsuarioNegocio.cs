@@ -15,8 +15,9 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
 
             try
-            {
-                datos.setearConsulta("SELECT U.Id, P.Nombre, P.Apellido FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id");
+            {   // COMENTO POR AHORA 
+                //datos.setearConsulta("SELECT U.Id, P.Nombre, P.Apellido FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id");
+                datos.setearConsulta("SELECT U.Id,U.Legajo,U.NombreUsuario, P.Nombre, P.Apellido, TP.Descripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario");
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
@@ -24,10 +25,16 @@ namespace negocio
                     Usuario usuario = new Usuario
                     {
                         Id = (int)datos.Lector["Id"],
+                        Legajo = (int)datos.Lector["Legajo"],
+                        NombreUsuario = (string)datos.Lector["NombreUsuario"],
                         Nombre = (string)datos.Lector["Nombre"],
-                        Apellido = (string)datos.Lector["Apellido"]
+                        Apellido = (string)datos.Lector["Apellido"],
+                        tipoUsuario = new TipoUsuario
+                        {
+                            Descripcion = (string)datos.Lector["Descripcion"]
+                        }
                     };
-
+                    
                     lista.Add(usuario);
                 }
 

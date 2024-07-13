@@ -14,6 +14,9 @@ namespace dominio
         public string Contra { get; set; }
         public TipoUsuario tipoUsuario { get; set; }
         public bool EstadoUsu { get; set; }
-
+        public string TipoUsuarioDescripcion
+        {
+            get { return tipoUsuario != null ? tipoUsuario.Descripcion : string.Empty; }
+        }
     }
 }
