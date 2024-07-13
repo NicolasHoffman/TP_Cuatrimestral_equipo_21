@@ -180,6 +180,35 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void eliminar(int idUsu)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("UPDATE Usuario SET EstadoUsu = 1 WHERE Id = @Id");
+                datos.setearParametros("@Id", idUsu);
+                datos.ejecutarAccion();
+
+                datos.cerrarConexion();
+
+                AccesoDatos datos2 = new AccesoDatos();
+                datos2.setearConsulta("UPDATE Persona SET Estado = 1 WHERE Id = @Id");
+                datos2.setearParametros("@Id", idUsu);
+                datos2.ejecutarAccion();
+                datos2.cerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
 

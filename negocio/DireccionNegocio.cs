@@ -87,5 +87,25 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void eliminar(int IdDireccion)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Direccion SET Estado = 1 WHERE Id  = @Id");
+                datos.setearParametros("@Id", IdDireccion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

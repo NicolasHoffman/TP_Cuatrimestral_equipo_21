@@ -31,7 +31,32 @@ namespace TPCuatrimestral_Equipo21
 
         protected void rptUsuarios_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            if (e.CommandName == "Seleccionar")
+            {
+                string id = e.CommandArgument.ToString();
+                Response.Redirect("FrmUsuario.aspx?id=" + id);
+            }
+            else if (e.CommandName == "Eliminar")
+            {
+                try
+                {
+                    string idUsu = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
 
+                    UsuarioNegocio negocio = new UsuarioNegocio();
+                    negocio.eliminar(int.Parse(idUsu));
+
+                    //DireccionNegocio direNego = new DireccionNegocio();
+                    //direNego.agregarDire();
+
+                    // Recargar los datos después de la eliminación
+                    CargarDatos();
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex);
+                    throw;
+                }
+            }
         }
     }
 }
