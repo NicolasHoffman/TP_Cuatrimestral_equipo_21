@@ -160,6 +160,7 @@
     <Content Include="FrmControlStock.aspx" />
     <Content Include="FrmNotificaciones.aspx" />
     <Content Include="FrmPrincipal.aspx" />
+    <Content Include="FrmUsuario.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
@@ -381,6 +382,13 @@
     </Compile>
     <Compile Include="FrmPrincipal.aspx.designer.cs">
       <DependentUpon>FrmPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUsuario.aspx.cs">
+      <DependentUpon>FrmUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmUsuario.aspx.designer.cs">
+      <DependentUpon>FrmUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -27,7 +27,16 @@ namespace TPCuatrimestral_Equipo21
                 if (negocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("Ventas.aspx", false);
+                    //esto cambiar
+                    if (usuario.tipoUsuario.TipoUsuarioId == 3)
+                    {
+                        Response.Redirect("Pedidos.aspx", false);
+                    }
+                    else
+                    {
+                        Response.Redirect("FrmPrincipal.aspx", false);
+                    }
+                    
                 }
                 else
                 {

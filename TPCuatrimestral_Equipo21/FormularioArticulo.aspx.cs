@@ -28,8 +28,8 @@ namespace TPCuatrimestral_Equipo21
                         ddlProveedor.DataTextField = "Nombre";
                         ddlProveedor.DataBind();
 
-                    //ArticuloNegocio negocio = new ArticuloNegocio();
-                    MarcaNegocio negmarca = new MarcaNegocio();
+                        //ArticuloNegocio negocio = new ArticuloNegocio();
+                        MarcaNegocio negmarca = new MarcaNegocio();
 
                         List<Marca> listaMarcas = negmarca.listar();
                         ddlMarca.DataSource = listaMarcas;
@@ -43,7 +43,8 @@ namespace TPCuatrimestral_Equipo21
                         ddlCategoria.DataSource = listaCategorias;
                         ddlCategoria.DataValueField = "Id";
                         ddlCategoria.DataTextField = "Descripcion";
-                    }   ddlCategoria.DataBind();
+                        ddlCategoria.DataBind();
+                    }   
 
                 }
                 catch (Exception ex)

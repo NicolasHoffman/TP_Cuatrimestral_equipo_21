@@ -12,7 +12,6 @@ namespace dominio
         public int Legajo { get; set; }
         public string NombreUsuario { get; set; }
         public string Contra { get; set; }
-        public string Cargo { get; set; }
         public TipoUsuario tipoUsuario { get; set; }
         public bool EstadoUsu { get; set; }
 

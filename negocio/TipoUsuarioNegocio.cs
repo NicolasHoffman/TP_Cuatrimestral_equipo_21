@@ -9,6 +9,39 @@ namespace negocio
 {
     public class TipoUsuarioNegocio
     {
+        public List<TipoUsuario> listar()
+        {
+            List<TipoUsuario> lista = new List<TipoUsuario>();
+            
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT Id, Descripcion FROM TipoUsuario ORDER BY Descripcion");
+                datos.ejecturaLectura();
+
+                while (datos.Lector.Read())
+                {
+                    TipoUsuario aux = new TipoUsuario();
+                    aux.TipoUsuarioId = (int)datos.Lector["Id"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public void agregarTipoUsuario(TipoUsuario tipoUsuario)
         {
             AccesoDatos datos = new AccesoDatos();

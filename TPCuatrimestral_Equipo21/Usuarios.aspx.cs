@@ -22,7 +22,7 @@ namespace TPCuatrimestral_Equipo21
         }
         protected void btnCrearNuevo_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("FrmUsuario.aspx");
         }
 
         protected void rptMarcas_ItemCommand(object source, RepeaterCommandEventArgs e)

@@ -13,11 +13,7 @@
             </div>
             <div class="card-body">
                  <div class="row">
-                    <div class="col-12">
-                        
                     
-                        <asp:Button ID="Button1" runat="server" Text="Crear Nuevo" CssClass="btn btn-success" OnClick="btnCrearNuevo_Click" />
-                    </div>
                 </div>
                 <hr />
                 <table id="datatablesSimple" class="table table-striped table-bordered">
@@ -30,7 +26,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
+                            <th>Codigo</th>
                             <th>Articulo</th>
                             <th>Cantidad</th>
                             

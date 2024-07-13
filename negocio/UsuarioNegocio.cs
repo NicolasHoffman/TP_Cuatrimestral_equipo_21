@@ -82,7 +82,7 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("SELECT Id, Legajo,  NombreUsuario, Contra, Cargo, IdTipoUsuario FROM Usuario WHERE NombreUsuario = @NombreUsuario and Contra = @Contra and EstadoUsu = 0");
+                datos.setearConsulta("SELECT Id, Legajo,  NombreUsuario, Contra, IdTipoUsuario FROM Usuario WHERE NombreUsuario = @NombreUsuario and Contra = @Contra and EstadoUsu = 0");
                 datos.setearParametros("@NombreUsuario", usuario.NombreUsuario);
                 datos.setearParametros("@Contra", usuario.Contra);
  
@@ -92,7 +92,6 @@ namespace negocio
                 {
                     usuario.Id = (int)datos.Lector["Id"];
                     usuario.Legajo = (int)datos.Lector["Legajo"];
-                    usuario.Cargo = (string)datos.Lector["Cargo"];
                     usuario.tipoUsuario = new TipoUsuario();
                     usuario.tipoUsuario.TipoUsuarioId = (int)datos.Lector["IdTipoUsuario"];
                     return true;
@@ -130,6 +129,40 @@ namespace negocio
                 }
 
                 return descripcion;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void agregar(Usuario nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Insertar en la tabla Persona
+                datos.setearConsulta("INSERT INTO Persona (Nombre, Apellido, Dni, IdDireccion, Email, Telefono) OUTPUT INSERTED.Id VALUES (@Nombre, @Apellido, @Dni, @IdDireccion, @Email, @Telefono)");
+                datos.setearParametros("@Nombre", nuevo.Nombre);
+                datos.setearParametros("@Apellido", nuevo.Apellido);
+                datos.setearParametros("@Dni", nuevo.Dni);
+                datos.setearParametros("@IdDireccion", nuevo.Direccion.Id);
+                datos.setearParametros("@Email", nuevo.Email);
+                datos.setearParametros("@Telefono", nuevo.Telefono);
+                //datos.setearParametros("@Estado", nuevo.Estado ? 1 : 0);
+
+                int personaId = (int)datos.ejecutarEscalar(); // Obtener el ID generado
+
+                // Insertar en la tabla Usuario
+                datos.setearConsulta("INSERT INTO Usuario (NombreUsuario, Contra, IdTipoUsuario) VALUES (@NombreUsuario, @Contra, @IdTipoUsuario)");
+                datos.setearParametros("@NombreUsuario", nuevo.NombreUsuario);
+                datos.setearParametros("@Contra", nuevo.Contra);
+                datos.setearParametros("@IdTipoUsuario", nuevo.tipoUsuario.TipoUsuarioId);
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
