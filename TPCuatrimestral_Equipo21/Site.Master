@@ -121,14 +121,14 @@
                                 </nav>
                             </div>
 
-                             <% if (Session["usuario"] != null &&
+                            <% if (Session["usuario"] != null &&
                                            (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
                                             ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
                                 { %>
 
                             <div class="sb-sidenav-menu-heading">ACTIVO</div>
 
-                           
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Clientes
@@ -140,7 +140,7 @@
                                     <a class="nav-link" href="layout-sidenav-light.html">Historial de compras</a>
                                 </nav>
                             </div>
-                           
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-people-carry-box"></i></div>
                                 Proveedores
@@ -196,7 +196,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Usuarios.aspx">Gestión de usuarios y roles</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Permisos y niveles de acceso</a>
-                                    
+
                                 </nav>
 
                             </div>
@@ -207,7 +207,7 @@
                         <div class="small">Conectado Como:</div>
                         <asp:Literal ID="litFooterDescripcion" runat="server"></asp:Literal>
                     </div>
-                    
+
                 </nav>
             </div>
 

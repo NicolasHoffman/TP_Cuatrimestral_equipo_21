@@ -34,7 +34,7 @@ namespace negocio
                             Descripcion = (string)datos.Lector["Descripcion"]
                         }
                     };
-                    
+
                     lista.Add(usuario);
                 }
 
@@ -84,7 +84,7 @@ namespace negocio
             return persona;
         }
 
-        public bool Loguear (Usuario usuario)
+        public bool Loguear(Usuario usuario)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -92,7 +92,7 @@ namespace negocio
                 datos.setearConsulta("SELECT Id, Legajo,  NombreUsuario, Contra, IdTipoUsuario FROM Usuario WHERE NombreUsuario = @NombreUsuario and Contra = @Contra and EstadoUsu = 0");
                 datos.setearParametros("@NombreUsuario", usuario.NombreUsuario);
                 datos.setearParametros("@Contra", usuario.Contra);
- 
+
                 datos.ejecturaLectura();
 
                 while (datos.Lector.Read())
@@ -208,6 +208,58 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+        public Usuario obtenerPorId(int idUsu)
+        {
+            Usuario usuario = null;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("SELECT U.Id, U.Legajo, U.NombreUsuario, P.Nombre, P.Apellido, P.Dni, P.Email, P.Telefono, D.Id AS IdDireccion, D.Calle, D.Departamento, D.Numero, D.Piso, D.Provincia, D.Localidad, D.CodigoPostal, TP.Descripcion AS TipoUsuarioDescripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN Direccion D ON P.IdDireccion = D.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario WHERE U.Id = @Id");
+                datos.setearParametros("@Id", idUsu);
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    usuario = new Usuario
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Legajo = (int)datos.Lector["Legajo"],
+                        NombreUsuario = (string)datos.Lector["NombreUsuario"],
+                        Nombre = (string)datos.Lector["Nombre"],
+                        Apellido = (string)datos.Lector["Apellido"],
+                        Dni = (string)datos.Lector["Dni"],
+                        Email = (string)datos.Lector["Email"],
+                        Telefono = (string)datos.Lector["Telefono"],
+                        Direccion = new Direccion
+                        {
+                            Id = (int)datos.Lector["IdDireccion"],
+                            Calle = (string)datos.Lector["Calle"],
+                            Departamento = (string)datos.Lector["Departamento"],
+                            Numero = (int)datos.Lector["Numero"],
+                            Piso = (int)datos.Lector["Piso"],
+                            Provincia = (string)datos.Lector["Provincia"],
+                            Localidad = (string)datos.Lector["Localidad"],
+                            CodigoPostal = (string)datos.Lector["CodigoPostal"]
+                        },
+                        tipoUsuario = new TipoUsuario
+                        {
+                            Descripcion = (string)datos.Lector["TipoUsuarioDescripcion"]
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return usuario;
         }
     }
 }

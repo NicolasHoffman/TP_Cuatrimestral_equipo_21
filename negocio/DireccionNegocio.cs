@@ -87,6 +87,33 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        // ver si cambio el otro odificar 
+        public void modificar(Direccion direccion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("UPDATE Direccion SET Calle = @Calle, Departamento = @Departamento, Numero = @Numero, Piso = @Piso, Provincia = @Provincia, Localidad = @Localidad, CodigoPostal = @CodigoPostal WHERE Id = @Id");
+                datos.setearParametros("@Calle", direccion.Calle);
+                datos.setearParametros("@Departamento", direccion.Departamento);
+                datos.setearParametros("@Numero", direccion.Numero);
+                datos.setearParametros("@Piso", direccion.Piso);
+                datos.setearParametros("@Provincia", direccion.Provincia);
+                datos.setearParametros("@Localidad", direccion.Localidad);
+                datos.setearParametros("@CodigoPostal", direccion.CodigoPostal);
+                datos.setearParametros("@Id", direccion.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar la dirección en la base de datos", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public void eliminar(int IdDireccion)
         {
 

@@ -11,6 +11,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <asp:HiddenField ID="hfDireccionId" runat="server" />
                             <label for="txtNombre" class="form-label">Nombre:</label>
                             <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" required placeholder="Ingrese Nombre"></asp:TextBox>
                         </div>
