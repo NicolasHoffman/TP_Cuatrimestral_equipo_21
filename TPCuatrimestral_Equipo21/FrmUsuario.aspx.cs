@@ -94,6 +94,8 @@ namespace TPCuatrimestral_Equipo21
                 DireccionNegocio direccionNegocio = new DireccionNegocio();
                 TipoUsuario tipoUsuario = new TipoUsuario();
 
+
+                
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Apellido = txtApellido.Text;
                 nuevo.Dni = txtDni.Text;
@@ -123,8 +125,10 @@ namespace TPCuatrimestral_Equipo21
                     direccionNegocio.modificar(nuevaD);
 
                     // Modificar usuario
-                    //nuevo.Direccion = nuevaD;
-                    //negocio.modificar(nuevo);
+                    nuevo.Id = int.Parse(Request.QueryString["Id"]);
+                    negocio.modificar(nuevo);
+
+                
                 }
                 else
                 {

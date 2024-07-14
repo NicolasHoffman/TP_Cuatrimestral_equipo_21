@@ -216,7 +216,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT U.Id, U.Legajo, U.NombreUsuario, P.Nombre, P.Apellido, P.Dni, P.Email, P.Telefono, D.Id AS IdDireccion, D.Calle, D.Departamento, D.Numero, D.Piso, D.Provincia, D.Localidad, D.CodigoPostal, TP.Descripcion AS TipoUsuarioDescripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN Direccion D ON P.IdDireccion = D.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario WHERE U.Id = @Id");
+                datos.setearConsulta("SELECT U.Id, U.Legajo, U.NombreUsuario,U.IdTipoUsuario, P.Nombre, P.Apellido, P.Dni, P.Email, P.Telefono, D.Id AS IdDireccion, D.Calle, D.Departamento, D.Numero, D.Piso, D.Provincia, D.Localidad, D.CodigoPostal, TP.Descripcion AS TipoUsuarioDescripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN Direccion D ON P.IdDireccion = D.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario WHERE U.Id = @Id");
                 datos.setearParametros("@Id", idUsu);
                 datos.ejecturaLectura();
 
@@ -245,6 +245,7 @@ namespace negocio
                         },
                         tipoUsuario = new TipoUsuario
                         {
+                            TipoUsuarioId = (int)datos.Lector["IdTipoUsuario"],
                             Descripcion = (string)datos.Lector["TipoUsuarioDescripcion"]
                         }
                     };
@@ -260,6 +261,45 @@ namespace negocio
             }
 
             return usuario;
+        }
+
+        public void modificar(Usuario usuario)
+        {
+
+
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+
+                // Modificar en la tabla Persona
+                datos.setearConsulta("UPDATE Persona SET Nombre = @Nombre, Apellido = @Apellido, Dni = @Dni, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
+                datos.setearParametros("@Nombre", usuario.Nombre);
+                datos.setearParametros("@Apellido", usuario.Apellido);
+                datos.setearParametros("@Dni", usuario.Dni);
+                datos.setearParametros("@Email", usuario.Email);
+                datos.setearParametros("@Telefono", usuario.Telefono);
+                datos.setearParametros("@Id", usuario.Id);
+                datos.ejecutarAccion();
+                datos.cerrarConexion();
+
+                AccesoDatos datos1 = new AccesoDatos();
+                // Modificar en la tabla Usuario
+                datos1.setearConsulta("UPDATE Usuario SET NombreUsuario = @NombreUsuario, Contra = @Contra, IdTipoUsuario = @IdTipoUsuario WHERE Id = @Id");
+                datos1.setearParametros("@NombreUsuario", usuario.NombreUsuario);
+                datos1.setearParametros("@Contra", usuario.Contra);
+                datos1.setearParametros("@IdTipoUsuario", usuario.tipoUsuario.TipoUsuarioId);
+                datos1.setearParametros("@Id", usuario.Id);
+                datos1.ejecutarAccion();
+                datos1.cerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //datos.cerrarConexion();
+            }
         }
     }
 }

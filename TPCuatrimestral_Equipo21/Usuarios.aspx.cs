@@ -8,7 +8,6 @@ using negocio;
 
 namespace TPCuatrimestral_Equipo21
 {
-    
     public partial class Usuarios : System.Web.UI.Page
     {
         private readonly UsuarioNegocio negUsu = new UsuarioNegocio();
