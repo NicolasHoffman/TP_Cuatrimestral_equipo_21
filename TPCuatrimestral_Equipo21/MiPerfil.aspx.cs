@@ -15,9 +15,15 @@ namespace TPCuatrimestral_Equipo21
         {
             try
             {
+                if (Session["usuario"] == null)
+                {
+                    Session.Add("Error", "Debes loguearte");
+                    Response.Redirect("Login.aspx", false);
+                }
                 if (!IsPostBack)
                 {
-                    int userId = 1; // cambiar ahora asumo 1 asi veo
+                    Usuario usuario = (Usuario)Session["usuario"];
+                    int userId = usuario.Id; // cambiar ahora asumo 1 asi veo
                     CargarUsuario(userId);
                 }
             }
