@@ -152,6 +152,8 @@ namespace negocio
 
             try
             {
+                int siguienteLegajo = obtenerSiguienteLegajo();
+                nuevo.Legajo = siguienteLegajo;
                 // Insertar en la tabla Persona
                 datos.setearConsulta("INSERT INTO Persona (Nombre, Apellido, Dni, IdDireccion, Email, Telefono) OUTPUT INSERTED.Id VALUES (@Nombre, @Apellido, @Dni, @IdDireccion, @Email, @Telefono)");
                 datos.setearParametros("@Nombre", nuevo.Nombre);
@@ -165,10 +167,11 @@ namespace negocio
                 int personaId = (int)datos.ejecutarEscalar(); // Obtener el ID generado
 
                 // Insertar en la tabla Usuario
-                datos.setearConsulta("INSERT INTO Usuario (NombreUsuario, Contra, IdTipoUsuario) VALUES (@NombreUsuario, @Contra, @IdTipoUsuario)");
+                datos.setearConsulta("INSERT INTO Usuario (Legajo, NombreUsuario, Contra, IdTipoUsuario) VALUES (@Legajo, @NombreUsuario, @Contra, @IdTipoUsuario)");
                 datos.setearParametros("@NombreUsuario", nuevo.NombreUsuario);
                 datos.setearParametros("@Contra", nuevo.Contra);
                 datos.setearParametros("@IdTipoUsuario", nuevo.tipoUsuario.TipoUsuarioId);
+                datos.setearParametros("@Legajo", nuevo.Legajo);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -216,7 +219,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT U.Id, U.Legajo, U.NombreUsuario,U.IdTipoUsuario, P.Nombre, P.Apellido, P.Dni, P.Email, P.Telefono, D.Id AS IdDireccion, D.Calle, D.Departamento, D.Numero, D.Piso, D.Provincia, D.Localidad, D.CodigoPostal, TP.Descripcion AS TipoUsuarioDescripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN Direccion D ON P.IdDireccion = D.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario WHERE U.Id = @Id");
+                datos.setearConsulta("SELECT U.Id, U.Legajo, U.NombreUsuario, U.Contra, U.IdTipoUsuario, P.Nombre, P.Apellido, P.Dni, P.Email, P.Telefono, D.Id AS IdDireccion, D.Calle, D.Departamento, D.Numero, D.Piso, D.Provincia, D.Localidad, D.CodigoPostal, TP.Descripcion AS TipoUsuarioDescripcion FROM Usuario U INNER JOIN Persona P ON P.Id = U.Id INNER JOIN Direccion D ON P.IdDireccion = D.Id INNER JOIN TipoUsuario TP ON TP.Id = U.IdTipoUsuario WHERE U.Id = @Id");
                 datos.setearParametros("@Id", idUsu);
                 datos.ejecturaLectura();
 
@@ -227,6 +230,7 @@ namespace negocio
                         Id = (int)datos.Lector["Id"],
                         Legajo = (int)datos.Lector["Legajo"],
                         NombreUsuario = (string)datos.Lector["NombreUsuario"],
+                        Contra = (string)datos.Lector["Contra"],
                         Nombre = (string)datos.Lector["Nombre"],
                         Apellido = (string)datos.Lector["Apellido"],
                         Dni = (string)datos.Lector["Dni"],
@@ -300,6 +304,32 @@ namespace negocio
             {
                 //datos.cerrarConexion();
             }
+        }
+        public int obtenerSiguienteLegajo()
+        {
+            AccesoDatos datos = new AccesoDatos();
+            int siguienteLegajo = 0;
+
+            try
+            {
+                datos.setearConsulta("SELECT ISNULL(MAX(Legajo), 0) AS UltimoLegajo FROM Usuario");
+                datos.ejecturaLectura();
+
+                if (datos.Lector.Read())
+                {
+                    siguienteLegajo = ((int)datos.Lector["UltimoLegajo"]) + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return siguienteLegajo;
         }
     }
 }

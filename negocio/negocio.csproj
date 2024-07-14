@@ -51,6 +51,7 @@
     <Compile Include="EmailService.cs" />
     <Compile Include="EstadoPedidoNegocio.cs" />
     <Compile Include="MarcaNegocio.cs" />
+    <Compile Include="MensajeNegocio.cs" />
     <Compile Include="NotificacionNegocio.cs" />
     <Compile Include="PedidoNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

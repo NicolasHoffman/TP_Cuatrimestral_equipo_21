@@ -40,12 +40,13 @@
                             <label for="txtTelefono" class="form-label">Telefono:</label>
                             <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" required placeholder="Ingrese Telefono"></asp:TextBox>
                         </div>
+                        
+                    </div>
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label for="txtCalle" class="form-label">Domicilio:</label>
                             <asp:TextBox ID="txtCalle" runat="server" CssClass="form-control" required placeholder="Ingrese Nombre de la Calle"></asp:TextBox>
                         </div>
-                    </div>
-                    <div class="col-md-6">
                          <div class="mb-3">
                             <label for="txtNumero" class="form-label">Número:</label>
                             <asp:TextBox ID="txtNumero" runat="server" CssClass="form-control" required placeholder="Ingrese Número"></asp:TextBox>

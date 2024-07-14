@@ -93,15 +93,16 @@ namespace TPCuatrimestral_Equipo21
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 DireccionNegocio direccionNegocio = new DireccionNegocio();
                 TipoUsuario tipoUsuario = new TipoUsuario();
+                int idMen = 0;
 
-
-                
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Apellido = txtApellido.Text;
                 nuevo.Dni = txtDni.Text;
                 nuevo.Email = txtEmail.Text;
                 nuevo.Telefono = txtTelefono.Text;
                 nuevo.EstadoUsu = false;
+
+
 
                 Direccion nuevaD = new Direccion();
                 nuevaD.Calle = txtCalle.Text;
@@ -113,35 +114,50 @@ namespace TPCuatrimestral_Equipo21
                 nuevaD.CodigoPostal = txtCodigoPostal.Text;
 
                 nuevo.NombreUsuario = txtNombreUsu.Text;
+               
 
-                nuevo.Contra = txtDni.Text;
                 nuevo.tipoUsuario = new TipoUsuario();
                 nuevo.tipoUsuario.TipoUsuarioId = int.Parse(ddlTipoUsuario.SelectedValue);
 
                 if (Request.QueryString["Id"] != null)
                 {
-                    // Modificar dirección
-                    nuevaD.Id = int.Parse(hfDireccionId.Value);
-                    direccionNegocio.modificar(nuevaD);
+                    // Mantengo la contra al modificar
+                    int idUsuario = int.Parse(Request.QueryString["Id"]);
+                    Usuario usuarioExistente = negocio.obtenerPorId(idUsuario);
 
-                    // Modificar usuario
-                    nuevo.Id = int.Parse(Request.QueryString["Id"]);
-                    negocio.modificar(nuevo);
+                    if (usuarioExistente != null)
+                    {
+                        // Mantener la contraseña existente al modificar
+                        nuevo.Contra = usuarioExistente.Contra;
 
-                
+                        // Modificar dirección
+                        nuevaD.Id = int.Parse(hfDireccionId.Value);
+                        direccionNegocio.modificar(nuevaD);
+
+                        // Modificar usuario
+                        nuevo.Id = int.Parse(Request.QueryString["Id"]);
+                        negocio.modificar(nuevo);
+                    }
+                    else
+                    {
+                        throw new Exception("No se encontró el usuario para modificar.");
+                    }
+
+                    idMen = 1;
+                    Response.Redirect("FrmMensaje.aspx?id=" + idMen);
                 }
                 else
                 {
                     // Agregar nuevo Usuario
+                    nuevo.Contra = txtDni.Text;
                     direccionNegocio.agregarDire(nuevaD);
                     nuevo.Direccion = nuevaD;
                     nuevo.Direccion.Id = direccionNegocio.obtenerUltimoId();
                     negocio.agregar(nuevo);
                 }
 
-                Response.Redirect("Usuarios.aspx", false);
-
-
+                idMen = 2;
+                Response.Redirect("FrmMensaje.aspx?id=" + idMen, false);
             }
             catch (Exception ex)
             {

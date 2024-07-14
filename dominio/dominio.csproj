@@ -50,6 +50,7 @@
     <Compile Include="Direccion.cs" />
     <Compile Include="EstadoPedido.cs" />
     <Compile Include="Marca.cs" />
+    <Compile Include="Mensaje.cs" />
     <Compile Include="Notificacion.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Persona.cs" />
