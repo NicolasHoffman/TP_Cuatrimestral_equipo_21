@@ -13,7 +13,7 @@ namespace TPCuatrimestral_Equipo21
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
@@ -40,7 +40,9 @@ namespace TPCuatrimestral_Equipo21
                 }
                 else
                 {
-                    Session.Add("Error", "usuario o contraseña incorrectos");
+                    //Session.Add("Error", "usuario o contraseña incorrectos");
+                   
+                    Response.Redirect("FrmMensaje.aspx?id=" + 3);
                 }
             }
             catch (Exception ex)
@@ -70,13 +72,18 @@ namespace TPCuatrimestral_Equipo21
                         Session.Add("error", ex);
                     }
 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Se ha enviado un código de recuperación a su correo electrónico.');", true);
-                    Response.Redirect("Recuperar.aspx");
+                    //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Recu.');", true);
+                    //Response.Redirect("Recuperar.aspx");
+
+                    
+                    Response.Redirect("FrmMensaje.aspx?id=" + 5);
                 }
                 else
                 {
                     // error si no encuentro mail 
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('No se encontró una cuenta con ese correo electrónico.');", true);
+                    //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('No se encontró una cuenta con ese correo electrónico.');", true);
+
+                    Response.Redirect("FrmMensaje.aspx?id=" + 4);
                 }
             }
         }

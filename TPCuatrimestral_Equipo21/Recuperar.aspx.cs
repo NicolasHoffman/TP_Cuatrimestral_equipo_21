@@ -11,6 +11,7 @@ namespace TPCuatrimestral_Equipo21
 {
     public partial class Recuperar : System.Web.UI.Page
     {
+        int idMen = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -27,12 +28,14 @@ namespace TPCuatrimestral_Equipo21
                 if (recuperarContraNego.ValidarCodigoRecuperacion(userId, codigo))
                 {
                     recuperarContraNego.ActualizarContrasena(userId, nuevaContrasena);
-                    
-                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Su contraseña ha sido restablecida exitosamente.');", true);
+
+                    //ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Su contraseña ha sido restablecida exitosamente.');", true);
+                    idMen = 6;
+                    Response.Redirect("FrmMensaje.aspx?id=" + idMen);
                 }
                 else
                 {
-                 
+
                     ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('El código de recuperación no es válido o ha expirado.');", true);
                 }
             }
@@ -40,8 +43,12 @@ namespace TPCuatrimestral_Equipo21
         private int ObtenerUserIdDesdeCodigo(string codigo)
         {
             RecuperarContraNego recuperarContraNego = new RecuperarContraNego();
-            return recuperarContraNego.ObtenerUserIdDesdeCodigo(codigo); 
+            return recuperarContraNego.ObtenerUserIdDesdeCodigo(codigo);
         }
 
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
     }
 }

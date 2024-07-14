@@ -4,19 +4,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Mensaje</title>
-    <!-- Incluir Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Incluir FontAwesome para los íconos -->
+    <!-- FontAwesome para los íconos -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
-    <!-- Incluir jQuery -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <!-- Incluir Bootstrap JS -->
+    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         function showMessage(isSuccess, title, body, redirectUrl) {
             let icon = isSuccess
                 ? '<i class="fas fa-check-circle fa-sm" style="color: #63E6BE;"></i>'
-                : '<i class="fa-solid fa-times-circle" style="color: #E66363;"></i>';
+                : '<i class="fas fa-times-circle fa-sm" style="color: #E66363;"></i>';
 
             let messageHtml = `
                 <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

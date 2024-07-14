@@ -357,7 +357,10 @@ namespace TPCuatrimestral_Equipo21
                     Repeater1.DataBind();
                     ActualizarTotalAPagar();
 
-                    Response.Write("<script>alert('Venta generada exitosamente');</script>");
+                    //Response.Write("<script>alert('Venta generada exitosamente');</script>");
+
+                 
+                    Response.Redirect("FrmMensaje.aspx?id=" + 7);
 
                 }
                 catch (Exception ex)
@@ -368,55 +371,16 @@ namespace TPCuatrimestral_Equipo21
             else
             {
                 Response.Write("<script>alert('No se pueden generar ventas sin productos en el carrito o sin cliente seleccionado');</script>");
+                //Response.Redirect("FrmMensaje.aspx?id=" + 8);
             }
         }
+
         protected void btnGenerarVenta_Click(object sender, EventArgs e)
         {
             // Verifico que haya Art en el carrito y que tenga un cliente
             if (Carrito.Count > 0 && !string.IsNullOrEmpty(txtCliente.Text.Trim()))
             {
-                VentaNegocio ventaNegocio = new VentaNegocio();
-                DetalleVentaNegocio detalleVentaNegocio = new DetalleVentaNegocio();
-                //int idCliente = IdClienteSeleccionado;
-
-                int idCliente = 1;
-
-                Venta nuevaVenta = new Venta();
-                nuevaVenta.IdCliente = idCliente;
-                nuevaVenta.IdVendedor = 1;
-                nuevaVenta.IdFormaDePago = 1;
-                nuevaVenta.ImporteTotal = CalcularTotalCarrito();
-                string forma = FormaEntregaSeleccionada;
-
-                try
-                {
-                    ventaNegocio.agregarVenta(nuevaVenta);
-
-                    int idVentaGenerado = ventaNegocio.obtenerUltimoIdVenta();
-
-                    foreach (CarritoItem item in Carrito)
-                    {
-                        DetalleVenta detalle = new DetalleVenta();
-                        detalle.IdVenta = idVentaGenerado;
-                        detalle.IdArticulo = item.Id;
-                        detalle.Cantidad = item.Cantidad;
-                        detalle.PrecioUnitario = item.Precio;
-
-                        detalleVentaNegocio.agregarDetalleVenta(detalle);
-                    }
-
-                    Carrito.Clear();
-                    Repeater1.DataSource = Carrito;
-                    Repeater1.DataBind();
-                    ActualizarTotalAPagar();
-
-                    Response.Write("<script>alert('Venta generada exitosamente');</script>");
-
-                }
-                catch (Exception ex)
-                {
-                    Response.Write("<script>alert('Error al generar la venta: " + ex.Message + "');</script>");
-                }
+               
             }
             else
             {

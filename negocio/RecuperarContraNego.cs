@@ -17,7 +17,7 @@ namespace negocio
             int id;
             try
             {
-                datos.setearConsulta("SELECT C.Id FROM Cliente C INNER JOIN Persona P ON C.Id = P.Id WHERE P.Email = @Email AND C.Estado = 0");
+                datos.setearConsulta("SELECT U.Id FROM Usuario U INNER JOIN Persona P ON U.Id = P.Id WHERE P.Email = @Email AND U.EstadoUsu = 0");
                 datos.setearParametros("@Email", email);
                 datos.ejecturaLectura();
 

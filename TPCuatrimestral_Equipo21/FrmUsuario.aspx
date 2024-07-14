@@ -5,7 +5,7 @@
         <div class="card mt-4">
 
             <div class="card-header">
-                <i class="fas fa-tag fa-lg" style="color: #2c78aa;"></i>Nuevo Cliente
+                <i class="fas fa-user-plus" style="color: #2c78aa;"></i> Nuevo Usuario
             </div>
             <div class="card-body">
                 <div class="row">
@@ -81,6 +81,5 @@
             </div>
         </div>
     </div>
-
 
 </asp:Content>

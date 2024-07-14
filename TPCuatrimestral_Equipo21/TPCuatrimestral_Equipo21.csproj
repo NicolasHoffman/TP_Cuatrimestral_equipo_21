@@ -165,6 +165,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
+    <Content Include="MiPerfil.aspx" />
     <Content Include="Pedidos.aspx" />
     <Content Include="Proveedores.aspx" />
     <Content Include="Recuperar.aspx" />
@@ -414,6 +415,13 @@
     </Compile>
     <Compile Include="Marcas.aspx.designer.cs">
       <DependentUpon>Marcas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pedidos.aspx.cs">
       <DependentUpon>Pedidos.aspx</DependentUpon>

@@ -38,6 +38,9 @@
                 <div class="form-group">
                     <asp:Button ID="btnRestablecer" runat="server" Text="Restablecer Contraseña" CssClass="btn btn-primary btn-block" OnClick="btnRestablecer_Click" />
                 </div>
+                <div class="form-group">
+                    <asp:Button ID="Cancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-block" OnClick="btnCancelar_Click" />
+                </div>
             </div>
         </div>
     </form>
