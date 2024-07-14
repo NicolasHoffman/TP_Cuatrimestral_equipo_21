@@ -121,7 +121,33 @@ namespace TPCuatrimestral_Equipo21
                 Response.Redirect("DetallePedido.aspx?idVenta=" + idVenta);
 
             }
+            if (e.CommandName == "Entregado")
+            {
+                int idVenta = Convert.ToInt32(e.CommandArgument);
+                pedidoNegocio.cambiarEstado(idVenta, 5);
+                Response.Redirect("Pedidos.aspx" );
+            }
         }
+        protected bool MostrarBoton(object estadoPedido, object idUsuario)
+        {
+            // Convertir estadoPedido a string
+            string estado = estadoPedido?.ToString();
+
+            // Verificar condiciones para mostrar el botón
+            if (Session["usuario"] != null &&
+                (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                 ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2) &&
+                estado == "En Camino" &&
+                idUsuario != null && Convert.ToInt32(idUsuario) != 0)
+            {
+                return true; // Mostrar el botón
+            }
+            else
+            {
+                return false; // No mostrar el botón
+            }
+        }
+
 
     }
            

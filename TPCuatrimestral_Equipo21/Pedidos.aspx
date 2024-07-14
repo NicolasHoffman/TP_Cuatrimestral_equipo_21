@@ -50,6 +50,12 @@
                                     <td><%# Eval("EstadoPedido.Descripcion") %></td>
                                     <td>
                                         <asp:LinkButton runat="server" CssClass="btn btn-primary btn-sm" CommandName="Seleccionar" CommandArgument='<%# Eval("Venta.Id") %>'><i class="fas fa-pen"></i></asp:LinkButton>
+                                         
+                                        <asp:LinkButton runat="server" CssClass="btn btn-success btn-sm"
+                                        CommandName="Entregado" CommandArgument='<%# Eval("Venta.Id") %>'
+                                        Visible='<%# MostrarBoton(Eval("EstadoPedido.Descripcion"), Eval("IdUsuario")) %>'>
+                                        <i class="fas fa-check"></i>
+                                        </asp:LinkButton>
                                     </td>
                                 </tr>
                             </ItemTemplate>

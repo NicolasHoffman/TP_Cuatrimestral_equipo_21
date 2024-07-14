@@ -131,36 +131,42 @@ namespace TPCuatrimestral_Equipo21
         }
         private void MostrarBoton(string estadoPedidoDescripcion)
         {
-            // Mostrar el botón solo si el estado del pedido es "Pendiente"
-            switch (estadoPedidoDescripcion)
+            if (Session["usuario"] != null && ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 3)
             {
-                case "Pendiente":
-                    btnPrepararPedido.Visible = true;
-                    btnPedidoPreparado.Visible = false;
-                    btnEntregarPedido.Visible = false;
-                    break;
-                case "En preparación":
-                    btnPrepararPedido.Visible = false;
-                    btnPedidoPreparado.Visible = true;
-                    btnEntregarPedido.Visible = false;
-                    break;
-                case "Listo para enviar":
-                    btnPrepararPedido.Visible = false;
-                    btnPedidoPreparado.Visible = false;
-                    btnEntregarPedido.Visible = true;
-                    break;
-                case "En Camino":
-                    btnPrepararPedido.Visible = false;
-                    btnPedidoPreparado.Visible = false;
-                    btnEntregarPedido.Visible = false;
-                    break;
-                default:
-                    // En caso de un estado desconocido o nulo, ocultar todos los botones
-                    btnPrepararPedido.Visible = false;
-                    btnPedidoPreparado.Visible = false;
-                    btnEntregarPedido.Visible = false;
-                    break;
+                // Mostrar el botón solo si el estado del pedido es "Pendiente", "En preparación" o "Listo para enviar"
+                switch (estadoPedidoDescripcion)
+                {
+                    case "Pendiente":
+                        btnPrepararPedido.Visible = true;
+                        btnPedidoPreparado.Visible = false;
+                        btnEntregarPedido.Visible = false;
+                        break;
+                    case "En preparación":
+                        btnPrepararPedido.Visible = false;
+                        btnPedidoPreparado.Visible = true;
+                        btnEntregarPedido.Visible = false;
+                        break;
+                    case "Listo para enviar":
+                        btnPrepararPedido.Visible = false;
+                        btnPedidoPreparado.Visible = false;
+                        btnEntregarPedido.Visible = true;
+                        break;
+                    default:
+                        // Para otros estados, ocultar todos los botones
+                        btnPrepararPedido.Visible = false;
+                        btnPedidoPreparado.Visible = false;
+                        btnEntregarPedido.Visible = false;
+                        break;
+                }
             }
+            else
+            {
+                // Ocultar todos los botones si el usuario no es de tipo 3
+                btnPrepararPedido.Visible = false;
+                btnPedidoPreparado.Visible = false;
+                btnEntregarPedido.Visible = false;
+            }
+
         }
     }
 }
