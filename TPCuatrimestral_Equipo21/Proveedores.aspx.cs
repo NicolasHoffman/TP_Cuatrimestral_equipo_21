@@ -14,6 +14,15 @@ namespace TPCuatrimestral_Equipo21
         private readonly ProveedorNegocio proveedorNegocio = new ProveedorNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
+
             if (!IsPostBack)
             {
                 CargarDatos();

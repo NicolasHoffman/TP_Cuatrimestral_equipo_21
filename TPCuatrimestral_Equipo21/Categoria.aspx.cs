@@ -14,6 +14,14 @@ namespace TPCuatrimestral_Equipo21
         private readonly CategoriNegocio categoriNegocio = new CategoriNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
 
             if (!IsPostBack)
             {

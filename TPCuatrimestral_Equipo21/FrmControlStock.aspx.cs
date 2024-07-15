@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using dominio;
 using negocio;
 
 namespace TPCuatrimestral_Equipo21
@@ -13,10 +14,17 @@ namespace TPCuatrimestral_Equipo21
         private readonly ControlStockNegocio controlStockNegocio = new ControlStockNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
 
             if (!IsPostBack)
             {
-                //Cargar datos 
                 CargarDatos();
             }
         }

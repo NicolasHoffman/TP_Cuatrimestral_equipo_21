@@ -13,6 +13,11 @@ namespace TPCuatrimestral_Equipo21
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+
             try
             {
                 if (Session["usuario"] == null)

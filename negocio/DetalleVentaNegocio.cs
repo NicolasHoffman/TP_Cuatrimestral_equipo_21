@@ -52,7 +52,7 @@ namespace negocio
             try
             {
                 
-                datos.setearConsulta(@"SELECT dv.Id, dv.IdVenta, dv.IdArticulo, dv.Cantidad, dv.PrecioUnitario, a.Nombre AS NombreArticulo
+                datos.setearConsulta(@"SELECT dv.Id, dv.IdVenta, dv.IdArticulo, dv.Cantidad, dv.PrecioUnitario, a.Nombre AS NombreArticulo, a.Codigo
                        FROM DETALLEVENTA dv
                        INNER JOIN ARTICULOS a ON a.Id = dv.IdArticulo
                        WHERE dv.IdVenta = @IdVenta");
@@ -68,6 +68,7 @@ namespace negocio
                     aux.Cantidad = (int)datos.Lector["Cantidad"];
                     aux.PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"];
                     aux.NombreArticulo = (string)datos.Lector["NombreArticulo"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
                     lista.Add(aux);
                 }
 

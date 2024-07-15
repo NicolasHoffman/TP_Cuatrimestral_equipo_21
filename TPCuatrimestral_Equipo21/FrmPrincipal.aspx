@@ -10,6 +10,11 @@
         }
     </style>
 
+     <% if (Session["usuario"] != null &&
+        (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+        ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+   { %>
+
      <div class="row">
         <!-- Gráfico de Ventas por Mes -->
         <div class="col-xl-6">
@@ -37,6 +42,12 @@
             </div>
         </div>
     </div>
+
+    <% } %>
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

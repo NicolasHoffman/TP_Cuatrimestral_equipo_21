@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:HiddenField ID="hdnClienteDireccion" runat="server" />
+    <asp:HiddenField ID="hdnClienteSeleccionado" runat="server" />
     <style>
         .input-group-append button {
             border-radius: 0;
@@ -228,7 +229,15 @@
 
                 $('#modalFormaEntrega').modal('show');
             });
+            // para q cancelar me cierre modal
+            $('.btn-secondary[data-dismiss="modal"]').click(function () {
+                $('#modalFormaEntrega').modal('hide');
+            });
+            // para la cruz!! 
+            $('#modalFormaEntrega .close').click(function () {
+                $('#modalFormaEntrega').modal('hide');
+            });
         });
-</script>
+    </script>
 
 </asp:Content>

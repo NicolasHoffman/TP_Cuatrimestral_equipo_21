@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.SessionState;
 
 namespace dominio
 {
@@ -32,6 +33,18 @@ namespace dominio
         {
             return valor >= 0;
         }
-
+        public static bool HayUsuarioEnSesion(HttpSessionState session)
+        {
+            return session["usuario"] != null;
+        }
+        public static bool EsUsuarioAdministradorOVendedor(HttpSessionState session)
+        {
+            if (session["usuario"] != null)
+            {
+                Usuario usuario = (Usuario)session["usuario"];
+                return usuario.tipoUsuario.TipoUsuarioId == 1 || usuario.tipoUsuario.TipoUsuarioId == 2;
+            }
+            return false;
+        }
     }
 }

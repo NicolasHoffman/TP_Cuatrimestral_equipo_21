@@ -19,24 +19,18 @@
                 <table id="datatablesSimple" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Venta</th>
+                            <th>Codigo Articulo</th>
                             <th>Articulo</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Articulo</th>
-                            <th>Cantidad</th>
-                            
-                        </tr>
-                    </tfoot>
                     <tbody>
                          <asp:Repeater ID="rptDetallePedido" runat="server" OnItemCommand="rptDetallePedido_ItemCommand">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("IdArticulo") %></td>
+                                    <td><%# Eval("IdVenta") %></td>
+                                    <td><%# Eval("Codigo") %></td>
                                     <td><%# Eval("NombreArticulo") %></td>
                                     <td><%# Eval("Cantidad") %></td>
                                 </tr>

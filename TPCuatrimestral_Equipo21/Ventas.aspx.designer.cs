@@ -24,6 +24,15 @@ namespace TPCuatrimestral_Equipo21
         protected global::System.Web.UI.WebControls.HiddenField hdnClienteDireccion;
 
         /// <summary>
+        /// Control hdnClienteSeleccionado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnClienteSeleccionado;
+
+        /// <summary>
         /// Control txtNombreCliente.
         /// </summary>
         /// <remarks>

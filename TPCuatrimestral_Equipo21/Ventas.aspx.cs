@@ -31,12 +31,14 @@ namespace TPCuatrimestral_Equipo21
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
+            if (!Validaciones.HayUsuarioEnSesion(Session))
             {
-                Session.Add("Error", "Debes loguearte");
-                Response.Redirect("Login.aspx", false);
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
             }
-
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
 
             if (!IsPostBack)
             {
@@ -70,6 +72,7 @@ namespace TPCuatrimestral_Equipo21
                     txtCodigoProducto.Enabled = true;
                     txtNombreproducto.Enabled = true;
                     btnCrearCliente.Visible = false;
+                    txtCliente.Enabled = false;///
                     IdClienteSeleccionado = cliente.Id;
 
                     // para asignar la dire del cliente al campo oculto
@@ -265,6 +268,7 @@ namespace TPCuatrimestral_Equipo21
 
             GenerarVenta();
         }
+
         private void GenerarVenta()
         {
             // Verifico que haya Art en el carrito y que tenga un cliente
@@ -308,11 +312,11 @@ namespace TPCuatrimestral_Equipo21
                         // Descontar stock
                         ControlStockNegocio ControlStock = new ControlStockNegocio();
                         bool stockDescontado = ControlStock.descontarStock(item.Cantidad, item.Id);
-                        
+
                         if (!stockDescontado)
                         {
                             throw new Exception($"No hay suficiente stock para el artículo con ID {item.Id}.");
-                           
+
                         }
 
                         DetalleVenta detalle = new DetalleVenta();
@@ -340,12 +344,12 @@ namespace TPCuatrimestral_Equipo21
 
                         // voy a generar un msn para avisar que entro un pedido
                         int ultimoP = 0;
-                        ultimoP=pedidoNegocio.obtenerUltimoId();
+                        ultimoP = pedidoNegocio.obtenerUltimoId();
                         NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
                         Notificacion notificacion = new Notificacion
                         {
                             IdUsuarioDestinatario = 3,
-                            Mensaje = "Ingreso un nuevo Pedido. Numero de Pedido:  " + ultimoP ,
+                            Mensaje = "Ingreso un nuevo Pedido. Numero de Pedido:  " + ultimoP,
                             Fecha = DateTime.Now
                         };
                         notificacionNegocio.Agregar(notificacion);
@@ -359,7 +363,7 @@ namespace TPCuatrimestral_Equipo21
 
                     //Response.Write("<script>alert('Venta generada exitosamente');</script>");
 
-                 
+
                     Response.Redirect("FrmMensaje.aspx?id=" + 7);
 
                 }
@@ -380,7 +384,7 @@ namespace TPCuatrimestral_Equipo21
             // Verifico que haya Art en el carrito y que tenga un cliente
             if (Carrito.Count > 0 && !string.IsNullOrEmpty(txtCliente.Text.Trim()))
             {
-               
+
             }
             else
             {

@@ -71,8 +71,8 @@
                     { select: 4, sortable: true },
                     { select: 5, sortable: true },
                     { select: 6, sortable: true },
-                    { select: 7, sortable: false }, // Desactivar ordenamiento para la columna de "Estado"
-                    { select: 8, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                    { select: 7, sortable: false },
+                    { select: 8, sortable: false } 
                 ]
             });
         });

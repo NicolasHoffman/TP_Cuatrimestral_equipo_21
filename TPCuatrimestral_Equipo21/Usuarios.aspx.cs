@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocio;
+using dominio;
 
 namespace TPCuatrimestral_Equipo21
 {
@@ -13,6 +14,15 @@ namespace TPCuatrimestral_Equipo21
         private readonly UsuarioNegocio negUsu = new UsuarioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
+
             if (!IsPostBack)
             {
                 CargarDatos();

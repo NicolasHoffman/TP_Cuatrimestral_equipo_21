@@ -16,6 +16,13 @@ namespace TPCuatrimestral_Equipo21
         protected string VentasPorAnioJson;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+           
+
             if (!IsPostBack)
             {
                 CargarVentasPorMes();

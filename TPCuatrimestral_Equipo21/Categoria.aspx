@@ -62,7 +62,7 @@
                 columns: [
                     { select: 0, sortable: true },
                     { select: 1, sortable: true },
-                    { select: 2, sortable: false } // Desactivar ordenamiento para la columna de "Acción"
+                    { select: 2, sortable: false } 
                 ]
             });
         });

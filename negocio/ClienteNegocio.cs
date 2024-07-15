@@ -20,7 +20,7 @@ namespace negocio
                                        C.FechaAlta, C.Estado AS ClienteEstado,
                                        Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                        FROM Cliente C
-                                       INNER JOIN Persona P ON C.Id = P.Id
+                                       INNER JOIN Persona P ON C.IdPersona = P.Id
                                        INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
                                        WHERE P.Estado = 0");
                 datos.ejecturaLectura();
@@ -165,7 +165,7 @@ namespace negocio
                                       C.FechaAlta, C.Estado AS ClienteEstado,
                                       Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                       FROM Cliente C
-                                      INNER JOIN Persona P ON C.Id = P.Id
+                                      INNER JOIN Persona P ON C.IdPersona = P.Id
                                       INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
                                       WHERE C.Id = @Id");
                 datos.setearParametros("@Id", id);
@@ -221,7 +221,7 @@ namespace negocio
                                C.FechaAlta, C.Estado AS ClienteEstado,
                                Dire.Calle, Dire.Numero, Dire.Departamento, Dire.Piso, Dire.Localidad, Dire.Provincia, Dire.CodigoPostal
                                FROM Cliente C
-                               INNER JOIN Persona P ON C.Id = P.Id
+                               INNER JOIN Persona P ON C.IdPersona = P.Id
                                INNER JOIN Direccion Dire ON Dire.Id = P.IdDireccion
                                WHERE P.Dni = @Dni");
                 datos.setearParametros("@Dni", dni);

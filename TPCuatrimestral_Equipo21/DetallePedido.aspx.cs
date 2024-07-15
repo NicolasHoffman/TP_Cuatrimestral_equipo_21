@@ -15,6 +15,12 @@ namespace TPCuatrimestral_Equipo21
         private readonly PedidoNegocio pedidonegocio = new PedidoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Session.Add("Error", "Debes loguearte");
+                Response.Redirect("Login.aspx", false);
+            }
+
             if (!IsPostBack)
             {
                 if (Request.QueryString["idVenta"] != null)

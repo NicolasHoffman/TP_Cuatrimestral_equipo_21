@@ -14,6 +14,16 @@ namespace TPCuatrimestral_Equipo21
         protected void Page_Load(object sender, EventArgs e)
         {
             //txtId.Enabled = false; para que no pueda modi el id
+
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
+
             try
             {
                 if (!IsPostBack)
@@ -127,8 +137,6 @@ namespace TPCuatrimestral_Equipo21
 
                 if (Request.QueryString["id"] != null)
                 {
-                    //int id = int.Parse(Request.QueryString["id"]);
-                    // negocio.modificar(id, nuevaMarca);
                     nuevo.Id = int.Parse(Request.QueryString["id"]);
                     negocio.modificar(nuevo);
                     Response.Redirect("FrmMensaje.aspx?id=" + 9, false);
@@ -157,19 +165,19 @@ namespace TPCuatrimestral_Equipo21
                 try
                 {
 
-                    // Ruta donde se guardarán las imágenes
+                    // donde se guardara las imagenes
                     string ruta = Server.MapPath("~/Images/Articulos/");
                     string fileName = System.IO.Path.GetFileName(txtImagen.PostedFile.FileName);
-                    // Guardar la imagen en el servidor
+                    // guardar la imagen en el servidor
                     txtImagen.PostedFile.SaveAs(System.IO.Path.Combine(ruta, fileName));
-                    // Actualizar la URL de la imagen en la página
+                    // actualizar la URL de la imagen en la pag
                     imgArticuloNuevo.ImageUrl = "~/Images/Articulos/" + fileName;
-                    // Actualizar el UpdatePanel para mostrar la nueva imagen
+                    // actualizar el UpdatePanel para mostrar la nueva imagen
                     UpdatePanel1.Update();
                 }
                 catch (Exception ex)
                 {
-                    // Manejar cualquier error que pueda ocurrir al guardar la imagen
+                    // man cualquier error que pueda ocurrir al guardar la imagen
                     Session["Error"] = ex.ToString();
                 }
             }

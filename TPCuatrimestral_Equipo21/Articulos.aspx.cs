@@ -16,9 +16,16 @@ namespace TPCuatrimestral_Equipo21
         private readonly ArticuloNegocio articuloNegocio = new ArticuloNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Validaciones.HayUsuarioEnSesion(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=13", false);
+            }
+            if (!Validaciones.EsUsuarioAdministradorOVendedor(Session))
+            {
+                Response.Redirect("FrmMensaje.aspx?id=12", false);
+            }
             if (!IsPostBack)
             {
-                //Cargar datos 
                 CargarDatos();
             }
         }
@@ -43,9 +50,6 @@ namespace TPCuatrimestral_Equipo21
                 try
                 {
                     string idMarca = e.CommandArgument.ToString(); // Obtener el ID de la marca del comando
-
-                   // MarcaNegocio negocio = new MarcaNegocio();
-                   // negocio.eliminar(int.Parse(idMarca));
 
                     // Recargar los datos después de la eliminación
                     CargarDatos();
