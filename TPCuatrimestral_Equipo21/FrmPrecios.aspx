@@ -3,14 +3,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
    <div class="container-fluid px-4">
-        <h1 class="mt-5">Pedidos</h1>
+        <h1 class="mt-5">Precios</h1>
         <ol class="breadcrumb mb-4 mt-4">
             <li class="breadcrumb-item"><a href="index.html">Activo</a></li>
-            <li class="breadcrumb-item active">Pedidos</li>
+            <li class="breadcrumb-item active">Precios</li>
         </ol>
         <div class="card">
             <div class="card-header">
-                <i class="fa-solid fa-truck-fast" style="color: #2c78aa;"></i> Actualizar Precio
+                <i class="fa-solid fa-dollar-sign" style="color: #2c78aa;"></i> Actualizar Precio
             </div>
             <div class="card-body">
                 <div class="mb-3">

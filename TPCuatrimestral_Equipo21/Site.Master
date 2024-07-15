@@ -62,7 +62,7 @@
                             <hr class="dropdown-divider" />
                         </li>
                         <li>
-                            <asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click">Cerrar sesión</asp:LinkButton></li>
+                            <asp:LinkButton class="dropdown-item" ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</asp:LinkButton></li>
                     </ul>
                 </li>
                 <!-- para la noti -->
@@ -88,8 +88,8 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">NEGOCIO</div>
                             <% if (Session["usuario"] != null &&
-                                           (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
-                                            ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+                                             (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                                              ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
                                 { %>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts5" aria-expanded="false" aria-controls="collapseLayouts5">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-plus"></i></div>
@@ -122,8 +122,8 @@
                             </div>
 
                             <% if (Session["usuario"] != null &&
-                                           (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
-                                            ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
+                                             (((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 1 ||
+                                              ((dominio.Usuario)Session["usuario"]).tipoUsuario.TipoUsuarioId == 2))
                                 { %>
 
                             <div class="sb-sidenav-menu-heading">ACTIVO</div>
@@ -165,7 +165,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Articulos.aspx">Lista de Articulos</a>
                                     <a class="nav-link" href="FrmControlStock.aspx">Inventario y Stock</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Precios</a>
+                                    <a class="nav-link" href="FrmPrecios.aspx">Gestion de Precios</a>
                                     <a class="nav-link" href="Categoria.aspx">Gestión de Categorías</a>
                                     <a class="nav-link" href="Marcas.aspx">Gestión de Marcas</a>
                                 </nav>

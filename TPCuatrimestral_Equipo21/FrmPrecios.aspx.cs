@@ -79,7 +79,7 @@ namespace TPCuatrimestral_Equipo21
             {
                 //lblMensaje.Text = "Ingrese un porcentaje válido.";
                 //lblMensaje.Visible = true;
-                return;
+                Response.Redirect("FrmMensaje.aspx?id=" + 11);
             }
             string criterio = string.Empty;
             string valor = string.Empty;
@@ -106,9 +106,7 @@ namespace TPCuatrimestral_Equipo21
             }
 
             negocio.actualizarValor(criterio, valor, porcentaje);
-
-            //lblMensaje.Text = "El precio de los artículos ha sido actualizado.";
-            //lblMensaje.Visible = true;
+            Response.Redirect("FrmMensaje.aspx?id=" + 10);
 
         }
         protected void btnCancelar_Click(object sender, EventArgs e)
