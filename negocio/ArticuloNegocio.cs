@@ -259,7 +259,41 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void actualizarValor(string criterio, string valor, decimal porcentaje)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "UPDATE ARTICULOS SET Precio = Precio * (1 + @Porcentaje) WHERE ";
+                switch (criterio.ToLower())
+                {
+                    case "categoria":
+                        consulta += "IdCategoria = @Valor";
+                        break;
+                    case "marca":
+                        consulta += "IdMarca = @Valor";
+                        break;
+                    case "codigo":
+                        consulta += "Codigo = @Valor";
+                        break;
+                    default:
+                        throw new ArgumentException("Criterio no válido");
+                }
 
+                datos.setearConsulta(consulta);
+                datos.setearParametros("@Porcentaje", porcentaje / 100);
+                datos.setearParametros("@Valor", valor);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
 
