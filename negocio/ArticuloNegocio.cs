@@ -185,7 +185,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, A.ImagenUrl, A.Estado, C.Descripcion Categoria, C.Id IDCategoria, M.Nombre Marca, M.Id IDMarca FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria WHERE A.Id = @Id");
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.Precio, A.ImagenUrl, A.Estado, C.Descripcion Categoria, C.Id IDCategoria, M.Nombre Marca, M.Id IDMarca, PRO.Id IDProveedor FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria INNER JOIN PROVEEDOR PRO ON PRO.ID = A.IdProveedor WHERE A.Id = @Id");
                 datos.setearParametros("@Id", id);
                 datos.ejecturaLectura();
 
@@ -209,6 +209,11 @@ namespace negocio
                         {
                             Nombre = (string)datos.Lector["Marca"],
                             Id = (int)datos.Lector["IDMarca"]
+                        },
+                        Proveedor= new Proveedor
+                        {
+                            Nombre = (string)datos.Lector["Nombre"],
+                            Id = (int)datos.Lector["IDProveedor"]
                         }
                     };
                 }
@@ -224,8 +229,36 @@ namespace negocio
 
             return articulo;
         }
+        public void modificar(Articulo articulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
+            try
+            {
+                datos.setearConsulta("UPDATE ARTICULOS SET Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IDMarca, IdCategoria = @IDCategoria, Precio = @Precio, ImagenUrl = @ImagenUrl, IdProveedor = @IDProveedor, Estado = @Estado WHERE Id = @Id");
 
+                datos.setearParametros("@Codigo", articulo.Codigo);
+                datos.setearParametros("@Nombre", articulo.Nombre);
+                datos.setearParametros("@Descripcion", articulo.Descripcion);
+                datos.setearParametros("@IDMarca", articulo.Marca.Id);
+                datos.setearParametros("@IDCategoria", articulo.Categoria.Id);
+                datos.setearParametros("@Precio", articulo.Precio);
+                datos.setearParametros("@ImagenUrl", articulo.ImagenArt);
+                datos.setearParametros("@IDProveedor", articulo.Proveedor.Id);
+                datos.setearParametros("@Estado", articulo.Estado);
+                datos.setearParametros("@Id", articulo.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

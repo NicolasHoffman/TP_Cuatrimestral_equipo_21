@@ -14,46 +14,92 @@ namespace TPCuatrimestral_Equipo21
         protected void Page_Load(object sender, EventArgs e)
         {
             //txtId.Enabled = false; para que no pueda modi el id
-            
+            try
+            {
+                if (!IsPostBack)
+                {
+                    ProveedorNegocio negProv = new ProveedorNegocio();
+
+                    List<Proveedor> listaProveedores = negProv.listar();
+
+                    ddlProveedor.DataSource = listaProveedores;
+                    ddlProveedor.DataValueField = "Id";
+                    ddlProveedor.DataTextField = "Nombre";
+                    ddlProveedor.DataBind();
+
+                    MarcaNegocio negmarca = new MarcaNegocio();
+
+                    List<Marca> listaMarcas = negmarca.listar();
+                    ddlMarca.DataSource = listaMarcas;
+                    ddlMarca.DataValueField = "Id";
+                    ddlMarca.DataTextField = "Nombre";
+                    ddlMarca.DataBind();
+
+                    CategoriNegocio negcat = new CategoriNegocio();
+
+                    List<Categori> listaCategorias = negcat.listar();
+                    ddlCategoria.DataSource = listaCategorias;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Descripcion";
+                    ddlCategoria.DataBind();
+
+                    if (Request.QueryString["id"] != null)
+                    {
+                        int id = int.Parse(Request.QueryString["id"]);
+                        CargarArticulo(id);
+                    }
+                }   
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+        private void CargarArticulo(int id)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo articulo = null;
+
+            try
+            {
+                articulo = negocio.obtenerPorId(id);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", "Error al obtener Articulo: " + ex.Message);
+                Response.Redirect("Error.aspx", false);
+            }
+            if(articulo != null)
+            {
                 try
                 {
-                    if (!IsPostBack)
-                    {
-                        ProveedorNegocio negProv = new ProveedorNegocio();
+                    txtCodigoArticulo.Text = articulo.Codigo;
 
-                        List<Proveedor> listaProveedores = negProv.listar();
+                    ddlProveedor.SelectedValue = articulo.Proveedor.Id.ToString();
 
-                        ddlProveedor.DataSource = listaProveedores;
-                        ddlProveedor.DataValueField = "Id";
-                        ddlProveedor.DataTextField = "Nombre";
-                        ddlProveedor.DataBind();
+                    txtNombreArticulo.Text = articulo.Nombre;
 
-                        //ArticuloNegocio negocio = new ArticuloNegocio();
-                        MarcaNegocio negmarca = new MarcaNegocio();
+                    ddlMarca.SelectedValue = articulo.Marca.Id.ToString();
 
-                        List<Marca> listaMarcas = negmarca.listar();
-                        ddlMarca.DataSource = listaMarcas;
-                        ddlMarca.DataValueField = "Id";
-                        ddlMarca.DataTextField = "Nombre";
-                        ddlMarca.DataBind();
+                    ddlCategoria.SelectedValue = articulo.Categoria.Id.ToString();
 
-                        CategoriNegocio negcat = new CategoriNegocio();
+                    txtPrecio.Text = articulo.Precio.ToString("F2");
 
-                        List<Categori> listaCategorias = negcat.listar();
-                        ddlCategoria.DataSource = listaCategorias;
-                        ddlCategoria.DataValueField = "Id";
-                        ddlCategoria.DataTextField = "Descripcion";
-                        ddlCategoria.DataBind();
-                    }   
+                    txtDescripcion.Text = articulo.Descripcion;
+
+                    imgArticuloNuevo.ImageUrl = articulo.ImagenArt;
 
                 }
                 catch (Exception ex)
                 {
-                Session.Add("error", ex);
-                throw;
-                //FALTA !mandar a una pagina de error
+                    Session.Add("error", "Error al cargar datos del Articulo en los controles: " + ex.Message);
+                    Response.Redirect("Error.aspx", false);
                 }
+            }
         }
+
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -65,7 +111,7 @@ namespace TPCuatrimestral_Equipo21
                 nuevo.Codigo = txtCodigoArticulo.Text;
                 nuevo.Nombre = txtNombreArticulo.Text;
                 nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.ImagenArt = imgArticuloNuevo.ImageUrl; // RUTA DE IMAGEN
+                nuevo.ImagenArt = imgArticuloNuevo.ImageUrl;
                 
                 nuevo.Precio = decimal.Parse(txtPrecio.Text);
 
@@ -77,16 +123,21 @@ namespace TPCuatrimestral_Equipo21
 
                 nuevo.Categoria = new Categori();
                 nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+                nuevo.Estado = 0;
 
                 if (Request.QueryString["id"] != null)
                 {
                     //int id = int.Parse(Request.QueryString["id"]);
-                   // negocio.modificar(id, nuevaMarca);
+                    // negocio.modificar(id, nuevaMarca);
+                    nuevo.Id = int.Parse(Request.QueryString["id"]);
+                    negocio.modificar(nuevo);
+                    Response.Redirect("FrmMensaje.aspx?id=" + 9, false);
                 }
                 else
                 {
                   negocio.agregar(nuevo);
-                  Response.Redirect("Articulos.aspx", false);
+                  
+                  Response.Redirect("FrmMensaje.aspx?id=" + 8, false);
                 }
 
             }
