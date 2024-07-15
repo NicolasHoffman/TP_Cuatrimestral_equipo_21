@@ -36,7 +36,7 @@ namespace negocio
                     aux.Direccion.Calle = (string)datos.Lector["Calle"];
                     aux.Direccion.Numero = (int)datos.Lector["Numero"];
                     aux.Direccion.Departamento = (string)datos.Lector["Departamento"];
-                    aux.Direccion.Piso = (int)datos.Lector["Piso"];
+                    aux.Direccion.Piso = (string)datos.Lector["Piso"];
                     aux.Direccion.Localidad = (string)datos.Lector["Localidad"];
                     aux.Direccion.Provincia = (string)datos.Lector["Provincia"];
 
@@ -155,7 +155,7 @@ namespace negocio
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
                             Departamento = (string)datos.Lector["Departamento"],
-                            Piso = (int)datos.Lector["Piso"],
+                            Piso = (string)datos.Lector["Piso"],
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]

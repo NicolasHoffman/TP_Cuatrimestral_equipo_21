@@ -240,9 +240,9 @@ namespace negocio
                         {
                             Id = (int)datos.Lector["IdDireccion"],
                             Calle = (string)datos.Lector["Calle"],
-                            Departamento = (string)datos.Lector["Departamento"],
+                            Departamento = datos.Lector["Departamento"] != DBNull.Value ? (string)datos.Lector["Departamento"] : "",
                             Numero = (int)datos.Lector["Numero"],
-                            Piso = (int)datos.Lector["Piso"],
+                            Piso = datos.Lector["Piso"] != DBNull.Value ? (string)datos.Lector["Piso"] : "",
                             Provincia = (string)datos.Lector["Provincia"],
                             Localidad = (string)datos.Lector["Localidad"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]

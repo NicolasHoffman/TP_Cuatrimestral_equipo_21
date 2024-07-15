@@ -86,8 +86,8 @@ namespace TPCuatrimestral_Equipo21
                 Direccion nuevaDireccion = new Direccion();
                 nuevaDireccion.Calle = txtCalle.Text;
                 nuevaDireccion.Numero = int.Parse(txtNumero.Text);
-                nuevaDireccion.Piso = int.Parse(txtPiso.Text);
-                nuevaDireccion.Departamento = txtDepartamento.Text;
+                nuevaDireccion.Piso = string.IsNullOrEmpty(txtPiso.Text) ? null : txtPiso.Text;
+                nuevaDireccion.Departamento = string.IsNullOrEmpty(txtDepartamento.Text) ? null : txtDepartamento.Text;
                 nuevaDireccion.Provincia = txtProvincia.Text;
                 nuevaDireccion.Localidad = txtLocalidad.Text;
                 nuevaDireccion.CodigoPostal = txtCodigoPostal.Text;

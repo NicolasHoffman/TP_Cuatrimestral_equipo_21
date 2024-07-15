@@ -17,9 +17,9 @@ namespace negocio
             {
                 datos.setearConsulta("INSERT INTO Direccion (Calle, Departamento, Numero, Piso, Provincia, Localidad, CodigoPostal) VALUES (@calle, @departamento, @numero, @piso, @provincia, @localidad, @codigoPostal)");
                 datos.setearParametros("@calle", direccion.Calle);
-                datos.setearParametros("@departamento", direccion.Departamento);
+                datos.setearParametros("@departamento", (object)direccion.Departamento ?? DBNull.Value);
                 datos.setearParametros("@numero", direccion.Numero);
-                datos.setearParametros("@piso", direccion.Piso);
+                datos.setearParametros("@piso", (object)direccion.Piso ?? DBNull.Value);
                 datos.setearParametros("@provincia", direccion.Provincia);
                 datos.setearParametros("@localidad", direccion.Localidad);
                 datos.setearParametros("@codigoPostal", direccion.CodigoPostal);
@@ -69,9 +69,9 @@ namespace negocio
             {
                 datos.setearConsulta("UPDATE Direccion SET Calle = @Calle, Departamento = @Departamento, Numero = @Numero, Piso = @Piso, Provincia = @Provincia, Localidad = @Localidad, CodigoPostal = @CodigoPostal WHERE Id = @Id");
                 datos.setearParametros("@Calle", direccion.Calle);
-                datos.setearParametros("@Departamento", direccion.Departamento);
+                datos.setearParametros("@Departamento", (object)direccion.Departamento ?? DBNull.Value);
                 datos.setearParametros("@Numero", direccion.Numero);
-                datos.setearParametros("@Piso", direccion.Piso);
+                datos.setearParametros("@Piso", (object)direccion.Piso ?? DBNull.Value);
                 datos.setearParametros("@Provincia", direccion.Provincia);
                 datos.setearParametros("@Localidad", direccion.Localidad);
                 datos.setearParametros("@CodigoPostal", direccion.CodigoPostal);
@@ -87,7 +87,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        // ver si cambio el otro odificar 
+        // ver si cambio el otro Modificar 
         public void modificar(Direccion direccion)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -96,9 +96,9 @@ namespace negocio
             {
                 datos.setearConsulta("UPDATE Direccion SET Calle = @Calle, Departamento = @Departamento, Numero = @Numero, Piso = @Piso, Provincia = @Provincia, Localidad = @Localidad, CodigoPostal = @CodigoPostal WHERE Id = @Id");
                 datos.setearParametros("@Calle", direccion.Calle);
-                datos.setearParametros("@Departamento", direccion.Departamento);
+                datos.setearParametros("@Departamento", (object)direccion.Departamento ?? DBNull.Value);
                 datos.setearParametros("@Numero", direccion.Numero);
-                datos.setearParametros("@Piso", direccion.Piso);
+                datos.setearParametros("@Piso", (object)direccion.Piso ?? DBNull.Value);
                 datos.setearParametros("@Provincia", direccion.Provincia);
                 datos.setearParametros("@Localidad", direccion.Localidad);
                 datos.setearParametros("@CodigoPostal", direccion.CodigoPostal);

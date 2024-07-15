@@ -42,7 +42,7 @@ namespace negocio
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
                             Departamento = datos.Lector["Departamento"] as string,
-                            Piso = datos.Lector["Piso"] as int? ?? 0,
+                            Piso = (string)datos.Lector["Piso"],
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]
@@ -189,7 +189,7 @@ namespace negocio
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
                             Departamento = datos.Lector["Departamento"] as string,
-                            Piso = datos.Lector["Piso"] as int? ?? 0,
+                            Piso = (string)datos.Lector["Piso"],
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]
@@ -244,7 +244,7 @@ namespace negocio
                             Calle = (string)datos.Lector["Calle"],
                             Numero = (int)datos.Lector["Numero"],
                             Departamento = datos.Lector["Departamento"] as string,
-                            Piso = datos.Lector["Piso"] as int? ?? 0,
+                            Piso = (string)datos.Lector["Piso"],
                             Localidad = (string)datos.Lector["Localidad"],
                             Provincia = (string)datos.Lector["Provincia"],
                             CodigoPostal = (string)datos.Lector["CodigoPostal"]
