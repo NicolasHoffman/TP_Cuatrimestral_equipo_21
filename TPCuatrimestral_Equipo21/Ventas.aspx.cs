@@ -11,7 +11,7 @@ namespace TPCuatrimestral_Equipo21
 {
     public partial class Ventas : System.Web.UI.Page
     {
-        private int IdClienteSeleccionado;
+        //private int IdClienteSeleccionado = 0;
         private string FormaEntregaSeleccionada;
         private List<CarritoItem> Carrito
         {
@@ -77,6 +77,7 @@ namespace TPCuatrimestral_Equipo21
 
                     // para asignar la dire del cliente al campo oculto
                     hdnClienteDireccion.Value = $"{cliente.Direccion.Calle} {cliente.Direccion.Numero}, {cliente.Direccion.Localidad}, {cliente.Direccion.Provincia}";
+                    
                 }
                 else
                 {
@@ -278,13 +279,14 @@ namespace TPCuatrimestral_Equipo21
                 DetalleVentaNegocio detalleVentaNegocio = new DetalleVentaNegocio();
                 PedidoNegocio pedidoNegocio = new PedidoNegocio();
 
-                //int idCliente = IdClienteSeleccionado;
-                //me falta asignar cuand ohago lo de sesion
-                int idCliente = 1;
+
+                Usuario usuario = (Usuario)Session["usuario"];
+
+                int idVendedor = usuario.Id;
 
                 Venta nuevaVenta = new Venta();
-                nuevaVenta.IdCliente = idCliente;
-                nuevaVenta.IdVendedor = 1;
+                nuevaVenta.IdCliente = IdClienteSeleccionado;
+                nuevaVenta.IdVendedor = idVendedor;
 
                 if (ddlFormaPago.SelectedValue == "Efectivo")
                 {
@@ -418,6 +420,22 @@ namespace TPCuatrimestral_Equipo21
             txtCodigoProducto.Enabled = false;
             txtNombreproducto.Enabled = false;
             btnCrearCliente.Visible = false;
+        }
+
+        private int IdClienteSeleccionado
+        {
+            get
+            {
+                if (ViewState["IdClienteSeleccionado"] == null)
+                {
+                    return 0; // Valor predeterminado o lógica adicional según tu aplicación
+                }
+                return (int)ViewState["IdClienteSeleccionado"];
+            }
+            set
+            {
+                ViewState["IdClienteSeleccionado"] = value;
+            }
         }
     }
 }

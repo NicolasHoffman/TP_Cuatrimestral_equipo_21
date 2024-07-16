@@ -164,6 +164,7 @@
     <Content Include="FrmPrincipal.aspx" />
     <Content Include="FrmUsuario.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="ListadoVentas.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="MiPerfil.aspx" />
@@ -409,6 +410,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoVentas.aspx.cs">
+      <DependentUpon>ListadoVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoVentas.aspx.designer.cs">
+      <DependentUpon>ListadoVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

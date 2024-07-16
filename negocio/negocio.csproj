@@ -59,6 +59,7 @@
     <Compile Include="RecuperarContraNego.cs" />
     <Compile Include="TipoUsuarioNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
+    <Compile Include="VentaDetalleNegocio.cs" />
     <Compile Include="VentaNegocio.cs" />
   </ItemGroup>
   <ItemGroup>

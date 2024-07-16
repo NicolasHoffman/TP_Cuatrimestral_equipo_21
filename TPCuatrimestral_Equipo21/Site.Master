@@ -101,8 +101,9 @@
                                 <nav class="sb-sidenav-menu-nested nav">
 
                                     <a class="nav-link" href="Ventas.aspx">Nueva de venta</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Generación de cotizaciones</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Gestión de devoluciones</a>
+                                    <a class="nav-link" href="ListadoVentas.aspx">Listado Ventas</a>
+                                    <!--<a class="nav-link" href="layout-sidenav-light.html">Generación de cotizaciones</a>-->
+                                    <!--<a class="nav-link" href="layout-sidenav-light.html">Gestión de devoluciones</a>-->
 
                                 </nav>
                             </div>
@@ -150,7 +151,7 @@
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="Proveedores.aspx">Gestión de proveedores</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Historial de compras</a>
+                                    <!--<a class="nav-link" href="layout-sidenav-light.html">Historial de compras</a>-->
                                 </nav>
                             </div>
 
@@ -172,7 +173,7 @@
                             </div>
 
 
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts6">
+                            <!--<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts6" aria-expanded="false" aria-controls="collapseLayouts6">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-truck-fast"></i></div>
                                 Logistica
                                
@@ -183,7 +184,7 @@
                                     <a class="nav-link" href="layout-static.html">Gestión de envíos</a>
                                     <a class="nav-link" href="layout-sidenav-light.html">Coordinación con empresas de transporte</a>
                                 </nav>
-                            </div>
+                            </div>-->
                             <div class="sb-sidenav-menu-heading">ADMINISTRACIÓN</div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts7" aria-expanded="false" aria-controls="collapseLayouts7">

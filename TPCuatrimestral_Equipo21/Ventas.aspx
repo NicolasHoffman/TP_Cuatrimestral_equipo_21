@@ -129,8 +129,10 @@
                         </asp:Repeater>
                     </tbody>
                 </table>
-                <div>Total a Pagar:
-                    <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label></div>
+                <div>
+                    Total a Pagar:
+                    <asp:Label ID="Label1" runat="server" Text="S/. 0.00"></asp:Label>
+                </div>
 
                 <div class="row mt-4">
                     <div class="col-md-6">
